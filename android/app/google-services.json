@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "635220140788",
+    "project_id": "aigraphy-e594d",
+    "storage_bucket": "aigraphy-e594d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635220140788:android:2a9c6e326fdbf8b40a34a1",
+        "android_client_info": {
+          "package_name": "Aigraphyapp.com.tn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635220140788-fsi75l8jnr9cjh66856f8hg1o28dogp0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Aigraphyapp.com.tn",
+            "certificate_hash": "ded2c68b3c18c95a8f5a2a62e31786f00f17ebfe"
+          }
+        },
+        {
+          "client_id": "635220140788-cer0knjnplp5faskqpllp29v2pkuqgur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoI1ZyaErdrDlGCau3x5Th5EafVU1-HZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635220140788-cer0knjnplp5faskqpllp29v2pkuqgur.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "635220140788-0v3dqvtaq9gmbunidr1p35mgf2sc229g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Aigraphyapp.com.tn"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
