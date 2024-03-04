@@ -40,20 +40,19 @@ class _RateAppWidgetState extends State<RateAppWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(success, width: 120, height: 120),
+                Image.asset(success, width: 120),
                 DefaultTextStyle(
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 30,
                       height: 1,
                       fontWeight: FontWeight.w700,
-                      fontFamily: 'SpaceGrotesk'),
+                      fontFamily: 'ClashGrotesk'),
                   child: GradientText(
                     LocaleKeys.enjoyOurApp.tr(),
-                    gradient: Theme.of(context).linearGradientCustome,
+                    gradient: Theme.of(context).colorLinear,
                   ),
                 ),
-                const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
@@ -63,38 +62,26 @@ class _RateAppWidgetState extends State<RateAppWidget> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppWidget.typeButtonStartAction(
-                          context: context,
-                          input: LocaleKeys.later.tr(),
-                          borderRadius: 12,
-                          vertical: 12,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          bgColor: grey100,
-                          borderColor: grey100,
-                          textColor: grey1100),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: AppWidget.typeButtonStartAction(
-                          context: context,
-                          input: LocaleKeys.RateNow.tr(),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            _rateAndReviewApp();
-                          },
-                          bgColor: primary,
-                          borderRadius: 12,
-                          vertical: 12,
-                          borderColor: primary,
-                          textColor: grey1100),
-                    ),
-                  ],
-                )
+                AppWidget.typeButtonGradient(
+                    context: context,
+                    input: LocaleKeys.RateNow.tr(),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      _rateAndReviewApp();
+                    },
+                    vertical: 16,
+                    textColor: grey1100),
+                const SizedBox(height: 16),
+                AppWidget.typeButtonStartAction(
+                    context: context,
+                    input: LocaleKeys.later.tr(),
+                    vertical: 16,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    bgColor: grey300,
+                    borderColor: grey300,
+                    textColor: grey1100)
               ],
             ),
           ),

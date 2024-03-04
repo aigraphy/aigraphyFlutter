@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:applovin_max/applovin_max.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,12 +15,10 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/gradient_text.dart';
-import '../../common/widget/lottie_widget.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/show_gift/show_gift.dart';
 import '../widget/item_price.dart';
@@ -117,7 +113,8 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
 
   @override
   void initState() {
-    getInappPurchase();
+    super.initState();
+    // getInappPurchase();
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isVisible = true;
@@ -149,32 +146,28 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
       {
         'token': 500,
         'bonus': 0,
-        'money': 0.99,
+        'money': 1.99,
         'selected': false,
-        'total': 500,
         'identifier': tokenIdentifier1
       },
       {
         'token': 1500,
         'bonus': 450,
-        'money': 2.99,
+        'money': 9.99,
         'selected': widget.currentIndex == null,
-        'total': 1950,
-        'useful': '${LocaleKeys.save.tr()} 30%',
+        'useful': 'Save 30%',
         'identifier': tokenIdentifier2
       },
       {
         'token': 5000,
-        'money': 9.99,
+        'money': 39.99,
         'selected': widget.currentIndex != null,
-        'total': 10000,
         'bonus': 5000,
-        'useful': 'x2',
+        'useful': 'Save 40%',
         'identifier': tokenIdentifier4
       }
     ];
-    AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
-    super.initState();
+    // AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
   }
 
   @override
@@ -193,48 +186,15 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Checkbox(
-                  activeColor: primary,
-                  value: isChecked,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = !isChecked;
-                    });
-                  },
-                ),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: '${LocaleKeys.youAgreeWithOur.tr()} ',
-                    style: body(color: grey1100),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Term & Policy',
-                        style: headline(color: grey1100),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.of(context).pushNamed(Routes.term,
-                                arguments: const WebViewPrivacy());
-                          },
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            AppWidget.typeButtonStartAction2(
+            AppWidget.typeButtonGradientAfter(
                 context: context,
                 input:
-                    '${LocaleKeys.buyNow.tr()} + ${formatToken(context).format(_tokens * 2)} ${LocaleKeys.tokens.tr()}',
+                    '${LocaleKeys.buyNow.tr()} + ${formatToken(context).format(_tokens * 2)}',
                 bgColor: isChecked ? primary : grey600,
                 textColor: grey1100,
                 borderColor: isChecked ? primary : grey600,
-                borderRadius: 12,
+                icon: token,
+                sizeAsset: 16,
                 onPressed: isChecked
                     ? () async {
                         if (products.isNotEmpty) {
@@ -248,7 +208,14 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
                       }
                     : () {}),
             const SizedBox(height: 8),
-            Text(version, style: subhead(color: grey800, fontWeight: '400'))
+            AnimationClick(
+              function: () {
+                Navigator.of(context)
+                    .pushNamed(Routes.term, arguments: const WebViewPrivacy());
+              },
+              child: Text('Term & Policy',
+                  style: subhead(color: grey800, fontWeight: '400')),
+            )
           ],
         ),
       ),
@@ -315,15 +282,15 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
               top: 64,
               child: AnimationClick(
                 function: () {
-                  showRewardApplovin(context, updateTokenUser,
-                      reward: TOKEN_REWARD);
+                  // showRewardApplovin(context, updateTokenUser,
+                  //     reward: TOKEN_REWARD);
                 },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
-                    gradient: Theme.of(context).linearGradientCustome,
+                    gradient: Theme.of(context).colorLinear,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -331,79 +298,79 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        video_ads,
+                        video_camera,
                         width: 24,
                         height: 24,
+                        color: grey1100,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
                       Text(
                         '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                        style: body(color: grey100, fontWeight: '600'),
+                        style: body(color: grey1100, fontWeight: '600'),
                       ),
                     ],
                   ),
                 ),
               )),
           Positioned(
-              bottom: 0,
+              bottom: 24,
               left: 0,
               right: 0,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IgnorePointer(
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          gradient: Theme.of(context).linearGradientCustome,
-                          borderRadius: BorderRadius.circular(48)),
-                      child: const LottieWidget(lottie: gift, height: 64),
-                    ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        gradient: Theme.of(context).colorLinear,
+                        borderRadius: BorderRadius.circular(48)),
+                    child: Image.asset(gift, width: 48, height: 48),
                   ),
                   const SizedBox(height: 16),
-                  IgnorePointer(
-                    child: GradientText(
-                      'First Time Purchase',
-                      style: const TextStyle(
-                          fontSize: 36,
-                          height: 1,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'SpaceGrotesk'),
-                      gradient: Theme.of(context).linearGradientCustome,
-                    ),
+                  GradientText(
+                    'First Time Payment',
+                    style: const TextStyle(
+                        fontSize: 36,
+                        height: 1,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'ClashGrotesk'),
+                    gradient: Theme.of(context).colorLinear,
                   ),
-                  IgnorePointer(
-                      child: Text('X2 Tokens', style: title1(color: corn1))),
-                  const SizedBox(height: 8),
-                  ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      itemBuilder: (context, index) {
-                        return AnimationClick(
-                          function: () {
-                            for (dynamic r in tokens) {
-                              r['selected'] = false;
-                            }
-                            tokens[index]['selected'] = true;
-                            setState(() {
-                              _currentIndex = index;
-                              identifier = tokens[index]['identifier'];
-                              _tokens = tokens[index]['token'] +
-                                  tokens[index]['bonus'];
-                            });
-                          },
-                          child: ItemPrice(
-                            point: tokens[index],
-                            index: index,
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 8),
-                      itemCount: tokens.length),
+                  Text('X2 Coins', style: title1(color: corn1)),
+                  const SizedBox(height: 48),
+                  SizedBox(
+                    height: 150,
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        itemBuilder: (context, index) {
+                          return AnimationClick(
+                            function: () {
+                              for (dynamic r in tokens) {
+                                r['selected'] = false;
+                              }
+                              tokens[index]['selected'] = true;
+                              setState(() {
+                                _currentIndex = index;
+                                identifier = tokens[index]['identifier'];
+                                _tokens = tokens[index]['token'] +
+                                    tokens[index]['bonus'];
+                              });
+                            },
+                            child: ItemPrice(
+                              point: tokens[index],
+                              index: index,
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(width: 16),
+                        itemCount: tokens.length),
+                  ),
                 ],
               ))
         ],

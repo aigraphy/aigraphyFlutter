@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:aigraphy_flutter/common/widget/lottie_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
@@ -58,7 +58,7 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
     context
         .read<RemoveBGImageBloc>()
         .add(const ResetRemoveBGImage(hasLoaded: true));
-    checkHasAds();
+    // checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -67,7 +67,7 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(vsync: this);
     controller = PageController();
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -104,22 +104,24 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                           fontSize: 32,
                           height: 1,
                           fontWeight: FontWeight.w700,
-                          fontFamily: 'SpaceGrotesk'),
-                      gradient: Theme.of(context).linearGradientCustome,
+                          fontFamily: 'ClashGrotesk'),
+                      gradient: Theme.of(context).colorLinear,
                     )
                   : const SizedBox(),
-          right: AnimationClick(
-              function: () {
-                showRating(context);
-                navigatePop();
-                if (!widget.isSwapCate) {
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: Image.asset(house_simple, width: 24, height: 24),
-              )),
+          right: context.watch<GenerateImageBloc>().state is GenerateImageLoaded
+              ? AnimationClick(
+                  function: () {
+                    showRating(context);
+                    navigatePop();
+                    if (!widget.isSwapCate) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 24),
+                    child: Image.asset(ic_house, width: 24, height: 24),
+                  ))
+              : const SizedBox(width: 24),
         ),
         floatingActionButton: const GiftWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -127,17 +129,14 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
             builder: (context, state) {
           if (state is GenerateImageError) {
             return Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
+              padding: const EdgeInsets.only(left: 24, right: 24, bottom: 32),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  AppWidget.typeButtonStartAction2(
+                  AppWidget.typeButtonGradient(
                       context: context,
                       input: LocaleKeys.generateAgain.tr(),
-                      bgColor: primary,
                       textColor: grey1100,
-                      borderColor: primary,
-                      borderRadius: 12,
                       onPressed: () {
                         final userModel = context.read<UserBloc>().userModel!;
                         if (userModel.token >= TOKEN_SWAP) {
@@ -176,11 +175,11 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                             function: () async {
                               EasyLoading.show();
                               if (imageRemoveBG != null) {
-                                AdLovinUtils().showAdIfReady();
+                                // AdLovinUtils().showAdIfReady();
                                 await downloadMultiImage(
                                     [state.url!, imageRemoveBG!]);
                               } else {
-                                showOpenAdsWhenDownShare();
+                                // showOpenAdsWhenDownShare();
                                 await downloadMultiImage([state.url!]);
                               }
                               EasyLoading.dismiss();
@@ -225,7 +224,7 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                                               top: Radius.circular(24))),
                                       builder: (BuildContext ctx) {
                                         return FractionallySizedBox(
-                                          heightFactor: 0.6,
+                                          heightFactor: 0.32,
                                           child: RemoveBg(
                                               ctx: context,
                                               link: state.url!,
@@ -259,29 +258,11 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                                       requestId: editedImage['request']!.id,
                                       url: editedImage['request'].imageRes));
                             },
-                            child: AppWidget.option(paint, color: green)),
+                            child: AppWidget.option(paint, color: corn1)),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  AppWidget.typeButtonStartAction(
-                      context: context,
-                      input:
-                          '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
-                      bgColor: primary,
-                      icon: token2,
-                      sizeAsset: 16,
-                      textColor: grey1100,
-                      borderColor: primary,
-                      borderRadius: 12,
-                      onPressed: () {
-                        showRating(context);
-                        navigatePop();
-                        if (!widget.isSwapCate) {
-                          Navigator.of(context).pop();
-                        }
-                      }),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 16),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -301,6 +282,21 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  AppWidget.typeButtonGradientAfter(
+                      context: context,
+                      input:
+                          '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
+                      icon: token,
+                      sizeAsset: 16,
+                      textColor: grey1100,
+                      onPressed: () {
+                        showRating(context);
+                        navigatePop();
+                        if (!widget.isSwapCate) {
+                          Navigator.of(context).pop();
+                        }
+                      }),
                   const Padding(
                     padding: EdgeInsets.only(top: 8),
                     child: AdsApplovinBanner(),
@@ -328,36 +324,6 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 48),
-                    Image.asset(bug_error, width: 80, height: 80),
-                    const SizedBox(height: 32),
-                    Align(
-                      alignment: Alignment.center,
-                      child: GradientText(
-                        LocaleKeys.generateFailed.tr(),
-                        style: const TextStyle(
-                            fontSize: 40,
-                            height: 1,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'SpaceGrotesk'),
-                        gradient: Theme.of(context).linearGradientCustome,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: Text(
-                        LocaleKeys.pleaseDontUseNude.tr(),
-                        textAlign: TextAlign.center,
-                        style: body(color: grey1100),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 48),
-                      child: Text(
-                        LocaleKeys.youDontLost.tr(),
-                        textAlign: TextAlign.center,
-                        style: body(color: grey1100),
-                      ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -385,6 +351,27 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                           ),
                         )
                       ],
+                    ),
+                    const LottieWidget(lottie: bug_error_2, height: 300),
+                    Align(
+                      alignment: Alignment.center,
+                      child: GradientText(
+                        LocaleKeys.generateFailed.tr(),
+                        style: const TextStyle(
+                            fontSize: 40,
+                            height: 1,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'ClashGrotesk'),
+                        gradient: Theme.of(context).colorLinear,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 48, top: 8),
+                      child: Text(
+                        '${LocaleKeys.someThingWentWrong.tr()}. ${LocaleKeys.youDontLost.tr()}',
+                        textAlign: TextAlign.center,
+                        style: body(color: grey1100),
+                      ),
                     ),
                   ],
                 );
@@ -448,7 +435,7 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
                             border: Border.all(color: grey1100),
                             color: grey200,
@@ -473,21 +460,14 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                       ),
                     )
                   ],
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Lottie.asset(
-                        faceJson,
-                        controller: _controller,
-                        onLoaded: (composition) {
-                          _controller
-                            ..duration = composition.duration
-                            ..repeat();
-                        },
-                      ),
-                      Positioned(
-                          child: Image.asset(smile, width: 80, height: 80))
-                    ],
+                  Lottie.asset(
+                    faceJson,
+                    controller: _controller,
+                    onLoaded: (composition) {
+                      _controller
+                        ..duration = composition.duration
+                        ..repeat();
+                    },
                   ),
                 ],
               );

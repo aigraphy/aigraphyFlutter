@@ -49,19 +49,17 @@ class _CheckInWidgetState extends State<OpenSlot> {
                         color: grey200,
                         borderRadius: BorderRadius.circular(24)),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Center(
-                            child:
-                                Image.asset(success, width: 150, height: 150)),
+                        Center(child: Image.asset(success, height: 120)),
                         const SizedBox(height: 24),
                         Text(
                             '${LocaleKeys.youCanSave.tr()} $slot ${widget.openSlotHistory ? LocaleKeys.history.tr() : LocaleKeys.faces.tr()}.',
-                            textAlign: TextAlign.start,
+                            textAlign: TextAlign.center,
                             style: body(color: grey1100)),
                         RichText(
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           text: TextSpan(
                             text: LocaleKeys.doYouWantToBuy.tr(),
                             style: body(color: grey1100),
@@ -88,10 +86,9 @@ class _CheckInWidgetState extends State<OpenSlot> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        AppWidget.typeButtonStartAction(
+                        AppWidget.typeButtonGradient(
                             context: context,
                             input: LocaleKeys.openSlotNow.tr(),
-                            borderRadius: 12,
                             vertical: 16,
                             onPressed: () {
                               if (userModel.token >= tokenLost) {
@@ -115,21 +112,18 @@ class _CheckInWidgetState extends State<OpenSlot> {
                                 );
                               }
                             },
-                            bgColor: primary,
-                            borderColor: primary,
                             textColor: grey1100),
                         const SizedBox(height: 16),
                         AppWidget.typeButtonStartAction(
                             context: context,
                             input: LocaleKeys.cancel.tr(),
-                            borderRadius: 12,
                             vertical: 16,
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            bgColor: grey100,
-                            borderColor: grey100,
-                            textColor: grey600),
+                            bgColor: grey300,
+                            borderColor: grey300,
+                            textColor: grey1100),
                       ],
                     ),
                   ),
@@ -146,13 +140,13 @@ class _CheckInWidgetState extends State<OpenSlot> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                        color: grey200,
+                        color: grey300,
                         borderRadius: BorderRadius.circular(48)),
                     child: Image.asset(
                       icClose,
                       width: 20,
                       height: 20,
-                      color: grey600,
+                      color: grey1100,
                     ),
                   ),
                 ))

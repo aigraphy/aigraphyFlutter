@@ -8,10 +8,10 @@ mixin Config {
         cache: GraphQLCache(),
         /* MUST CONFIG */
         link: WebSocketLink(
-          'wss://138.68.111.65:8080/v1/graphql',
+          'ws://138.68.111.65:8080/v1/graphql',
           config: SocketClientConfig(
               autoReconnect: true,
-              inactivityTimeout: const Duration(seconds: 60),
+              inactivityTimeout: const Duration(seconds: 120),
               initialPayload: <String, dynamic>{
                 'headers': {
                   'Authorization': 'Bearer $_token',

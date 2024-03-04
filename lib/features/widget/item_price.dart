@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../common/constant/colors.dart';
-import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../translations/export_lang.dart';
 
 class ItemPrice extends StatelessWidget {
   const ItemPrice({super.key, required this.index, required this.point});
@@ -13,101 +11,65 @@ class ItemPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firstTime = point['total'] != null;
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Container(
           decoration: BoxDecoration(
-              border: Border.all(
-                  color: point['selected'] ? lightSalmon : grey200, width: 2),
+              border:
+                  Border.all(color: point['selected'] ? corn1 : gray, width: 2),
               color: grey200,
               borderRadius: BorderRadius.circular(16)),
-          padding: EdgeInsets.symmetric(
-              vertical: index == 0 ? 24 : 16, horizontal: 16),
-          child: Row(
-            crossAxisAlignment: point['bonus'] != 0
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: point['bonus'] != 0
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(point['selected'] ? checkbox : checkbox_dis,
-                        width: 28, height: 28),
-                    const SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          formatToken(context).format(point['token']) +
-                              ' ${LocaleKeys.tokens.tr()}',
-                          style: callout(color: grey1100),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            if (point['bonus'] != 0)
-                              Text(
-                                '+${formatToken(context).format(point['bonus'])} ${firstTime ? '' : LocaleKeys.tokens.tr()}',
-                                style:
-                                    subhead(color: grey600, fontWeight: '400'),
-                              ),
-                            if (firstTime)
-                              RichText(
-                                textAlign: TextAlign.start,
-                                text: TextSpan(
-                                  text:
-                                      ' +${formatToken(context).format(point['total'])}',
-                                  style:
-                                      subhead(color: corn1, fontWeight: '400'),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: ' ${LocaleKeys.tokens.tr()}',
-                                      style: subhead(
-                                          color: grey600, fontWeight: '400'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '\$ ${point['money']}',
-                    style: title4(color: grey1100),
+                  Row(
+                    children: [
+                      Text(
+                        '${point['token']}',
+                        style: title4(color: grey1100),
+                      ),
+                      const SizedBox(width: 4),
+                      Image.asset(token, width: 20, height: 20)
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  point['useful'] != null
-                      ? Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: index == 2 ? 4 : 8),
-                          decoration: BoxDecoration(
-                              color: index == 2 ? corn2 : green,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Text(
-                            point['useful'],
-                            style: index == 2
-                                ? body(color: primary, fontWeight: '700')
-                                : caption1(color: grey1100),
-                          ),
-                        )
-                      : const SizedBox()
+                  Text(
+                    '+${point['bonus']}',
+                    style: subhead(
+                        color: point['bonus'] != 0 ? grey1100 : grey200,
+                        fontWeight: '400'),
+                  )
                 ],
-              )
+              ),
+              Text(
+                '\$${point['money']}',
+                style: headline(color: corn1),
+              ),
             ],
           ),
         ),
+        point['useful'] != null
+            ? Positioned(
+                top: -20,
+                left: 12,
+                right: 12,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  decoration: BoxDecoration(
+                      color: point['selected'] ? corn1 : gray,
+                      borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12))),
+                  child: Text(
+                    point['useful'],
+                    textAlign: TextAlign.center,
+                    style: caption2(color: grey100),
+                  ),
+                ))
+            : const SizedBox()
       ],
     );
   }

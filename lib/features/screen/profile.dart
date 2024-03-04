@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../app/widget_support.dart';
 import '../../../common/widget/animation_click.dart';
 import '../../common/bloc/list_requests/list_requests_bloc.dart';
+import '../../common/bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
@@ -20,9 +20,10 @@ import '../../common/widget/open_slot.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../widget/gift_widget.dart';
+import '../widget/go_pro.dart';
 import '../widget/image_opacity.dart';
 import 'detail_history.dart';
-import 'price.dart';
+import 'price_first_time.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -136,7 +137,11 @@ class _ProfileState extends State<Profile> with AutomaticKeepAliveClientMixin {
     return Scaffold(
         appBar: AppBarCpn(
           left: Padding(
-            padding: const EdgeInsets.only(left: 24, top: 7),
+            padding: const EdgeInsets.only(left: 24),
+            child: Text('AIGraphy', style: headline(color: grey1100)),
+          ),
+          right: Padding(
+            padding: const EdgeInsets.only(right: 24),
             child: AnimationClick(
               function: () {
                 Navigator.of(context).pushNamed(Routes.menu);
@@ -148,106 +153,44 @@ class _ProfileState extends State<Profile> with AutomaticKeepAliveClientMixin {
               ),
             ),
           ),
-          right: AnimationClick(
-            function: () {
-              AppWidget.showBottomSignOut(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Image.asset(
-                dotsThreeVertical,
-                width: 24,
-                height: 24,
-                color: grey1100,
-              ),
-            ),
-          ),
         ),
         floatingActionButton: const GiftWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
         body: Column(
           children: [
-            BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-              if (state is UserLoading) {
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              }
-              if (state is UserLoaded) {
-                return Column(
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.topCenter,
-                      children: [
-                        const SizedBox(
-                          height: 48,
-                        ),
-                        Positioned(
-                          top: -40,
-                          child: CircleAvatar(
-                              radius: 42,
-                              backgroundImage: NetworkImage(
-                                state.user.avatar,
-                              )),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+            if (!context.watch<SetUserPro>().state)
+              AnimationClick(
+                function: () {
+                  Navigator.of(context).pushNamed(Routes.price_first_time,
+                      arguments: PriceFirstTime());
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      gradient: Theme.of(context).colorLinear),
+                  child: Column(
+                    children: [
+                      Text('Remove Ads & Unlock All Feature',
+                          style: title4(color: grey1100)),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text('Buy more Coin now',
+                            style: subhead(color: grey900)),
+                      ),
+                      const Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            state.user.name,
-                            textAlign: TextAlign.center,
-                            style: title4(color: grey1100),
-                          ),
-                          const SizedBox(width: 8),
-                          Image.asset(checkbox2, width: 28, height: 28)
+                          GoPro(text: 'Go Pro Now'),
                         ],
                       ),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.start,
-                      text: TextSpan(
-                        text: LocaleKeys.youHave.tr(),
-                        style: body(color: grey800, fontWeight: '400'),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text:
-                                ' ${formatToken(context).format(context.read<UserBloc>().userModel?.token)} ',
-                            style: body(color: corn1, fontWeight: '600'),
-                          ),
-                          TextSpan(
-                            text: LocaleKeys.tokens.tr(),
-                            style: body(color: grey800, fontWeight: '400'),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: AppWidget.typeButtonGradientAfter(
-                          context: context,
-                          input: LocaleKeys.buyMoreTokens.tr(),
-                          icon: icArrowRight,
-                          colorAsset: grey100,
-                          onPressed: () {
-                            Navigator.of(context).pushNamed(Routes.price,
-                                arguments: PriceScreen());
-                          },
-                          sizeAsset: 20,
-                          borderRadius: 12,
-                          textColor: grey100),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                );
-              }
-              return const SizedBox();
-            }),
+                    ],
+                  ),
+                ),
+              ),
             const SizedBox(height: 8),
             Expanded(
               child: RefreshIndicator(
@@ -290,7 +233,7 @@ class _ProfileState extends State<Profile> with AutomaticKeepAliveClientMixin {
                             return MasonryGridView.count(
                                 crossAxisCount: 2,
                                 padding: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 8, bottom: 16),
+                                    left: 24, right: 24, top: 8, bottom: 80),
                                 shrinkWrap: true,
                                 mainAxisSpacing: 8,
                                 crossAxisSpacing: 8,

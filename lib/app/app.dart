@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:aigraphy_flutter/common/constant/colors.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -16,8 +15,10 @@ import 'package:responsive_framework/responsive_framework.dart';
 import '../common/bloc/list_requests/list_requests_bloc.dart';
 import '../common/bloc/listen_language/bloc_listen_language.dart';
 import '../common/bloc/recent_face/bloc_recent_face.dart';
+import '../common/bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../common/bloc/slider/slider_bloc.dart';
 import '../common/bloc/user/bloc_user.dart';
+import '../common/constant/colors.dart';
 import '../common/constant/dark_mode.dart';
 import '../common/constant/firebase_api.dart';
 import '../common/constant/helper.dart';
@@ -35,6 +36,7 @@ import '../features/bloc/new_today/new_today_bloc.dart';
 import '../features/bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../features/bloc/set_image_swap/set_image_swap_bloc.dart';
 import '../features/bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
+import '../features/bloc/set_index_category/set_index_category_bloc.dart';
 import '../features/bloc/show_gift/show_gift.dart';
 import '../features/bloc/trending/trending_bloc.dart';
 import '../features/screen/onboarding.dart';
@@ -74,7 +76,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     getToken();
-    initPlatformState(context);
+    // initPlatformState(context);
     EasyLoading.instance
       ..loadingStyle = EasyLoadingStyle.custom
       ..userInteractions = false
@@ -90,7 +92,7 @@ class _MyAppState extends State<MyApp> {
         lottie: loading,
         height: 100,
       );
-    AdLovinUtils().initOpenAds();
+    // AdLovinUtils().initOpenAds();
     showPrice();
     // appLifecycleReactor.listenToAppStateChanges(context);
   }
@@ -149,6 +151,12 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<ShowGift>(
           create: (BuildContext context) => ShowGift(),
         ),
+        BlocProvider<SetIndexCategory>(
+          create: (BuildContext context) => SetIndexCategory(),
+        ),
+        BlocProvider<SetUserPro>(
+          create: (BuildContext context) => SetUserPro(),
+        ),
       ],
       child: MaterialApp(
         navigatorObservers: [
@@ -159,7 +167,7 @@ class _MyAppState extends State<MyApp> {
         locale: context.locale,
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
-        title: 'AiGraphy',
+        title: 'AIGraphy',
         debugShowCheckedModeBanner: false,
         theme: lightMode,
         darkTheme: darkMode,
@@ -203,7 +211,7 @@ class _MyAppState extends State<MyApp> {
                     ),
                   );
                 case ConnectionState.done:
-                  showPushNoti();
+                  // showPushNoti();
                   FlutterNativeSplash.remove();
                   if (snapshot.data != null) {
                     return const OnboardingSecond();

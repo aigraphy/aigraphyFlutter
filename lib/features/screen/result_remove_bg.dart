@@ -35,7 +35,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
   late String imageRemoveBG;
 
   void navigatePop() {
-    checkHasAds();
+    // checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -44,7 +44,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
     super.initState();
     _controller = AnimationController(vsync: this);
     imageRemoveBG = widget.url;
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -94,7 +94,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
                     child: AnimationClick(
                         function: () async {
                           EasyLoading.show();
-                          showOpenAdsWhenDownShare();
+                          // showOpenAdsWhenDownShare();
                           await downloadMultiImage([imageRemoveBG]);
                           EasyLoading.dismiss();
                         },
@@ -135,25 +135,11 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
                             imageRemoveBG = editedImage['request'].imageRes;
                           });
                         },
-                        child: AppWidget.option(paint, color: green)),
+                        child: AppWidget.option(paint, color: corn1)),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              AppWidget.typeButtonStartAction(
-                  context: context,
-                  input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
-                  bgColor: primary,
-                  icon: token2,
-                  sizeAsset: 16,
-                  textColor: grey1100,
-                  borderColor: primary,
-                  borderRadius: 12,
-                  onPressed: () {
-                    showRating(context);
-                    navigatePop();
-                  }),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -173,6 +159,20 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
                   ],
                 ),
               ),
+              const SizedBox(height: 8),
+              AppWidget.typeButtonStartAction(
+                  context: context,
+                  input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
+                  bgColor: primary,
+                  icon: token,
+                  sizeAsset: 16,
+                  textColor: grey1100,
+                  borderColor: primary,
+                  borderRadius: 12,
+                  onPressed: () {
+                    showRating(context);
+                    navigatePop();
+                  }),
               const Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: AdsApplovinBanner(),

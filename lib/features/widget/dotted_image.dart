@@ -12,10 +12,10 @@ class DottedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = AppWidget.getWidthScreen(context);
     return SizedBox(
-      width: size ?? width / 1.8,
-      height: size ?? width / 1.8,
+      width: size ?? width / 1.5,
+      height: size ?? width / 1.5,
       child: DottedBorder(
-        color: grey1000,
+        color: grey400,
         borderType: BorderType.RRect,
         dashPattern: const [8, 4],
         radius: Radius.circular(size != null ? 10 : 16),
@@ -23,7 +23,8 @@ class DottedImage extends StatelessWidget {
           child: Container(
               padding: EdgeInsets.all(size != null ? 4 : 8),
               decoration: BoxDecoration(
-                  color: primary, borderRadius: BorderRadius.circular(32)),
+                  gradient: Theme.of(context).colorLinear,
+                  borderRadius: BorderRadius.circular(32)),
               child: Icon(
                 Icons.add,
                 size: size != null ? 12 : 24,

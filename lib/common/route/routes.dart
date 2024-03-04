@@ -16,4 +16,5 @@ class Routes {
   static const String result_edit_image = '/result_edit_image';
   static const String result_remove_bg = '/result_remove_bg';
   static const String language = '/language';
+  static const String full_image_cate = '/full_image_cate';
 }

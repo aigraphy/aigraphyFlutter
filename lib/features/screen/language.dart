@@ -1,3 +1,4 @@
+import 'package:aigraphy_flutter/app/widget_support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,6 +62,7 @@ class _LanguageState extends State<Language> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppWidget.createSimpleAppBar(context: context, title: 'Language'),
       body: ListView.separated(
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(vertical: 16),

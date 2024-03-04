@@ -102,7 +102,7 @@ TextStyle title4(
     String fontFamily = 'ClashGrotesk',
     double? letterSpacing,
     Color? color}) {
-  return clashGrotesk(19, 24,
+  return clashGrotesk(18, 24,
       context: context,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
@@ -134,7 +134,7 @@ TextStyle body(
     String fontFamily = 'ClashGrotesk',
     double? letterSpacing,
     Color? color}) {
-  return clashGrotesk(18, 24,
+  return clashGrotesk(16, 24,
       context: context,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,

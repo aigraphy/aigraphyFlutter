@@ -35,7 +35,7 @@ class TokenWidget extends StatelessWidget {
                     topLeft: Radius.circular(24),
                     topRight: Radius.circular(24),
                     bottomRight: Radius.circular(24)),
-            gradient: gradient(context),
+            gradient: Theme.of(context).colorLinear,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

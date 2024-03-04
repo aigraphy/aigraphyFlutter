@@ -9,6 +9,7 @@ import '../../app/widget_support.dart';
 import '../../common/bloc/list_requests/list_requests_bloc.dart';
 import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
+import '../../common/constant/firebase_api.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/models/user_model.dart';
@@ -83,10 +84,11 @@ class _BottomBarState extends State<BottomBar> {
           .add(ListRequestsFetched(context: context));
       getRecentFace(mounted, context);
     });
-    await Purchases.setEmail(firebaseUser.email!);
-    listenInAppPurchase(context);
-    createNoti();
+    // await Purchases.setEmail(firebaseUser.email!);
+    // listenInAppPurchase(context);
+    // createNoti();
     checkShowPrice();
+    checkUserPro(context);
   }
 
   @override
@@ -108,23 +110,37 @@ class _BottomBarState extends State<BottomBar> {
         index: context.watch<SetIndexBottomBar>().state,
         children: listWidget,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: context.watch<SetIndexBottomBar>().state,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        backgroundColor: grey200,
-        type: BottomNavigationBarType.fixed,
-        elevation: 0,
-        onTap: (value) {
-          context.read<SetIndexBottomBar>().setIndex(value);
-        },
-        items: [
-          AppWidget.createItemNav(context, house_simple, house_simple_active,
-              LocaleKeys.category.tr()),
-          AppWidget.createItemNav(
-              context, paint_brush, paint_brush_active, LocaleKeys.home.tr()),
-          AppWidget.createItemNav(
-              context, profile, profile_active, LocaleKeys.profile.tr()),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: Row(
+        children: [
+          const Expanded(child: SizedBox()),
+          Expanded(
+            flex: 5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(28),
+              child: BottomNavigationBar(
+                currentIndex: context.watch<SetIndexBottomBar>().state,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                backgroundColor: grey200,
+                type: BottomNavigationBarType.fixed,
+                elevation: 0,
+                onTap: (value) {
+                  context.read<SetIndexBottomBar>().setIndex(value);
+                },
+                items: [
+                  AppWidget.createItemNav(context, house_simple,
+                      house_simple_active, LocaleKeys.category.tr()),
+                  AppWidget.createItemNav(context, paint_brush,
+                      paint_brush_active, LocaleKeys.home.tr()),
+                  AppWidget.createItemNav(context, profile, profile_active,
+                      LocaleKeys.profile.tr()),
+                ],
+              ),
+            ),
+          ),
+          const Expanded(child: SizedBox()),
         ],
       ),
     );

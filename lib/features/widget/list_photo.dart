@@ -22,7 +22,7 @@ const ThumbnailOption option = ThumbnailOption(
     size: ThumbnailSize.square(200), format: ThumbnailFormat.png);
 
 class ListPhoto extends StatefulWidget {
-  const ListPhoto({Key? key, required this.cropImage}) : super(key: key);
+  const ListPhoto({Key? key, this.cropImage = false}) : super(key: key);
   final bool cropImage;
 
   @override
@@ -222,25 +222,17 @@ class _ListPhotoState extends State<ListPhoto> {
                                 left: 16, right: 16, bottom: 16),
                             shrinkWrap: true,
                             controller: _scrollController,
-                            itemCount: widget.cropImage
+                            itemCount: state.photos.isNotEmpty
                                 ? state.hasReachedMax
-                                    ? length
-                                    : length + 1
-                                : state.photos.isNotEmpty
-                                    ? state.hasReachedMax
-                                        ? length + 1
-                                        : length + 2
-                                    : 1,
+                                    ? length + 1
+                                    : length + 2
+                                : 1,
                             itemBuilder: (context, ind) {
-                              final int index = widget.cropImage
-                                  ? ind
-                                  : ind < 1
-                                      ? ind
-                                      : (ind - 1);
+                              final int index = ind < 1 ? ind : (ind - 1);
                               return index >= length
                                   ? const Center(
                                       child: CupertinoActivityIndicator())
-                                  : !widget.cropImage && ind == 0
+                                  : ind == 0
                                       ? AnimationClick(
                                           function: takeAPhoto,
                                           child: Container(

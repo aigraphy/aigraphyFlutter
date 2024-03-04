@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:applovin_max/applovin_max.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,10 +15,10 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
+import '../../common/widget/gradient_text.dart';
 import '../../translations/export_lang.dart';
 import '../widget/item_price.dart';
 import '../widget/web_view_privacy.dart';
@@ -114,7 +112,7 @@ class _PriceState extends State<PriceToken>
 
   @override
   void initState() {
-    getInappPurchase();
+    // getInappPurchase();
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isVisible = true;
@@ -146,28 +144,28 @@ class _PriceState extends State<PriceToken>
       {
         'token': 500,
         'bonus': 0,
-        'money': 0.99,
+        'money': 1.99,
         'selected': false,
         'identifier': tokenIdentifier1
       },
       {
         'token': 1500,
         'bonus': 450,
-        'money': 2.99,
+        'money': 9.99,
         'selected': widget.currentIndex == null,
-        'useful': '${LocaleKeys.save.tr()} 30% - ${LocaleKeys.bestSeller.tr()}',
+        'useful': 'Save 30%',
         'identifier': tokenIdentifier2
       },
       {
         'token': 5000,
-        'money': 9.99,
+        'money': 39.99,
         'selected': widget.currentIndex != null,
         'bonus': 5000,
-        'useful': 'x2',
+        'useful': 'Save 40%',
         'identifier': tokenIdentifier4
       }
     ];
-    AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
+    // AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
     super.initState();
   }
 
@@ -196,48 +194,15 @@ class _PriceState extends State<PriceToken>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Checkbox(
-                    activeColor: primary,
-                    value: isChecked,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                  ),
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: '${LocaleKeys.youAgreeWithOur.tr()} ',
-                      style: body(color: grey1100),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Term & Policy',
-                          style: headline(color: grey1100),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.of(context).pushNamed(Routes.term,
-                                  arguments: const WebViewPrivacy());
-                            },
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              AppWidget.typeButtonStartAction2(
+              AppWidget.typeButtonGradientAfter(
                   context: context,
                   input:
-                      '${LocaleKeys.buyNow.tr()} + ${formatToken(context).format(_tokens)} ${LocaleKeys.tokens.tr()}',
+                      '${LocaleKeys.buyNow.tr()} + ${formatToken(context).format(_tokens)}',
                   bgColor: isChecked ? primary : grey600,
                   textColor: grey1100,
+                  icon: token,
+                  sizeAsset: 16,
                   borderColor: isChecked ? primary : grey600,
-                  borderRadius: 12,
                   onPressed: isChecked
                       ? () async {
                           if (products.isNotEmpty) {
@@ -251,7 +216,14 @@ class _PriceState extends State<PriceToken>
                         }
                       : () {}),
               const SizedBox(height: 8),
-              Text(version, style: subhead(color: grey800, fontWeight: '400'))
+              AnimationClick(
+                function: () {
+                  Navigator.of(context).pushNamed(Routes.term,
+                      arguments: const WebViewPrivacy());
+                },
+                child: Text('Term & Policy',
+                    style: subhead(color: grey800, fontWeight: '400')),
+              )
             ],
           ),
         ),
@@ -322,18 +294,15 @@ class _PriceState extends State<PriceToken>
                 top: 64,
                 child: AnimationClick(
                   function: () {
-                    showRewardApplovin(context, updateTokenUser,
-                        reward: TOKEN_REWARD);
+                    // showRewardApplovin(context, updateTokenUser,
+                    //     reward: TOKEN_REWARD);
                   },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
-                      gradient: LinearGradient(colors: [
-                        const Color(0xFFCFE1FD).withOpacity(0.9),
-                        const Color(0xFFFFFDE1).withOpacity(0.9),
-                      ]),
+                      gradient: Theme.of(context).colorLinear,
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -341,52 +310,74 @@ class _PriceState extends State<PriceToken>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          video_ads,
+                          video_camera,
                           width: 24,
                           height: 24,
+                          color: grey1100,
                         ),
                         const SizedBox(
                           width: 8,
                         ),
                         Text(
                           '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                          style: body(color: grey100, fontWeight: '600'),
+                          style: body(color: grey1100, fontWeight: '600'),
                         ),
                       ],
                     ),
                   ),
                 )),
             Positioned(
-                bottom: 0,
+                bottom: 24,
                 left: 0,
                 right: 0,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    itemBuilder: (context, index) {
-                      return AnimationClick(
-                        function: () {
-                          for (dynamic r in tokens) {
-                            r['selected'] = false;
-                          }
-                          tokens[index]['selected'] = true;
-                          setState(() {
-                            _currentIndex = index;
-                            identifier = tokens[index]['identifier'];
-                            _tokens =
-                                tokens[index]['token'] + tokens[index]['bonus'];
-                          });
-                        },
-                        child: ItemPrice(
-                          point: tokens[index],
-                          index: index,
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 8),
-                    itemCount: tokens.length))
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GradientText(
+                      'Buy Coin',
+                      style: const TextStyle(
+                          fontSize: 32,
+                          height: 1.5,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'ClashGrotesk'),
+                      gradient: Theme.of(context).colorLinear,
+                    ),
+                    Text('Remove Ads & Unlock All Feature',
+                        style: body(color: grey1100)),
+                    const SizedBox(height: 48),
+                    SizedBox(
+                      height: 150,
+                      child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          itemBuilder: (context, index) {
+                            return AnimationClick(
+                              function: () {
+                                for (dynamic r in tokens) {
+                                  r['selected'] = false;
+                                }
+                                tokens[index]['selected'] = true;
+                                setState(() {
+                                  _currentIndex = index;
+                                  identifier = tokens[index]['identifier'];
+                                  _tokens = tokens[index]['token'] +
+                                      tokens[index]['bonus'];
+                                });
+                              },
+                              child: ItemPrice(
+                                point: tokens[index],
+                                index: index,
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 16),
+                          itemCount: tokens.length),
+                    ),
+                  ],
+                ))
           ],
         ),
       ),

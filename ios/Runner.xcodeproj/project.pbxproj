@@ -378,7 +378,7 @@
 				DEVELOPMENT_TEAM = NYUV3EM563;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AiGraphy;
+				INFOPLIST_KEY_CFBundleDisplayName = AIGraphy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -558,7 +558,7 @@
 				DEVELOPMENT_TEAM = NYUV3EM563;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AiGraphy;
+				INFOPLIST_KEY_CFBundleDisplayName = AIGraphy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -585,7 +585,7 @@
 				DEVELOPMENT_TEAM = NYUV3EM563;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AiGraphy;
+				INFOPLIST_KEY_CFBundleDisplayName = AIGraphy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

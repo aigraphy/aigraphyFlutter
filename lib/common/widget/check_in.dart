@@ -54,7 +54,7 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                         Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            Image.asset(success, width: 150, height: 150),
+                            Image.asset(success, width: 120),
                             const Positioned(
                                 right: -60,
                                 top: 16,
@@ -70,10 +70,10 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                               fontSize: 30,
                               height: 1,
                               fontWeight: FontWeight.w700,
-                              fontFamily: 'SpaceGrotesk'),
+                              fontFamily: 'ClashGrotesk'),
                           child: GradientText(
                             LocaleKeys.checkInAnd.tr(),
-                            gradient: Theme.of(context).linearGradientCustome,
+                            gradient: Theme.of(context).colorLinear,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -83,19 +83,18 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                               fontSize: 30,
                               height: 1,
                               fontWeight: FontWeight.w700,
-                              fontFamily: 'SpaceGrotesk'),
+                              fontFamily: 'ClashGrotesk'),
                           child: GradientText(
                             LocaleKeys.getTokens.tr(),
-                            gradient: Theme.of(context).linearGradientCustome,
+                            gradient: Theme.of(context).colorLinear,
                           ),
                         ),
                         const SizedBox(height: 16),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: AppWidget.typeButtonStartAction(
+                          child: AppWidget.typeButtonGradient(
                               context: context,
                               input: LocaleKeys.checkInNow.tr(),
-                              borderRadius: 12,
                               vertical: 16,
                               onPressed: () async {
                                 final UserModel? user =
@@ -124,19 +123,19 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                         const SizedBox(height: 16),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: AppWidget.typeButtonGradient(
+                          child: AppWidget.typeButtonStartAction2(
                               context: context,
-                              input: '+$TOKEN_REWARD ${LocaleKeys.token.tr()}',
-                              borderRadius: 12,
+                              input: '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
                               vertical: 16,
-                              icon: video_ads,
+                              icon: video_camera,
+                              colorAsset: grey100,
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                showRewardApplovin(context, updateTokenUser,
-                                    reward: TOKEN_REWARD);
+                                // showRewardApplovin(context, updateTokenUser,
+                                //     reward: TOKEN_REWARD);
                               },
-                              bgColor: primary,
-                              borderColor: primary,
+                              bgColor: grey1100,
+                              borderColor: grey1100,
                               textColor: grey100),
                         ),
                       ],
@@ -155,13 +154,13 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                        color: grey200,
+                        color: grey300,
                         borderRadius: BorderRadius.circular(48)),
                     child: Image.asset(
                       icClose,
                       width: 20,
                       height: 20,
-                      color: grey600,
+                      color: grey1100,
                     ),
                   ),
                 ))

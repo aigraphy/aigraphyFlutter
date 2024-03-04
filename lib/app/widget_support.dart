@@ -14,7 +14,6 @@ import '../common/graphql/config.dart';
 import '../common/graphql/mutations.dart';
 import '../common/route/routes.dart';
 import '../common/widget/animation_click.dart';
-import '../common/widget/lottie_widget.dart';
 import '../translations/export_lang.dart';
 
 mixin AppWidget {
@@ -100,7 +99,7 @@ mixin AppWidget {
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             backgroundColor: grey300,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(32),
                             ),
                             side: const BorderSide(color: grey300)),
                         child: Text(LocaleKeys.no.tr(),
@@ -116,7 +115,6 @@ mixin AppWidget {
                           bgColor: radicalRed2,
                           borderColor: radicalRed2,
                           textColor: Theme.of(context).color12,
-                          borderRadius: 12,
                           vertical: 14,
                           onPressed: () {
                             remove!();
@@ -216,7 +214,7 @@ mixin AppWidget {
       Color? textColor,
       String? input,
       FontWeight? fontWeight,
-      double borderRadius = 24,
+      double borderRadius = 32,
       double sizeAsset = 24,
       Color? colorAsset,
       String? icon}) {
@@ -277,7 +275,7 @@ mixin AppWidget {
       Color? textColor,
       String? input,
       FontWeight? fontWeight,
-      double borderRadius = 16,
+      double borderRadius = 32,
       double sizeAsset = 16,
       Color? colorAsset,
       String? icon}) {
@@ -338,7 +336,7 @@ mixin AppWidget {
       Color? textColor,
       String? input,
       FontWeight? fontWeight,
-      double borderRadius = 16,
+      double borderRadius = 32,
       double sizeAsset = 24,
       Color? colorAsset,
       Widget? leading,
@@ -347,10 +345,7 @@ mixin AppWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
-            gradient: LinearGradient(colors: [
-              const Color(0xFFCFE1FD).withOpacity(0.9),
-              const Color(0xFFFFFDE1).withOpacity(0.9),
-            ])),
+            gradient: Theme.of(context).colorLinear),
         child: TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(
@@ -443,7 +438,7 @@ mixin AppWidget {
       Color? textColor,
       String? input,
       FontWeight? fontWeight,
-      double borderRadius = 16,
+      double borderRadius = 32,
       double sizeAsset = 24,
       Color? colorAsset,
       Widget? leading,
@@ -452,10 +447,7 @@ mixin AppWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
-            gradient: LinearGradient(colors: [
-              const Color(0xFFCFE1FD).withOpacity(0.9),
-              const Color(0xFFFFFDE1).withOpacity(0.9),
-            ])),
+            gradient: Theme.of(context).colorLinear),
         child: TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(
@@ -548,17 +540,6 @@ mixin AppWidget {
     );
   }
 
-  static Widget divider(BuildContext context,
-      {double vertical = 24, Color color = grey600}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: vertical),
-      child: Divider(
-        thickness: 1,
-        color: color,
-      ),
-    );
-  }
-
   static BottomNavigationBarItem createItemNav(BuildContext context,
       String iconInactive, String iconActive, String label) {
     return BottomNavigationBarItem(
@@ -585,94 +566,12 @@ mixin AppWidget {
         variables: <String, dynamic>{'uuid': firebaseUser.uid}));
   }
 
-  static void showBottomSignOut(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: grey100,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                width: 80,
-                height: 5,
-                margin: const EdgeInsets.only(bottom: 24),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: grey1100.withOpacity(0.2)),
-              ),
-              AnimationClick(
-                function: () async {
-                  await launchUrlFaceSwap();
-                },
-                child: Image.asset(banner_aigenvision,
-                    width: double.infinity, fit: BoxFit.fitWidth),
-              ),
-              const SizedBox(height: 24),
-              AppWidget.typeButtonStartAction2(
-                context: context,
-                input: LocaleKeys.signOut.tr(),
-                icon: arrow_line_right,
-                textColor: grey1100,
-                sizeAsset: 20,
-                borderColor: grey300,
-                borderRadius: 12,
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      Routes.onboarding, (route) => false);
-                },
-              ),
-              const SizedBox(height: 24),
-              AnimationClick(
-                function: () {
-                  AppWidget.showDialogCustom(
-                      LocaleKeys.doYouWant.tr(), LocaleKeys.youWillLose.tr(),
-                      context: context, remove: () async {
-                    Navigator.of(context).pop();
-                    EasyLoading.show();
-                    await deleteUser();
-                    await FirebaseAuth.instance.signOut();
-                    EasyLoading.dismiss();
-                    BotToast.showText(
-                        text: LocaleKeys.youHaveDeleted.tr(),
-                        textStyle: body(color: grey1100));
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        Routes.onboarding, (route) => false);
-                  });
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(trash,
-                        width: 24, height: 24, color: radicalRed1),
-                    const SizedBox(width: 8),
-                    Text(
-                      LocaleKeys.deleteAccount.tr(),
-                      style: headline(color: radicalRed1, fontWeight: '700'),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   static Widget option(String icon,
       {Color color = grey200, Color iconColor = grey1100}) {
     return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(12)),
+            color: color, borderRadius: BorderRadius.circular(32)),
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Image.asset(
           icon,
@@ -683,24 +582,27 @@ mixin AppWidget {
   }
 
   static Widget iconCount(bool isMax, int countSwap) {
-    return isMax
-        ? Positioned(
+    return countSwap == 0
+        ? const SizedBox()
+        : Positioned(
             top: 4,
             left: 4,
             child: Container(
-              padding:
-                  const EdgeInsets.only(top: 3, bottom: 3, right: 6, left: 4),
+              padding: isMax
+                  ? const EdgeInsets.only(top: 3, bottom: 3, right: 6, left: 4)
+                  : const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                   color: grey200, borderRadius: BorderRadius.circular(16)),
               child: Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 2),
-                    child: LottieWidget(lottie: fire, height: 14),
-                  ),
-                  const SizedBox(width: 4),
+                  isMax
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 2, right: 4),
+                          child: Image.asset(fire, height: 12, width: 12),
+                        )
+                      : const SizedBox(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 2),
+                    padding: EdgeInsets.only(top: isMax ? 2 : 0),
                     child: Text(
                       '$countSwap',
                       style: caption2(color: grey1100),
@@ -708,7 +610,6 @@ mixin AppWidget {
                   )
                 ],
               ),
-            ))
-        : const SizedBox();
+            ));
   }
 }

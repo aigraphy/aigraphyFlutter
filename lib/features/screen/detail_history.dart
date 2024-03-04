@@ -105,11 +105,11 @@ class _DetailHistoryState extends State<DetailHistory> {
                           ? LocaleKeys.deleteImage.tr()
                           : LocaleKeys.deleteImageBackground.tr(),
                       style: const TextStyle(
-                          fontSize: 28,
+                          fontSize: 32,
                           height: 1,
                           fontWeight: FontWeight.w700,
-                          fontFamily: 'SpaceGrotesk'),
-                      gradient: Theme.of(context).linearGradientCustome,
+                          fontFamily: 'ClashGrotesk'),
+                      gradient: Theme.of(context).colorLinear,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 16),
@@ -125,7 +125,6 @@ class _DetailHistoryState extends State<DetailHistory> {
                           child: AppWidget.typeButtonStartAction(
                               context: context,
                               input: LocaleKeys.delete.tr(),
-                              borderRadius: 12,
                               onPressed: () {
                                 if (controller!.page!.round() == 0) {
                                   deleteFile(urlResult);
@@ -156,15 +155,12 @@ class _DetailHistoryState extends State<DetailHistory> {
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: AppWidget.typeButtonStartAction(
+                          child: AppWidget.typeButtonGradient(
                               context: context,
                               input: LocaleKeys.cancel.tr(),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              bgColor: primary,
-                              borderRadius: 12,
-                              borderColor: primary,
                               textColor: grey1100),
                         ),
                       ],
@@ -191,10 +187,10 @@ class _DetailHistoryState extends State<DetailHistory> {
                       function: () async {
                         EasyLoading.show();
                         if (imageRemoveBG != null) {
-                          AdLovinUtils().showAdIfReady();
+                          // AdLovinUtils().showAdIfReady();
                           await downloadMultiImage([urlResult, imageRemoveBG!]);
                         } else {
-                          showOpenAdsWhenDownShare();
+                          // showOpenAdsWhenDownShare();
                           await downloadMultiImage([urlResult]);
                         }
                         EasyLoading.dismiss();
@@ -237,7 +233,7 @@ class _DetailHistoryState extends State<DetailHistory> {
                                         top: Radius.circular(24))),
                                 builder: (BuildContext ctx) {
                                   return FractionallySizedBox(
-                                    heightFactor: 0.6,
+                                    heightFactor: 0.32,
                                     child: RemoveBg(
                                         ctx: context,
                                         link: urlResult,
@@ -273,25 +269,11 @@ class _DetailHistoryState extends State<DetailHistory> {
                           });
                         }
                       },
-                      child: AppWidget.option(paint, color: green)),
+                      child: AppWidget.option(paint, color: corn1)),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            AppWidget.typeButtonStartAction(
-                context: context,
-                input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
-                bgColor: primary,
-                icon: token2,
-                sizeAsset: 16,
-                textColor: grey1100,
-                borderColor: primary,
-                borderRadius: 12,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  context.read<SetIndexBottomBar>().setIndex(0);
-                }),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -311,6 +293,17 @@ class _DetailHistoryState extends State<DetailHistory> {
                 ],
               ),
             ),
+            const SizedBox(height: 8),
+            AppWidget.typeButtonGradientAfter(
+                context: context,
+                input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
+                icon: token,
+                sizeAsset: 16,
+                textColor: grey1100,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  context.read<SetIndexBottomBar>().setIndex(0);
+                }),
             const Padding(
               padding: EdgeInsets.only(top: 8),
               child: AdsApplovinBanner(),

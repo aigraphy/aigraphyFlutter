@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:applovin_max/applovin_max.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,12 +16,10 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/gradient_text.dart';
-import '../../common/widget/lottie_widget.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/show_gift/show_gift.dart';
 import '../widget/web_view_privacy.dart';
@@ -144,8 +140,8 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
   @override
   void initState() {
     super.initState();
-    getInappPurchase();
-    checkTime();
+    // getInappPurchase();
+    // checkTime();
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isVisible = true;
@@ -163,7 +159,7 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
       ),
     );
 
-    AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
+    // AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
   }
 
   @override
@@ -183,48 +179,15 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Checkbox(
-                  activeColor: primary,
-                  value: isChecked,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = !isChecked;
-                    });
-                  },
-                ),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    text: '${LocaleKeys.youAgreeWithOur.tr()} ',
-                    style: body(color: grey1100),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Term & Policy',
-                        style: headline(color: grey1100),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.of(context).pushNamed(Routes.term,
-                                arguments: const WebViewPrivacy());
-                          },
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            AppWidget.typeButtonStartAction2(
+            AppWidget.typeButtonGradientAfter(
                 context: context,
                 input:
-                    '${LocaleKeys.buyNow.tr()} + ${formatToken(context).format(_tokens * 2)} ${LocaleKeys.tokens.tr()}',
+                    '${LocaleKeys.buyNow.tr()} + ${formatToken(context).format(_tokens * 2)}',
                 bgColor: isChecked ? primary : grey600,
                 textColor: grey1100,
                 borderColor: isChecked ? primary : grey600,
-                borderRadius: 12,
+                icon: token,
+                sizeAsset: 16,
                 onPressed: isChecked
                     ? () async {
                         if (products.isNotEmpty) {
@@ -238,7 +201,14 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
                       }
                     : () {}),
             const SizedBox(height: 8),
-            Text(version, style: subhead(color: grey800, fontWeight: '400'))
+            AnimationClick(
+              function: () {
+                Navigator.of(context)
+                    .pushNamed(Routes.term, arguments: const WebViewPrivacy());
+              },
+              child: Text('Term & Policy',
+                  style: subhead(color: grey800, fontWeight: '400')),
+            )
           ],
         ),
       ),
@@ -305,15 +275,15 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
               top: 64,
               child: AnimationClick(
                 function: () {
-                  showRewardApplovin(context, updateTokenUser,
-                      reward: TOKEN_REWARD);
+                  // showRewardApplovin(context, updateTokenUser,
+                  //     reward: TOKEN_REWARD);
                 },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24),
-                    gradient: Theme.of(context).linearGradientCustome,
+                    gradient: Theme.of(context).colorLinear,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -321,16 +291,17 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        video_ads,
+                        video_camera,
                         width: 24,
                         height: 24,
+                        color: grey1100,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
                       Text(
                         '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                        style: body(color: grey100, fontWeight: '600'),
+                        style: body(color: grey1100, fontWeight: '600'),
                       ),
                     ],
                   ),
@@ -347,26 +318,22 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
                   const SizedBox(),
                   Column(
                     children: [
-                      IgnorePointer(
-                        child: Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              gradient: Theme.of(context).linearGradientCustome,
-                              borderRadius: BorderRadius.circular(48)),
-                          child: const LottieWidget(lottie: gift, height: 64),
-                        ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            gradient: Theme.of(context).colorLinear,
+                            borderRadius: BorderRadius.circular(48)),
+                        child: Image.asset(gift, width: 48, height: 48),
                       ),
                       const SizedBox(height: 16),
-                      IgnorePointer(
-                        child: GradientText(
-                          'Just For You',
-                          style: const TextStyle(
-                              fontSize: 36,
-                              height: 1,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'SpaceGrotesk'),
-                          gradient: Theme.of(context).linearGradientCustome,
-                        ),
+                      GradientText(
+                        'Just For You',
+                        style: const TextStyle(
+                            fontSize: 36,
+                            height: 1,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'ClashGrotesk'),
+                        gradient: Theme.of(context).colorLinear,
                       ),
                       const SizedBox(height: 24),
                       streamDuration != null
@@ -400,7 +367,7 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('20,000 Tokens', style: title1(color: corn1)),
+                            Text('20,000 Coins', style: title1(color: corn1)),
                             const SizedBox(height: 8),
                             Text('Just \$9.99', style: title3(color: grey1100)),
                             Container(
@@ -411,7 +378,7 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
                                   borderRadius: BorderRadius.circular(8),
                                   color: grey300),
                             ),
-                            Text('5,000 Token (Basic)',
+                            Text('5,000 Coin (Basic)',
                                 style: body(color: grey1100)),
                             const SizedBox(height: 8),
                             RichText(

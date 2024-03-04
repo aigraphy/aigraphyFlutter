@@ -10,14 +10,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../app/widget_support.dart';
 import '../../common/bloc/slider/slider_bloc.dart';
 import '../../common/constant/colors.dart';
-import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/route/routes.dart';
 import '../../common/util/authentication_apple.dart';
 import '../../common/util/authentication_google.dart';
 import '../../common/util/login_hasura.dart';
-import '../../common/widget/ads_applovin_banner.dart';
+import '../../common/widget/gradient_text.dart';
 import '../widget/onboarding_widget.dart';
 import '../widget/web_view_privacy.dart';
 import 'bottom_bar.dart';
@@ -43,51 +42,39 @@ class _OnboardingState extends State<Onboarding> {
 
   bool isChecked = true;
   Widget landing(BuildContext context, int index, double width, double height) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
+      alignment: Alignment.bottomCenter,
       children: [
-        index == 2
-            ? Expanded(
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Image.asset(
-                      landings[index],
-                      width: width,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
-              )
-            : Expanded(
-                child: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Positioned(
-                      left: 32,
-                      right: 32,
-                      bottom: 24,
-                      child: Image.asset(
-                        landings[index],
-                        height: height / 3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+        Image.asset(
+          landings[index],
+          width: width,
+          fit: BoxFit.cover,
+          alignment: Alignment.topCenter,
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              GradientText(
                 titles[index]['title1']!,
-                style: header(color: grey1100, letterSpacing: 2),
+                style: const TextStyle(
+                    fontSize: 36,
+                    height: 1.5,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'ClashGrotesk'),
+                gradient: Theme.of(context).colorLinear,
               ),
-              Text(
+              GradientText(
                 titles[index]['title2']!,
-                style: header(color: grey1100, letterSpacing: 2),
+                style: const TextStyle(
+                    fontSize: 36,
+                    height: 1,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'ClashGrotesk'),
+                gradient: Theme.of(context).colorLinear,
               ),
             ],
           ),
@@ -112,58 +99,38 @@ class _OnboardingState extends State<Onboarding> {
     final sliderBloc = context.read<SliderCubit>();
     return Scaffold(
       backgroundColor: grey100,
-      bottomNavigationBar: isIOS
-          ? const SizedBox()
-          : const Padding(
-              padding: EdgeInsets.only(bottom: 24),
-              child: AdsApplovinBanner(),
-            ),
       body: ListView(
         padding: const EdgeInsets.all(0),
         children: [
-          Stack(
-            children: [
-              CarouselSlider.builder(
-                  itemCount: landings.length,
-                  itemBuilder: (BuildContext context, int itemIndex,
-                          int pageViewIndex) =>
+          CarouselSlider.builder(
+              itemCount: landings.length,
+              itemBuilder:
+                  (BuildContext context, int itemIndex, int pageViewIndex) =>
                       landing(context, itemIndex, width, height),
-                  options: CarouselOptions(
-                    enableInfiniteScroll: false,
-                    height: height / 1.6,
-                    viewportFraction: 1,
-                    disableCenter: true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    onPageChanged: (index, reason) {
-                      if (index > sliderBloc.state) {
-                        sliderBloc.swipeRight();
-                      } else {
-                        sliderBloc.swipeLeft();
-                      }
-                    },
-                    scrollDirection: Axis.horizontal,
-                  )),
-              Positioned(
-                top: 64,
-                left: 24,
-                child: Image.asset(
-                  icon_onboarding,
-                  width: 56,
-                  height: 56,
-                ),
-              )
-            ],
-          ),
+              options: CarouselOptions(
+                enableInfiniteScroll: false,
+                height: height / 1.3,
+                viewportFraction: 1,
+                disableCenter: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                onPageChanged: (index, reason) {
+                  if (index > sliderBloc.state) {
+                    sliderBloc.swipeRight();
+                  } else {
+                    sliderBloc.swipeLeft();
+                  }
+                },
+                scrollDirection: Axis.horizontal,
+              )),
           Padding(
             padding: const EdgeInsets.only(left: 32, right: 32, bottom: 24),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 24, bottom: 48),
+                  padding: const EdgeInsets.only(top: 24, bottom: 24),
                   child: BlocBuilder<SliderCubit, int>(
                     builder: (context, state) {
                       return OnBoardingWidget.createIndicator(
@@ -218,65 +185,68 @@ class _OnboardingState extends State<Onboarding> {
                   ],
                 ),
                 const SizedBox(height: 8),
-                // AppWidget.typeButtonStartAction2(
-                //     context: context,
-                //     input: 'Continue with Facebook',
-                //     onPressed: () async {
-                //       final User? firebaseUser =
-                //           await AuthenticationFacebook.signInWithFacebook(
-                //               context: context);
-                //       if (firebaseUser != null) {
-                //         await signIn(context, firebaseUser);
-                //       } else {
-                //         BotToast.showText(
-                //             text:
-                //                 'Error occurred using Facebook Sign-In. Try again.');
-                //       }
-                //     },
-                //     bgColor: primary,
-                //     borderColor: primary,
-                //     textColor: grey1100,
-                //     sizeAsset: 24,
-                //     colorAsset: grey1100,
-                //     icon: icFacebook),
-                // const SizedBox(height: 16),
                 if (Platform.isIOS) ...[
-                  AppWidget.typeButtonStartAction2(
-                      context: context,
-                      input: 'Continue with Apple',
-                      onPressed: () async {
-                        final User firebaseUser =
-                            await AuthenticationApple.signInWithApple(
-                                context: context);
-                        await signIn(context, firebaseUser);
-                      },
-                      bgColor: grey1100,
-                      icon: apple,
-                      borderRadius: 12,
-                      colorAsset: grey100,
-                      sizeAsset: 24,
-                      borderColor: grey1100,
-                      textColor: grey100),
-                  const SizedBox(height: 16),
-                ],
-                AppWidget.typeButtonStartAction2(
-                    context: context,
-                    input: 'Continue with Google',
-                    onPressed: isChecked
-                        ? () async {
+                  Row(children: [
+                    Expanded(
+                      child: AppWidget.typeButtonStartAction2(
+                          context: context,
+                          input: 'Apple',
+                          onPressed: () async {
                             final User firebaseUser =
-                                await AuthenticationGoogle.signInWithGoogle(
+                                await AuthenticationApple.signInWithApple(
                                     context: context);
                             await signIn(context, firebaseUser);
-                          }
-                        : () {},
-                    bgColor: radicalRed2,
-                    icon: google,
-                    borderRadius: 12,
-                    sizeAsset: 24,
-                    colorAsset: grey1100,
-                    borderColor: radicalRed2,
-                    textColor: grey1100)
+                          },
+                          bgColor: grey1100,
+                          icon: apple,
+                          borderRadius: 32,
+                          colorAsset: grey100,
+                          sizeAsset: 24,
+                          borderColor: grey1100,
+                          textColor: grey100),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: AppWidget.typeButtonStartAction2(
+                          context: context,
+                          input: 'Google',
+                          onPressed: isChecked
+                              ? () async {
+                                  final User firebaseUser =
+                                      await AuthenticationGoogle
+                                          .signInWithGoogle(context: context);
+                                  await signIn(context, firebaseUser);
+                                }
+                              : () {},
+                          bgColor: radicalRed2,
+                          icon: google,
+                          borderRadius: 32,
+                          sizeAsset: 24,
+                          colorAsset: grey1100,
+                          borderColor: radicalRed2,
+                          textColor: grey1100),
+                    )
+                  ])
+                ] else ...{
+                  AppWidget.typeButtonStartAction2(
+                      context: context,
+                      input: 'Continue with Google',
+                      onPressed: isChecked
+                          ? () async {
+                              final User firebaseUser =
+                                  await AuthenticationGoogle.signInWithGoogle(
+                                      context: context);
+                              await signIn(context, firebaseUser);
+                            }
+                          : () {},
+                      bgColor: radicalRed2,
+                      icon: google,
+                      borderRadius: 32,
+                      sizeAsset: 24,
+                      colorAsset: grey1100,
+                      borderColor: radicalRed2,
+                      textColor: grey1100)
+                },
               ],
             ),
           )

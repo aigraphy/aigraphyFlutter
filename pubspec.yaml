@@ -44,7 +44,7 @@ dependencies:
   share_plus: ^7.1.0
   path_provider: ^2.1.1
   flutter_easyloading: ^3.0.5
-  google_mobile_ads: ^4.0.0
+  # google_mobile_ads: ^4.0.0
   webview_flutter: ^4.2.4
   in_app_review: ^2.0.6
   flutter_rating_bar: ^4.0.1
@@ -81,7 +81,7 @@ dependencies:
   cached_network_image: ^3.3.0
   sqflite_common_ffi: ^2.3.0+4
   sqflite: ^2.3.0
-  firebase_messaging: ^14.7.0
+  firebase_messaging: ^14.7.9
 
 dev_dependencies:
   flutter_test:

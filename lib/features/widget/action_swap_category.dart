@@ -22,7 +22,7 @@ class ActionSwapCategory extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
       builder: (BuildContext ctx) {
         return FractionallySizedBox(
-          heightFactor: 0.6,
+          heightFactor: 0.32,
           child: RemoveBGImageDevice(path: path, ctx: context),
         );
       },
@@ -39,9 +39,7 @@ class ActionSwapCategory extends StatelessWidget {
       builder: (BuildContext context) {
         return SizedBox(
             height: MediaQuery.of(context).size.height * 0.75,
-            child: const ListPhoto(
-              cropImage: false,
-            ));
+            child: const ListPhoto());
       },
       context: context,
     ).then((value) async {
@@ -76,15 +74,14 @@ class ActionSwapCategory extends StatelessWidget {
             child: AppWidget.typeButtonStartAction2(
                 context: context,
                 input: 'Remove BG',
-                borderRadius: 12,
                 vertical: 20,
                 icon: ic_removebg,
                 onPressed: () {
                   setPhoto(context, true);
                 },
-                bgColor: green,
+                bgColor: grey100,
                 sizeAsset: 24,
-                borderColor: green,
+                borderColor: grey300,
                 textColor: grey1100),
           ),
           const SizedBox(width: 24),
@@ -92,16 +89,15 @@ class ActionSwapCategory extends StatelessWidget {
             child: AppWidget.typeButtonStartAction2(
                 context: context,
                 input: 'Edit Image',
-                borderRadius: 12,
                 vertical: 20,
                 icon: paint,
                 onPressed: () {
                   setPhoto(context, false);
                 },
-                bgColor: primary,
+                bgColor: grey100,
                 sizeAsset: 24,
                 colorAsset: grey1100,
-                borderColor: primary,
+                borderColor: grey300,
                 textColor: grey1100),
           )
         ],

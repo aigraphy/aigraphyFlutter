@@ -79,13 +79,10 @@ class _ImageCropperFreeStyleState extends State<ImageCropperFreeStyle> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AppWidget.typeButtonStartAction2(
+            AppWidget.typeButtonGradient(
                 context: context,
                 input: LocaleKeys.chooseFace.tr(),
-                bgColor: primary,
                 textColor: grey1100,
-                borderColor: primary,
-                borderRadius: 12,
                 onPressed: () async {
                   EasyLoading.show();
                   final state = _controller.currentState;

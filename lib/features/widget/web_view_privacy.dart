@@ -3,6 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../app/widget_support.dart';
 import '../../common/constant/colors.dart';
+import '../../common/constant/helper.dart';
 
 class WebViewPrivacy extends StatefulWidget {
   const WebViewPrivacy({this.title, this.url});
@@ -36,7 +37,7 @@ class _WebViewPrivacyState extends State<WebViewPrivacy> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(widget.url ?? 'your_link_policy'));
+      ..loadRequest(Uri.parse(widget.url ?? linkPolicy));
     super.initState();
   }
 

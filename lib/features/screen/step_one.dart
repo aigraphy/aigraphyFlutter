@@ -18,8 +18,8 @@ import '../../features/screen/step_two.dart';
 import '../../features/widget/dotted_image.dart';
 import '../../translations/export_lang.dart';
 import '../widget/gift_widget.dart';
+import '../widget/go_pro.dart';
 import '../widget/list_photo.dart';
-import '../widget/token_widget.dart';
 
 class StepOne extends StatefulWidget {
   const StepOne({super.key});
@@ -42,9 +42,7 @@ class _StepOneState extends State<StepOne> {
       builder: (BuildContext context) {
         return SizedBox(
             height: MediaQuery.of(context).size.height * 0.75,
-            child: const ListPhoto(
-              cropImage: false,
-            ));
+            child: const ListPhoto());
       },
       context: context,
     ).then((dynamic value) async {
@@ -64,47 +62,58 @@ class _StepOneState extends State<StepOne> {
       appBar: AppBarCpn(
         left: Padding(
           padding: const EdgeInsets.only(left: 24),
-          child: AnimationClick(
-            function: () {
-              Navigator.of(context).pushNamed(Routes.menu);
-            },
-            child: Image.asset(
-              circles_four,
-              width: 24,
-              height: 24,
-            ),
-          ),
+          child: Text('AIGraphy', style: headline(color: grey1100)),
         ),
-        right: const TokenWidget(),
+        right: Row(
+          children: [
+            const GoPro(),
+            Padding(
+              padding: const EdgeInsets.only(right: 24, left: 12),
+              child: AnimationClick(
+                function: () {
+                  Navigator.of(context).pushNamed(Routes.menu);
+                },
+                child: Image.asset(
+                  circles_four,
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 8),
+        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 80),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const GiftWidget(),
             const SizedBox(height: 8),
-            AppWidget.typeButtonStartAction2(
-                context: context,
-                input: LocaleKeys.next.tr(),
-                bgColor: bytes != null ? primary : grey200,
-                textColor: bytes != null ? grey1100 : grey300,
-                borderColor: bytes != null ? primary : grey200,
-                borderRadius: 12,
-                onPressed: bytes != null
-                    ? () {
-                        Navigator.of(context).pushNamed(Routes.step_two,
-                            arguments: StepTwo(
-                              bytes: bytes!,
-                              pathSource: path!,
-                            ));
-                      }
-                    : () {
-                        BotToast.showText(
-                            text: LocaleKeys.youNeedChoose.tr(),
-                            textStyle: body(color: grey1100));
-                      }),
+            bytes != null
+                ? AppWidget.typeButtonGradient(
+                    context: context,
+                    input: LocaleKeys.next.tr(),
+                    textColor: grey1100,
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(Routes.step_two,
+                          arguments: StepTwo(
+                            bytes: bytes!,
+                            pathSource: path!,
+                          ));
+                    })
+                : AppWidget.typeButtonStartAction(
+                    context: context,
+                    input: LocaleKeys.next.tr(),
+                    bgColor: grey200,
+                    textColor: grey300,
+                    borderColor: grey200,
+                    onPressed: () {
+                      BotToast.showText(
+                          text: LocaleKeys.youNeedChoose.tr(),
+                          textStyle: body(color: grey1100));
+                    }),
           ],
         ),
       ),
@@ -149,7 +158,7 @@ class _StepOneState extends State<StepOne> {
                               child: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                      color: primary,
+                                      gradient: Theme.of(context).colorLinear,
                                       borderRadius: BorderRadius.circular(32)),
                                   child: const Icon(
                                     Icons.add,
@@ -166,11 +175,11 @@ class _StepOneState extends State<StepOne> {
             child: GradientText(
               LocaleKeys.swapImage.tr(),
               style: const TextStyle(
-                  fontSize: 40,
+                  fontSize: 32,
                   height: 1,
                   fontWeight: FontWeight.w700,
-                  fontFamily: 'SpaceGrotesk'),
-              gradient: Theme.of(context).linearGradientCustome,
+                  fontFamily: 'ClashGrotesk'),
+              gradient: Theme.of(context).colorLinear,
             ),
           ),
           Padding(

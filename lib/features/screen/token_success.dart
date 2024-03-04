@@ -132,13 +132,10 @@ class _PremiumSuccessWidgetState extends State<PremiumSuccessWidget> {
             Padding(
               padding: const EdgeInsets.only(
                   top: 48, left: 24, right: 24, bottom: 16),
-              child: AppWidget.typeButtonStartAction2(
+              child: AppWidget.typeButtonGradient(
                   context: context,
                   input: LocaleKeys.generateNow.tr(),
-                  bgColor: primary,
                   textColor: grey1100,
-                  borderColor: primary,
-                  borderRadius: 12,
                   onPressed: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         Routes.bottom_bar, (Route<dynamic> route) => false,

@@ -469,7 +469,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       return;
     }
     EasyLoading.show();
-    showInterApplovin(context, () {}, seconds: 5);
+    // showInterApplovin(context, () {}, seconds: 5);
     final binaryIntList =
         await screenshotController.capture(pixelRatio: pixelRatio);
 
@@ -496,7 +496,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
     if (widget.image != null) {
       loadImage(widget.image!);
     }
-    checkHasAds();
+    // checkHasAds();
     super.initState();
   }
 
@@ -1130,20 +1130,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
               ),
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 24, right: 24, bottom: 8, top: 16),
-            child: AppWidget.typeButtonStartAction(
-                context: context,
-                input: '${LocaleKeys.saveChange.tr()} -$TOKEN_EDIT',
-                bgColor: primary,
-                textColor: grey1100,
-                borderColor: primary,
-                icon: token2,
-                sizeAsset: 20,
-                borderRadius: 12,
-                onPressed: saveImage),
-          ),
+          const SizedBox(height: 24),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -1163,11 +1150,21 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
               ],
             ),
           ),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 24, right: 24, bottom: 16, top: 8),
+            child: AppWidget.typeButtonGradientAfter(
+                context: context,
+                input: '${LocaleKeys.saveChange.tr()} -$TOKEN_EDIT',
+                textColor: grey1100,
+                icon: token,
+                sizeAsset: 20,
+                onPressed: saveImage),
+          ),
           if (!isIOS) ...[
             const SizedBox(height: 16),
             const AdsApplovinBanner(),
           ],
-          const SizedBox(height: 16),
         ],
       ),
     );
@@ -1442,7 +1439,7 @@ class _ImageFiltersState extends State<ImageFilters> {
             ),
             onPressed: () async {
               EasyLoading.show();
-              AdLovinUtils().showAdIfReady();
+              // AdLovinUtils().showAdIfReady();
               final data = await screenshotController.capture();
               EasyLoading.dismiss();
               if (mounted) {
@@ -1827,7 +1824,7 @@ class _ImageEditorDrawingState extends State<ImageEditorDrawing> {
                 return Navigator.pop(context, data!.buffer.asUint8List());
               }
               EasyLoading.show();
-              AdLovinUtils().showAdIfReady();
+              // AdLovinUtils().showAdIfReady();
               final image = await screenshotController.capture();
               EasyLoading.dismiss();
 

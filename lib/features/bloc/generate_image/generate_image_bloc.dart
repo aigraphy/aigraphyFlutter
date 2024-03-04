@@ -88,6 +88,8 @@ class GenerateImageBloc extends Bloc<GenerateImageEvent, GenerateImageState> {
       request.fields['uuid'] = firebaseUser.uid;
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
+      print(response.statusCode);
+      print(response.bodyBytes);
       if (response.statusCode == 200) {
         result = response.bodyBytes;
       } else {

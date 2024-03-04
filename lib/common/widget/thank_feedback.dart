@@ -32,15 +32,13 @@ class ThankFeedback extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                        color: grey100,
+                        color: grey200,
                         borderRadius: BorderRadius.circular(24)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Center(
-                            child:
-                                Image.asset(success, width: 150, height: 150)),
+                        Center(child: Image.asset(success, width: 120)),
                         const SizedBox(height: 24),
                         GradientText(
                           LocaleKeys.thankFor.tr(),
@@ -48,8 +46,8 @@ class ThankFeedback extends StatelessWidget {
                               fontSize: 30,
                               height: 1,
                               fontWeight: FontWeight.w700,
-                              fontFamily: 'SpaceGrotesk'),
-                          gradient: Theme.of(context).linearGradientCustome,
+                              fontFamily: 'ClashGrotesk'),
+                          gradient: Theme.of(context).colorLinear,
                         ),
                         const SizedBox(height: 8),
                         GradientText(
@@ -58,8 +56,8 @@ class ThankFeedback extends StatelessWidget {
                               fontSize: 30,
                               height: 1,
                               fontWeight: FontWeight.w700,
-                              fontFamily: 'SpaceGrotesk'),
-                          gradient: Theme.of(context).linearGradientCustome,
+                              fontFamily: 'ClashGrotesk'),
+                          gradient: Theme.of(context).colorLinear,
                         ),
                         const SizedBox(height: 24),
                         Text(
@@ -68,10 +66,9 @@ class ThankFeedback extends StatelessWidget {
                           style: body(color: grey1100),
                         ),
                         const SizedBox(height: 24),
-                        AppWidget.typeButtonStartAction(
+                        AppWidget.typeButtonGradient(
                             context: context,
                             input: LocaleKeys.swapFaceNow.tr(),
-                            borderRadius: 12,
                             vertical: 16,
                             onPressed: () {
                               context.read<SetIndexBottomBar>().setIndex(0);
@@ -85,15 +82,14 @@ class ThankFeedback extends StatelessWidget {
                         AppWidget.typeButtonStartAction(
                             context: context,
                             input: LocaleKeys.buyMoreToken.tr(),
-                            borderRadius: 12,
                             vertical: 16,
                             onPressed: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pushNamed(Routes.price,
                                   arguments: PriceScreen());
                             },
-                            bgColor: grey200,
-                            borderColor: grey200,
+                            bgColor: grey300,
+                            borderColor: grey300,
                             textColor: grey1100),
                       ],
                     ),
@@ -111,13 +107,13 @@ class ThankFeedback extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                        color: grey200,
+                        color: grey300,
                         borderRadius: BorderRadius.circular(48)),
                     child: Image.asset(
                       icClose,
                       width: 20,
                       height: 20,
-                      color: grey600,
+                      color: grey1100,
                     ),
                   ),
                 ))

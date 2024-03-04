@@ -50,11 +50,13 @@ mixin Queries {
         id
         name
         number
+        is_pro
         ImageCategories(order_by: {updated_at: desc}, limit: $IMAGE_SHOW_LIMIT) {
           id
           image
           category_id
           count_swap
+          is_pro
         }
       }
     }
@@ -67,6 +69,7 @@ mixin Queries {
         category_id
         image
         count_swap
+        is_pro
       }
     }
   ''';
@@ -78,6 +81,7 @@ mixin Queries {
           category_id
           image
           count_swap
+          is_pro
         }
       }
   ''';
@@ -89,6 +93,7 @@ mixin Queries {
           category_id
           image
           count_swap
+          is_pro
         }
       }
   ''';

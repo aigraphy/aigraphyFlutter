@@ -46,7 +46,7 @@ import 'images.dart';
 import 'styles.dart';
 
 /* MUST CONFIG */
-const apiEndpoint = 'your_endpoint_server_python';
+const apiEndpoint = 'http://164.90.175.136:8000';
 const apiUploadImageEndpoint = 'https://aigraphy.vercel.app';
 const tokenIdentifier1 = 'dev_ditustudio_faceswap1';
 const tokenIdentifier2 = 'dev_ditustudio_faceswap2';
@@ -64,6 +64,7 @@ const linkApp = 'https://bit.ly/lpfaceswap';
 const linkAppAIGenVision = 'https://aivision.webflow.io/';
 const linkFacebook = 'https://www.facebook.com/profile.php?id=61555408634180';
 const linkTwitter = 'https://twitter.com/izidev2023';
+const linkPolicy = 'https://aigraphyapp.com/terms-conditions-privacy-policy/';
 DateTime now = DateTime.now();
 
 Future<DateTime> getTime() async {
@@ -79,7 +80,7 @@ Future<DateTime> getTime() async {
 }
 
 String locale = 'en';
-const TOKEN_REWARD = 8;
+const TOKEN_REWARD = 15;
 const TOKEN_DAILY = 15;
 const TOKEN_SHARE = 3;
 const TOKEN_EDIT = 5;
@@ -91,7 +92,7 @@ const TOKEN_SAVE_VIDEO = 5;
 const TOKEN_SAVE_VIDEO_ONLY_HD = 3;
 const TOKEN_SAVE_VIDEO_ONLY_MARK = 2;
 const TOKEN_REMOVE_BG = 4;
-const CATEGORY_LIMIT = 3;
+const CATEGORY_LIMIT = 4;
 const HISTORY_LIMIT = 10;
 const IMAGE_CATEGORY_LIMIT = 10;
 const IMAGE_SHOW_LIMIT = 10;
@@ -150,13 +151,6 @@ final RegExp emailValid = RegExp(
 NumberFormat formatToken(BuildContext context, {int digit = 0}) {
   return NumberFormat.currency(
       locale: 'en', customPattern: '#,###', decimalDigits: digit);
-}
-
-Gradient gradient(BuildContext context) {
-  return LinearGradient(colors: [
-    const Color(0xFFCFE1FD).withOpacity(0.9),
-    const Color(0xFFFFFDE1).withOpacity(0.9),
-  ]);
 }
 
 bool isIOS = Platform.isIOS || Platform.isMacOS;
@@ -302,10 +296,11 @@ void listenInAppPurchase(BuildContext context) {
   Purchases.addCustomerInfoUpdateListener((customerInfo) async {
     final reward = await getRewardTokenIAP();
     if (reward != 0) {
-      await checkNotiFirstTime(customerInfo);
-      await checkNotiOneTime(customerInfo);
       await handleTokenUser(reward, context);
       await setRewardTokenIAP(0);
+      await checkUserPro(context);
+      await checkNotiFirstTime(customerInfo);
+      await checkNotiOneTime(customerInfo);
     }
   });
 }
@@ -418,7 +413,7 @@ Future<void> shareContentMultiUrl(
       subject: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp',
       text: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp');
   if (result.status == ShareResultStatus.success) {
-    AdLovinUtils().showAdIfReady();
+    // AdLovinUtils().showAdIfReady();
     shareImageGetToken(context);
     FirebaseAnalytics.instance.logEvent(name: 'click_share_image');
     BotToast.showText(

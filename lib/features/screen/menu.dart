@@ -1,21 +1,24 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../../app/widget_support.dart';
 import '../../common/bloc/listen_language/bloc_listen_language.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
+import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/app_bar_cpn.dart';
 import '../../common/widget/leave_feedback.dart';
 import '../../common/widget/rate_app.dart';
 import '../../translations/export_lang.dart';
-import '../widget/gift_widget.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -29,7 +32,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget item(String title, {Widget? trailing}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         children: [
           Expanded(
@@ -73,57 +76,25 @@ class _MenuScreenState extends State<MenuScreen> {
             child: Image.asset(icClose, width: 24, height: 24, color: grey1100),
           ),
         ),
+        center: Text('Settings', style: headline(color: grey1100)),
       ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    AnimationClick(
-                        function: () async {
-                          final Uri _url = Uri.parse(linkFacebook);
-                          if (!await launchUrl(_url)) {
-                            throw Exception('Could not launch $_url');
-                          }
-                        },
-                        child: Image.asset(icFacebook, width: 56, height: 56)),
-                    const SizedBox(width: 16),
-                    AnimationClick(
-                        function: () async {
-                          final Uri _url = Uri.parse(linkTwitter);
-                          if (!await launchUrl(_url)) {
-                            throw Exception('Could not launch $_url');
-                          }
-                        },
-                        child: Image.asset(twitter, width: 56, height: 56))
-                  ],
-                ),
-                const GiftWidget(),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          AnimationClick(
-            function: () async {
-              await launchUrlFaceSwap();
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Image.asset(banner_aigenvision,
-                  width: double.infinity, fit: BoxFit.fitWidth),
-            ),
-          ),
-        ],
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: AppWidget.typeButtonStartAction(
+            context: context,
+            input: '${LocaleKeys.signOut.tr()}',
+            bgColor: grey200,
+            textColor: grey1100,
+            borderColor: grey200,
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(Routes.onboarding, (route) => false);
+            }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: ListView(
-        padding: const EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
         children: [
           const Padding(
             padding: EdgeInsets.only(left: 24, right: 24, bottom: 16),
@@ -131,48 +102,74 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
           Text(
             'Support',
-            style: footnote(color: grey600),
+            style: subhead(color: grey600),
           ),
           Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 32),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
                 color: grey200, borderRadius: BorderRadius.circular(16)),
             child: Column(
               children: [
                 item('Contact Support'),
-                item('Delete Account'),
+                AnimationClick(
+                    function: () {
+                      AppWidget.showDialogCustom(LocaleKeys.doYouWant.tr(),
+                          LocaleKeys.youWillLose.tr(), context: context,
+                          remove: () async {
+                        Navigator.of(context).pop();
+                        EasyLoading.show();
+                        await AppWidget.deleteUser();
+                        await FirebaseAuth.instance.signOut();
+                        EasyLoading.dismiss();
+                        BotToast.showText(
+                            text: LocaleKeys.youHaveDeleted.tr(),
+                            textStyle: body(color: grey1100));
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            Routes.onboarding, (route) => false);
+                      });
+                    },
+                    child: item('Delete Account')),
               ],
             ),
           ),
           Text(
             'About',
-            style: footnote(color: grey600),
+            style: subhead(color: grey600),
           ),
           Container(
+            margin: const EdgeInsets.only(top: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
                 color: grey200, borderRadius: BorderRadius.circular(16)),
             child: Column(
               children: [
-                item('About AiGraphy'),
-                item('Language',
-                    trailing: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          context.watch<ListenLanguageBloc>().language,
-                          style: callout(color: grey1100, fontWeight: '400'),
-                        ),
-                        const SizedBox(width: 8),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Image.asset(
-                            icKeyboardRight,
-                            width: 24,
-                            height: 24,
-                            color: grey800,
+                item('About AIGraphy'),
+                AnimationClick(
+                  function: () {
+                    Navigator.of(context).pushNamed(Routes.language);
+                  },
+                  child: item('Language',
+                      trailing: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            context.watch<ListenLanguageBloc>().language,
+                            style: callout(color: grey600, fontWeight: '400'),
                           ),
-                        )
-                      ],
-                    )),
+                          const SizedBox(width: 8),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Image.asset(
+                              icKeyboardRight,
+                              width: 24,
+                              height: 24,
+                              color: grey800,
+                            ),
+                          )
+                        ],
+                      )),
+                ),
                 item('Security terms'),
                 AnimationClick(
                     function: () {
@@ -221,7 +218,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 item('App version',
                     trailing: Text(
                       version,
-                      style: callout(color: grey600),
+                      style: callout(color: grey600, fontWeight: '400'),
                     )),
               ],
             ),

@@ -10,7 +10,7 @@ const Color blueLight3 = Color(0xFF5784E8);
 const Color emerald1 = Color(0xFFC0A975);
 
 //Corn
-const Color corn1 = Color(0xFFFFF569);
+const Color corn1 = Color(0xFFF6D938);
 const Color corn2 = Color(0xFFF6D938);
 
 //Radical Red
@@ -22,6 +22,7 @@ const Color pink = Color(0xFFCE8ABC);
 
 //St Patricks Blue
 const Color stPatricksBlue = Color(0xFFB1CEDE);
+const Color gray = Color(0xFF889098);
 
 //Light Salmon
 const Color lightSalmon = Color(0xFFDCDBB8);

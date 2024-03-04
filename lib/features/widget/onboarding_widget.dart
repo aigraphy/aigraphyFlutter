@@ -6,7 +6,7 @@ mixin OnBoardingWidget {
   static Widget createIndicator(
       {required BuildContext context, int? currentImage, int? lengthImage}) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(lengthImage!, (index) {
           return AnimatedContainer(
               duration: const Duration(milliseconds: 500),
@@ -15,7 +15,7 @@ mixin OnBoardingWidget {
               margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(99),
-                  color: index == currentImage ? grey1100 : grey600));
+                  color: index == currentImage ? grey1100 : grey300));
         }));
   }
 }

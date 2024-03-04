@@ -1,10 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../app/app.dart';
 import '../../features/screen/bottom_bar.dart';
 import '../../features/screen/price_first_time.dart';
 import '../../features/screen/price_one_time.dart';
+import '../bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../route/routes.dart';
 import 'helper.dart';
 
@@ -31,6 +34,15 @@ Future<void> initPushNoti() async {
   await checkNotiFirstTime(customerInfo);
   await checkNotiOneTime(customerInfo);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+}
+
+Future<void> checkUserPro(BuildContext context) async {
+  // final customerInfo = await Purchases.getCustomerInfo();
+  // if (customerInfo.nonSubscriptionTransactions.isEmpty) {
+  //   context.read<SetUserPro>().setIndex(false);
+  // } else {
+  context.read<SetUserPro>().setIndex(true);
+  // }
 }
 
 Future<void> checkNotiFirstTime(CustomerInfo customerInfo) async {

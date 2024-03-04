@@ -17,25 +17,31 @@ import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
-import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/app_bar_cpn.dart';
 import '../../common/widget/gradient_text.dart';
 import '../../features/screen/step_three.dart';
 import '../../features/widget/dotted_image.dart';
-import '../../features/widget/token_widget.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/generate_image/bloc_generate_image.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../widget/gift_widget.dart';
+import '../widget/go_pro.dart';
 import '../widget/not_enough_token.dart';
 import '../widget/recent_face.dart';
 import 'crop_image.dart';
 
 class StepTwo extends StatefulWidget {
-  const StepTwo({super.key, required this.bytes, required this.pathSource});
-  final Uint8List bytes;
-  final String pathSource;
+  const StepTwo(
+      {super.key,
+      this.bytes,
+      this.pathSource,
+      this.isImgCate = false,
+      this.imageCate});
+  final Uint8List? bytes;
+  final String? pathSource;
+  final bool isImgCate;
+  final String? imageCate;
   @override
   State<StepTwo> createState() => _StepTwoState();
 }
@@ -70,7 +76,7 @@ class _StepTwoState extends State<StepTwo> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      backgroundColor: grey100,
+      backgroundColor: grey200,
       isScrollControlled: true,
       builder: (BuildContext context) {
         return const RecentFace(cropImage: true);
@@ -92,20 +98,23 @@ class _StepTwoState extends State<StepTwo> {
   }
 
   void earnedReward({bool handleToken = false}) {
-    context.read<GenerateImageBloc>().add(InitialGenerateImage(
-        context: context,
-        srcPath: widget.pathSource,
-        dstPath: path!,
-        handleToken: handleToken));
     context
         .read<RemoveBGImageBloc>()
         .add(const ResetRemoveBGImage(hasLoaded: true));
-    Navigator.of(context).pushNamed(Routes.step_three,
-        arguments: StepThree(
-            srcImage: widget.bytes,
-            dstImage: yourFace!,
-            dstPath: path!,
-            srcPath: widget.pathSource));
+    if (!widget.isImgCate) {
+      context.read<GenerateImageBloc>().add(InitialGenerateImage(
+          context: context,
+          srcPath: widget.pathSource!,
+          dstPath: path!,
+          handleToken: handleToken));
+
+      Navigator.of(context).pushNamed(Routes.step_three,
+          arguments: StepThree(
+              srcImage: widget.bytes!,
+              dstImage: yourFace!,
+              dstPath: path!,
+              srcPath: widget.pathSource!));
+    } else {}
   }
 
   Future<void> showChooseFace() async {
@@ -116,7 +125,7 @@ class _StepTwoState extends State<StepTwo> {
   void initState() {
     super.initState();
     showChooseFace();
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -139,56 +148,134 @@ class _StepTwoState extends State<StepTwo> {
             ),
           ),
         ),
-        right: const TokenWidget(),
+        right: Row(
+          children: [
+            const GoPro(),
+            Padding(
+              padding: const EdgeInsets.only(right: 24, left: 12),
+              child: AnimationClick(
+                function: () {
+                  Navigator.of(context).pushNamed(Routes.menu);
+                },
+                child: Image.asset(
+                  circles_four,
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: const GiftWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 32),
-        child: AppWidget.typeButtonStartAction(
-            context: context,
-            input: '${LocaleKeys.generate.tr()} -$TOKEN_SWAP',
-            bgColor: check ? primary : grey200,
-            textColor: check ? grey1100 : grey300,
-            borderColor: check ? primary : grey200,
-            icon: token2,
-            colorAsset: check ? null : grey300,
-            borderRadius: 12,
-            onPressed: check
-                ? () {
-                    final userModel = context.read<UserBloc>().userModel!;
-                    if (userModel.token >= TOKEN_SWAP) {
-                      EasyLoading.show();
-                      showInterApplovin(context, () {}, seconds: 5);
-                      earnedReward(handleToken: true);
-                      if (hasUpdateFace) {
-                        uploadFace(context, yourFace);
-                      }
-                      EasyLoading.dismiss();
-                    } else {
-                      showDialog<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const NotEnoughToken();
-                        },
-                      );
+        child: check
+            ? AppWidget.typeButtonGradientAfter(
+                context: context,
+                input: '${LocaleKeys.generate.tr()}  -$TOKEN_SWAP',
+                textColor: grey1100,
+                icon: token,
+                sizeAsset: 16,
+                onPressed: () {
+                  final userModel = context.read<UserBloc>().userModel!;
+                  if (userModel.token >= TOKEN_SWAP) {
+                    EasyLoading.show();
+                    // showInterApplovin(context, () {}, seconds: 5);
+                    earnedReward(handleToken: true);
+                    if (hasUpdateFace) {
+                      uploadFace(context, yourFace);
                     }
+                    EasyLoading.dismiss();
+                  } else {
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const NotEnoughToken();
+                      },
+                    );
                   }
-                : () {
-                    BotToast.showText(
-                        text: LocaleKeys.youNeedChooseYourFace.tr(),
-                        textStyle: body(color: grey1100));
-                  }),
+                })
+            : AppWidget.typeButtonStartAction(
+                context: context,
+                input: '${LocaleKeys.generate.tr()}',
+                bgColor: grey200,
+                textColor: grey300,
+                borderColor: grey200,
+                onPressed: () {
+                  BotToast.showText(
+                      text: LocaleKeys.youNeedChooseYourFace.tr(),
+                      textStyle: body(color: grey1100));
+                }),
       ),
       body: ListView(
         children: [
-          if (!isIOS)
-            const Padding(
-              padding: EdgeInsets.only(bottom: 24),
-              child: AdsApplovinBanner(),
-            ),
+          // if (!isIOS)
+          //   const Padding(
+          //     padding: EdgeInsets.only(bottom: 24),
+          //     child: AdsApplovinBanner(),
+          //   ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: widget.isImgCate
+                    ? Image.network(
+                        widget.imageCate!,
+                        width: 64,
+                        height: 64,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.memory(
+                        widget.bytes!,
+                        width: 64,
+                        height: 64,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Image.asset(icArrowRight,
+                    width: 24, height: 24, color: lightSalmon),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: yourFace != null
+                    ? Image.memory(
+                        yourFace!,
+                        width: 64,
+                        height: 64,
+                        fit: BoxFit.cover,
+                      )
+                    : Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          DottedBorder(
+                            color: grey400,
+                            borderType: BorderType.RRect,
+                            dashPattern: const [8, 4],
+                            radius: const Radius.circular(32),
+                            child: const SizedBox(
+                              height: 62,
+                              width: 62,
+                            ),
+                          ),
+                          Positioned(
+                              child: Image.asset(
+                            smile,
+                            width: 28,
+                            height: 28,
+                            color: grey400,
+                          ))
+                        ],
+                      ),
+              )
+            ],
+          ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 32),
+            padding: const EdgeInsets.only(bottom: 32, top: 24),
             child: yourFace == null
                 ? AnimationClick(
                     function: setPhoto,
@@ -219,7 +306,8 @@ class _StepTwoState extends State<StepTwo> {
                                   child: Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                          color: primary,
+                                          gradient:
+                                              Theme.of(context).colorLinear,
                                           borderRadius:
                                               BorderRadius.circular(32)),
                                       child: const Icon(
@@ -234,7 +322,8 @@ class _StepTwoState extends State<StepTwo> {
                                   child: Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                          color: primary,
+                                          gradient:
+                                              Theme.of(context).colorLinear,
                                           borderRadius:
                                               BorderRadius.circular(32)),
                                       child: const Icon(
@@ -254,11 +343,11 @@ class _StepTwoState extends State<StepTwo> {
             child: GradientText(
               LocaleKeys.yourImage.tr(),
               style: const TextStyle(
-                  fontSize: 40,
+                  fontSize: 32,
                   height: 1,
                   fontWeight: FontWeight.w700,
-                  fontFamily: 'SpaceGrotesk'),
-              gradient: Theme.of(context).linearGradientCustome,
+                  fontFamily: 'ClashGrotesk'),
+              gradient: Theme.of(context).colorLinear,
             ),
           ),
           Padding(
@@ -275,57 +364,6 @@ class _StepTwoState extends State<StepTwo> {
             style: body(color: grey1100),
           ),
           const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.memory(
-                  widget.bytes,
-                  width: 64,
-                  height: 64,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Image.asset(icArrowRight,
-                    width: 24, height: 24, color: lightSalmon),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: yourFace != null
-                    ? Image.memory(
-                        yourFace!,
-                        width: 64,
-                        height: 64,
-                        fit: BoxFit.cover,
-                      )
-                    : Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          DottedBorder(
-                            color: grey400,
-                            borderType: BorderType.RRect,
-                            dashPattern: const [8, 4],
-                            radius: const Radius.circular(16),
-                            child: const SizedBox(
-                              height: 64,
-                              width: 64,
-                            ),
-                          ),
-                          Positioned(
-                              child: Image.asset(
-                            smile,
-                            width: 32,
-                            height: 32,
-                            color: grey400,
-                          ))
-                        ],
-                      ),
-              )
-            ],
-          ),
         ],
       ),
     );

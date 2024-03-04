@@ -55,8 +55,8 @@ class NotEnoughToken extends StatelessWidget {
                           fontSize: 28,
                           height: 1,
                           fontWeight: FontWeight.w700,
-                          fontFamily: 'SpaceGrotesk'),
-                      gradient: Theme.of(context).linearGradientCustome,
+                          fontFamily: 'ClashGrotesk'),
+                      gradient: Theme.of(context).colorLinear,
                     ),
                     const SizedBox(height: 4),
                     GradientText(
@@ -65,41 +65,42 @@ class NotEnoughToken extends StatelessWidget {
                           fontSize: 28,
                           height: 1,
                           fontWeight: FontWeight.w700,
-                          fontFamily: 'SpaceGrotesk'),
-                      gradient: Theme.of(context).linearGradientCustome,
+                          fontFamily: 'ClashGrotesk'),
+                      gradient: Theme.of(context).colorLinear,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 16),
+                      padding: const EdgeInsets.only(
+                          top: 8, bottom: 16, left: 24, right: 24),
                       child: Text(
                         LocaleKeys.tryToBuy.tr(),
                         textAlign: TextAlign.center,
                         style: subhead(color: grey1100, fontWeight: '400'),
                       ),
                     ),
-                    AppWidget.typeButtonStartAction(
+                    AppWidget.typeButtonGradient(
                         context: context,
                         input: LocaleKeys.buyMoreToken.tr(),
-                        borderRadius: 12,
                         onPressed: () {
                           Navigator.of(context).pushNamed(Routes.price,
                               arguments: PriceScreen());
                         },
-                        bgColor: primary,
-                        borderColor: primary,
                         textColor: grey1100),
-                    const SizedBox(height: 16),
-                    AppWidget.typeButtonStartAction(
-                        context: context,
-                        input:
-                            '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                        borderRadius: 12,
-                        onPressed: () {
-                          showRewardApplovin(context, updateTokenUser,
-                              reward: TOKEN_REWARD);
-                        },
-                        bgColor: grey100,
-                        borderColor: grey100,
-                        textColor: grey1100),
+                    const SizedBox(height: 24),
+                    AnimationClick(
+                      function: () {
+                        // showRewardApplovin(context, updateTokenUser,
+                        //     reward: TOKEN_REWARD);
+                      },
+                      child: GradientText(
+                        '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
+                        style: const TextStyle(
+                            fontSize: 16,
+                            height: 1,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'ClashGrotesk'),
+                        gradient: Theme.of(context).colorLinear,
+                      ),
+                    ),
                     const SizedBox(height: 24)
                   ],
                 ),
@@ -121,7 +122,7 @@ class NotEnoughToken extends StatelessWidget {
                       icClose,
                       width: 20,
                       height: 20,
-                      color: grey600,
+                      color: grey1100,
                     ),
                   ),
                 ))

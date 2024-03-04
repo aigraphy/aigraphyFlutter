@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../features/screen/bottom_bar.dart';
 import '../../features/screen/detail_history.dart';
+import '../../features/screen/full_image_category.dart';
 import '../../features/screen/image_full_screen.dart';
 import '../../features/screen/language.dart';
 import '../../features/screen/menu.dart';
@@ -22,7 +23,7 @@ import 'routes.dart';
 mixin RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // / route catalog AiGraphy
+      // / route catalog AIGraphy
       case Routes.onboarding:
         return MaterialPageRoute<dynamic>(
           builder: (context) => const Onboarding(),
@@ -39,6 +40,8 @@ mixin RouteGenerator {
         return MaterialPageRoute<dynamic>(
           builder: (context) => StepTwo(
             bytes: args.bytes,
+            isImgCate: args.isImgCate,
+            imageCate: args.imageCate,
             pathSource: args.pathSource,
           ),
         );
@@ -114,6 +117,13 @@ mixin RouteGenerator {
       case Routes.menu:
         return MaterialPageRoute<dynamic>(
           builder: (context) => const MenuScreen(),
+        );
+      case Routes.full_image_cate:
+        final args = settings.arguments as FullImageCategory;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => FullImageCategory(
+            categoryModel: args.categoryModel,
+          ),
         );
       default:
         return _errorRoute();

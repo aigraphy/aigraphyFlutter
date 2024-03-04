@@ -9,6 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_editor_plus/options.dart' as o;
 import 'package:image_picker/image_picker.dart';
 
+import '../../app/widget_support.dart';
 import '../../common/bloc/recent_face/bloc_recent_face.dart';
 import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
@@ -101,7 +102,7 @@ class _RecentFaceState extends State<RecentFace> {
       builder: (BuildContext context) {
         return SizedBox(
             height: MediaQuery.of(context).size.height * 0.75,
-            child: const ListPhoto(cropImage: true));
+            child: ListPhoto(cropImage: widget.cropImage));
       },
       context: context,
     ).then((dynamic value) async {
@@ -293,8 +294,8 @@ class _RecentFaceState extends State<RecentFace> {
                     fontSize: 32,
                     height: 1,
                     fontWeight: FontWeight.w700,
-                    fontFamily: 'SpaceGrotesk'),
-                gradient: Theme.of(context).linearGradientCustome,
+                    fontFamily: 'ClashGrotesk'),
+                gradient: Theme.of(context).colorLinear,
               ),
             ),
             const SizedBox(height: 8),
@@ -305,81 +306,20 @@ class _RecentFaceState extends State<RecentFace> {
             const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: GradientText(
-                LocaleKeys.orAddNewFace.tr(),
-                style: const TextStyle(
-                    fontSize: 22,
-                    height: 1,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'SpaceGrotesk'),
-                gradient: Theme.of(context).linearGradientCustome,
-              ),
+              child: AppWidget.typeButtonGradient(
+                  context: context,
+                  icon: ic_add_face,
+                  sizeAsset: 24,
+                  input: 'Add New Face',
+                  onPressed: () async {
+                    await checkShowSlot();
+                    setPhoto();
+                  },
+                  textColor: grey1100),
             ),
+
             const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: AnimationClick(
-                      function: () async {
-                        await checkShowSlot();
-                        takeAPhoto();
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                            color: grey200,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(icCamera,
-                                width: 24, height: 24, color: grey1100),
-                            const SizedBox(height: 16),
-                            Text(
-                              LocaleKeys.camera.tr(),
-                              style: headline(color: grey1100),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 24),
-                  Expanded(
-                    child: AnimationClick(
-                      function: () async {
-                        await checkShowSlot();
-                        setPhoto();
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                            color: grey200,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(icPhoto,
-                                width: 24, height: 24, color: grey1100),
-                            const SizedBox(height: 16),
-                            Text(
-                              LocaleKeys.photos.tr(),
-                              style: headline(color: grey1100),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            if (!isIOS) const Center(child: AdsApplovinBanner())
+            // if (!isIOS) const Center(child: AdsApplovinBanner())
           ],
         ),
       ),

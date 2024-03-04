@@ -41,7 +41,7 @@ class _ResultEditImageState extends State<ResultEditImage>
   PageController? controller;
 
   void navigatePop() {
-    checkHasAds();
+    // checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -52,7 +52,7 @@ class _ResultEditImageState extends State<ResultEditImage>
     controller = PageController();
     requestId = widget.requestId;
     imageEdit = widget.imageEdit;
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -104,11 +104,11 @@ class _ResultEditImageState extends State<ResultEditImage>
                         function: () async {
                           EasyLoading.show();
                           if (imageRemoveBG != null) {
-                            AdLovinUtils().showAdIfReady();
+                            // AdLovinUtils().showAdIfReady();
                             await downloadMultiImage(
                                 [imageEdit, imageRemoveBG!]);
                           } else {
-                            showOpenAdsWhenDownShare();
+                            // showOpenAdsWhenDownShare();
                             await downloadMultiImage([imageEdit]);
                           }
                           EasyLoading.dismiss();
@@ -150,7 +150,7 @@ class _ResultEditImageState extends State<ResultEditImage>
                                     top: Radius.circular(24))),
                             builder: (BuildContext ctx) {
                               return FractionallySizedBox(
-                                heightFactor: 0.6,
+                                heightFactor: 0.32,
                                 child: RemoveBg(
                                     ctx: context,
                                     link: imageEdit,
@@ -164,21 +164,7 @@ class _ResultEditImageState extends State<ResultEditImage>
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              AppWidget.typeButtonStartAction(
-                  context: context,
-                  input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
-                  bgColor: primary,
-                  icon: token2,
-                  sizeAsset: 16,
-                  textColor: grey1100,
-                  borderColor: primary,
-                  borderRadius: 12,
-                  onPressed: () {
-                    showRating(context);
-                    navigatePop();
-                  }),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
@@ -198,6 +184,20 @@ class _ResultEditImageState extends State<ResultEditImage>
                   ],
                 ),
               ),
+              const SizedBox(height: 8),
+              AppWidget.typeButtonStartAction(
+                  context: context,
+                  input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
+                  bgColor: primary,
+                  icon: token,
+                  sizeAsset: 16,
+                  textColor: grey1100,
+                  borderColor: primary,
+                  borderRadius: 12,
+                  onPressed: () {
+                    showRating(context);
+                    navigatePop();
+                  }),
               const Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: AdsApplovinBanner(),

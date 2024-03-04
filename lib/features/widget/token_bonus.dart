@@ -14,7 +14,7 @@ class TokenBonus extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        gradient: gradient(context),
+        gradient: Theme.of(context).colorLinear,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -25,8 +25,8 @@ class TokenBonus extends StatelessWidget {
             height: 14,
           ),
           Text(
-            '+$TOKEN_SHARE',
-            style: footnote(color: grey100, fontWeight: '700'),
+            ' +$TOKEN_SHARE',
+            style: footnote(color: grey1100, fontWeight: '700'),
           ),
         ],
       ),

@@ -47,7 +47,7 @@ class GuideRemove extends StatelessWidget {
                     fontSize: 24,
                     height: 1,
                     fontWeight: FontWeight.w700,
-                    fontFamily: 'SpaceGrotesk'),
+                    fontFamily: 'ClashGrotesk'),
                 gradient: Theme.of(context).linearGradientCustome,
               ),
             ),
