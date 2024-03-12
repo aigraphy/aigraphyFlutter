@@ -25,14 +25,14 @@ Future<void> main() async {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
             apiKey: 'AIzaSyCLUqlbAPYbLusw4m2v3aIiayCcp4JjwpM',
-            appId: '1:635220140788:ios:38b7663ff2c472bd0a34a1',
+            appId: '1:635220140788:ios:accea587da88cc480a34a1',
             messagingSenderId: '635220140788',
             projectId: 'aigraphy-e594d'));
   } else {
     await Firebase.initializeApp(
         name: 'AIGraphy Android',
         options: const FirebaseOptions(
-          appId: '1:635220140788:android:2a9c6e326fdbf8b40a34a1',
+          appId: '1:635220140788:android:c11e9cfb93777a830a34a1',
           apiKey: 'AIzaSyAoI1ZyaErdrDlGCau3x5Th5EafVU1-HZY',
           projectId: 'aigraphy-e594d',
           authDomain: 'aigraphy.vercel.app',
