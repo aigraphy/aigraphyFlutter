@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:applovin_max/applovin_max.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +16,6 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
@@ -161,7 +159,7 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
       ),
     );
 
-    AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
+    // AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
   }
 
   @override
@@ -272,43 +270,43 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
                   ),
                 ),
               )),
-          Positioned(
-              right: 24,
-              top: 64,
-              child: AnimationClick(
-                function: () {
-                  showRewardApplovin(context, updateTokenUser,
-                      reward: TOKEN_REWARD);
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    gradient: Theme.of(context).colorLinear,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        video_camera,
-                        width: 24,
-                        height: 24,
-                        color: grey1100,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                        style: body(color: grey1100, fontWeight: '600'),
-                      ),
-                    ],
-                  ),
-                ),
-              )),
+          // Positioned(
+          //     right: 24,
+          //     top: 64,
+          //     child: AnimationClick(
+          //       function: () {
+          //         showRewardApplovin(context, updateTokenUser,
+          //             reward: TOKEN_REWARD);
+          //       },
+          //       child: Container(
+          //         padding:
+          //             const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          //         decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.circular(24),
+          //           gradient: Theme.of(context).colorLinear,
+          //         ),
+          //         child: Row(
+          //           mainAxisSize: MainAxisSize.min,
+          //           crossAxisAlignment: CrossAxisAlignment.center,
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Image.asset(
+          //               video_camera,
+          //               width: 24,
+          //               height: 24,
+          //               color: grey1100,
+          //             ),
+          //             const SizedBox(
+          //               width: 8,
+          //             ),
+          //             Text(
+          //               '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
+          //               style: body(color: grey1100, fontWeight: '600'),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     )),
           Positioned(
               bottom: 0,
               left: 0,

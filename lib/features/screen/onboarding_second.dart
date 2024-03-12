@@ -1,4 +1,3 @@
-import 'package:applovin_max/applovin_max.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -6,7 +5,6 @@ import '../../app/widget_support.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/gradient_text.dart';
@@ -25,7 +23,7 @@ class _OnboardingSecondState extends State<OnboardingSecond> {
   @override
   void initState() {
     super.initState();
-    AppLovinMAX.loadAppOpenAd(AdLovinUtils().openAdUnitIdApplovin);
+    // AppLovinMAX.loadAppOpenAd(AdLovinUtils().openAdUnitIdApplovin);
     _controller = VideoPlayerController.asset(onboarding3)
       ..initialize().then((value) {
         setState(() {});
@@ -103,7 +101,7 @@ class _OnboardingSecondState extends State<OnboardingSecond> {
                                   context: context,
                                   input: "Let's Start",
                                   onPressed: () {
-                                    AdLovinUtils().showAdIfReady();
+                                    // AdLovinUtils().showAdIfReady();
                                     Navigator.of(context).pushReplacementNamed(
                                         Routes.bottom_bar,
                                         arguments: const BottomBar());

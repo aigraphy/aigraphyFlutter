@@ -8,7 +8,6 @@ import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/widget/gradient_text.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
@@ -33,7 +32,7 @@ class _RemoveBgState extends State<RemoveBg> {
   @override
   void initState() {
     super.initState();
-    checkHasAds();
+    // checkHasAds();
     options = [
       {
         'title': LocaleKeys.humanAndAnimal.tr(),
@@ -44,11 +43,11 @@ class _RemoveBgState extends State<RemoveBg> {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> updateTokenUser(int reward) async {
-      final UserBloc userBloc = context.read<UserBloc>();
-      userBloc.add(UpdateTokenUser(userBloc.userModel!.token + reward));
-      Navigator.of(context).pop();
-    }
+    // Future<void> updateTokenUser(int reward) async {
+    //   final UserBloc userBloc = context.read<UserBloc>();
+    //   userBloc.add(UpdateTokenUser(userBloc.userModel!.token + reward));
+    //   Navigator.of(context).pop();
+    // }
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -87,7 +86,7 @@ class _RemoveBgState extends State<RemoveBg> {
                 );
               } else {
                 EasyLoading.show();
-                showInterApplovin(context, () {}, seconds: 5);
+                // showInterApplovin(context, () {}, seconds: 5);
                 BlocProvider.of<RemoveBGImageBloc>(context).add(
                     InitialRemoveBGImage(
                         context: widget.ctx,
@@ -101,18 +100,18 @@ class _RemoveBgState extends State<RemoveBg> {
             icon: token,
             sizeAsset: 20,
             textColor: grey1100),
-        const SizedBox(height: 8),
-        AppWidget.typeButtonStartAction(
-            context: context,
-            bgColor: grey300,
-            borderColor: grey300,
-            input:
-                '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-            onPressed: () {
-              showRewardApplovin(context, updateTokenUser,
-                  reward: TOKEN_REWARD);
-            },
-            textColor: grey1100),
+        // const SizedBox(height: 8),
+        // AppWidget.typeButtonStartAction(
+        //     context: context,
+        //     bgColor: grey300,
+        //     borderColor: grey300,
+        //     input:
+        //         '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
+        //     onPressed: () {
+        //       // showRewardApplovin(context, updateTokenUser,
+        //       //     reward: TOKEN_REWARD);
+        //     },
+        //     textColor: grey1100),
         const SizedBox(height: 24)
       ],
     );

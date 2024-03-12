@@ -1,9 +1,4 @@
-import 'package:applovin_max/applovin_max.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-
-import '../constant/colors.dart';
-import '../helper_ads/ads_lovin_utils.dart';
 
 class AdsNativeApplovinNormal extends StatefulWidget {
   const AdsNativeApplovinNormal({Key? key, this.showAdsWhenNotHave = false})
@@ -15,8 +10,8 @@ class AdsNativeApplovinNormal extends StatefulWidget {
 
 class _AdsNativeApplovinState extends State<AdsNativeApplovinNormal>
     with AutomaticKeepAliveClientMixin {
-  final MaxNativeAdViewController _nativeAdViewController =
-      MaxNativeAdViewController();
+  // final MaxNativeAdViewController _nativeAdViewController =
+  //     MaxNativeAdViewController();
   bool hasAds = false;
   @override
   bool get wantKeepAlive => true;

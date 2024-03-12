@@ -11,12 +11,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_editor_plus/options.dart' as o;
 
 import '../../app/widget_support.dart';
-import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
@@ -29,7 +27,6 @@ import '../bloc/generate_image/bloc_generate_image.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../widget/gift_widget.dart';
 import '../widget/go_pro.dart';
-import '../widget/not_enough_token.dart';
 import '../widget/recent_face.dart';
 import 'crop_image.dart';
 
@@ -148,7 +145,7 @@ class _StepTwoState extends State<StepTwo> {
   void initState() {
     super.initState();
     showChooseFace();
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -205,7 +202,7 @@ class _StepTwoState extends State<StepTwo> {
                   // final userModel = context.read<UserBloc>().userModel!;
                   // if (userModel.token >= TOKEN_SWAP) {
                   EasyLoading.show();
-                  showInterApplovin(context, () {}, seconds: 5);
+                  // showInterApplovin(context, () {}, seconds: 5);
                   await earnedReward(handleToken: true);
                   if (hasUpdateFace) {
                     uploadFace(context, yourFace);

@@ -25,11 +25,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'applovin-quality-service'
+// apply plugin: 'applovin-quality-service'
 
-applovin {
-    apiKey "4XXCrTW9BKE1etE9KxaM0L65ZQlmoriD5qOFI7tt3tpty0B08z06KbImoPMqCUfhJrwHvLA4zAGOby0O9_CiDC"
-}
+// applovin {
+//     apiKey "4XXCrTW9BKE1etE9KxaM0L65ZQlmoriD5qOFI7tt3tpty0B08z06KbImoPMqCUfhJrwHvLA4zAGOby0O9_CiDC"
+// }
 
 android {
     namespace "aigraphyapp.tn.com"
@@ -79,5 +79,5 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation("com.android.billingclient:billing-ktx:6.0.1")
-    implementation 'com.applovin:applovin-sdk:11.11.3'
+    // implementation 'com.applovin:applovin-sdk:11.11.3'
 }

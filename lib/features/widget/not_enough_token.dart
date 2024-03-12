@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/widget_support.dart';
-import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
-import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/gradient_text.dart';
@@ -19,11 +15,11 @@ class NotEnoughToken extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> updateTokenUser(int reward) async {
-      final UserBloc userBloc = context.read<UserBloc>();
-      userBloc.add(UpdateTokenUser(userBloc.userModel!.token + reward));
-      Navigator.of(context).pop();
-    }
+    // Future<void> updateTokenUser(int reward) async {
+    //   final UserBloc userBloc = context.read<UserBloc>();
+    //   userBloc.add(UpdateTokenUser(userBloc.userModel!.token + reward));
+    //   Navigator.of(context).pop();
+    // }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -85,22 +81,22 @@ class NotEnoughToken extends StatelessWidget {
                               arguments: PriceScreen());
                         },
                         textColor: grey1100),
-                    const SizedBox(height: 24),
-                    AnimationClick(
-                      function: () {
-                        showRewardApplovin(context, updateTokenUser,
-                            reward: TOKEN_REWARD);
-                      },
-                      child: GradientText(
-                        '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                        style: const TextStyle(
-                            fontSize: 16,
-                            height: 1,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'ClashGrotesk'),
-                        gradient: Theme.of(context).colorLinear,
-                      ),
-                    ),
+                    // const SizedBox(height: 24),
+                    // AnimationClick(
+                    //   function: () {
+                    //     showRewardApplovin(context, updateTokenUser,
+                    //         reward: TOKEN_REWARD);
+                    //   },
+                    //   child: GradientText(
+                    //     '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
+                    //     style: const TextStyle(
+                    //         fontSize: 16,
+                    //         height: 1,
+                    //         fontWeight: FontWeight.w700,
+                    //         fontFamily: 'ClashGrotesk'),
+                    //     gradient: Theme.of(context).colorLinear,
+                    //   ),
+                    // ),
                     const SizedBox(height: 24)
                   ],
                 ),

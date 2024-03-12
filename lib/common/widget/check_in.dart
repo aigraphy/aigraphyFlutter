@@ -12,7 +12,6 @@ import '../constant/colors.dart';
 import '../constant/error_code.dart';
 import '../constant/helper.dart';
 import '../constant/images.dart';
-import '../helper_ads/ads_lovin_utils.dart';
 import '../models/user_model.dart';
 import 'animation_click.dart';
 
@@ -120,24 +119,24 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                               borderColor: primary,
                               textColor: grey1100),
                         ),
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: AppWidget.typeButtonStartAction2(
-                              context: context,
-                              input: '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
-                              vertical: 16,
-                              icon: video_camera,
-                              colorAsset: grey100,
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                showRewardApplovin(context, updateTokenUser,
-                                    reward: TOKEN_REWARD);
-                              },
-                              bgColor: grey1100,
-                              borderColor: grey1100,
-                              textColor: grey100),
-                        ),
+                        // const SizedBox(height: 16),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 24),
+                        //   child: AppWidget.typeButtonStartAction2(
+                        //       context: context,
+                        //       input: '+$TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
+                        //       vertical: 16,
+                        //       icon: video_camera,
+                        //       colorAsset: grey100,
+                        //       onPressed: () {
+                        //         Navigator.of(context).pop();
+                        //         showRewardApplovin(context, updateTokenUser,
+                        //             reward: TOKEN_REWARD);
+                        //       },
+                        //       bgColor: grey1100,
+                        //       borderColor: grey1100,
+                        //       textColor: grey100),
+                        // ),
                       ],
                     ),
                   ),

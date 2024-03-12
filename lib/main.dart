@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:applovin_max/applovin_max.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'app/app.dart';
-import 'common/helper_ads/ads_lovin_utils.dart';
 import 'translations/codegen_loader.g.dart';
 
 Future<void> main() async {
@@ -18,7 +16,7 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   tz.initializeTimeZones();
   // await MobileAds.instance.initialize();
-  await AppLovinMAX.initialize(AdLovinUtils().keySdkApplovin);
+  // await AppLovinMAX.initialize(AdLovinUtils().keySdkApplovin);
   await EasyLocalization.ensureInitialized();
   if (Platform.isMacOS || Platform.isIOS) {
     /* MUST CONFIG */

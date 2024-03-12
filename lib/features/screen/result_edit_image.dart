@@ -9,7 +9,6 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
@@ -41,7 +40,7 @@ class _ResultEditImageState extends State<ResultEditImage>
   PageController? controller;
 
   void navigatePop() {
-    checkHasAds();
+    // checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -52,7 +51,7 @@ class _ResultEditImageState extends State<ResultEditImage>
     controller = PageController();
     requestId = widget.requestId;
     imageEdit = widget.imageEdit;
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -104,11 +103,11 @@ class _ResultEditImageState extends State<ResultEditImage>
                         function: () async {
                           EasyLoading.show();
                           if (imageRemoveBG != null) {
-                            AdLovinUtils().showAdIfReady();
+                            // AdLovinUtils().showAdIfReady();
                             await downloadMultiImage(
                                 [imageEdit, imageRemoveBG!]);
                           } else {
-                            showOpenAdsWhenDownShare();
+                            // showOpenAdsWhenDownShare();
                             await downloadMultiImage([imageEdit]);
                           }
                           EasyLoading.dismiss();

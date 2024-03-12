@@ -1,7 +1,4 @@
-import 'package:applovin_max/applovin_max.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import '../helper_ads/ads_lovin_utils.dart';
 
 class AdsApplovinBanner extends StatefulWidget {
   const AdsApplovinBanner({Key? key}) : super(key: key);

@@ -14,7 +14,6 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/util/upload_image.dart';
 import '../../common/widget/ads_applovin_banner.dart';
@@ -187,10 +186,10 @@ class _DetailHistoryState extends State<DetailHistory> {
                       function: () async {
                         EasyLoading.show();
                         if (imageRemoveBG != null) {
-                          AdLovinUtils().showAdIfReady();
+                          // AdLovinUtils().showAdIfReady();
                           await downloadMultiImage([urlResult, imageRemoveBG!]);
                         } else {
-                          showOpenAdsWhenDownShare();
+                          // showOpenAdsWhenDownShare();
                           await downloadMultiImage([urlResult]);
                         }
                         EasyLoading.dismiss();

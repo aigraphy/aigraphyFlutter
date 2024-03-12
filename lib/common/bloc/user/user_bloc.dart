@@ -6,7 +6,6 @@ import '../../../../common/models/user_model.dart';
 import '../../constant/helper.dart';
 import '../../graphql/config.dart';
 import '../../graphql/mutations.dart';
-import '../../helper_ads/ads_lovin_utils.dart';
 import 'bloc_user.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
@@ -90,7 +89,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (state is UserLoaded) {
       try {
         EasyLoading.show();
-        AdLovinUtils().showAdIfReady();
+        // AdLovinUtils().showAdIfReady();
         userModel = await updateSlotRecentFace(
             userModel!.slotRecentFace + 1,
             userModel!.token -
@@ -111,7 +110,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (state is UserLoaded) {
       try {
         EasyLoading.show();
-        AdLovinUtils().showAdIfReady();
+        // AdLovinUtils().showAdIfReady();
         userModel = await updateSlotHistory(
             userModel!.slotHistory + 20,
             userModel!.token -

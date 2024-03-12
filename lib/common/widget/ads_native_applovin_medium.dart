@@ -1,12 +1,6 @@
-import 'package:applovin_max/applovin_max.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
-import '../constant/colors.dart';
-import '../constant/styles.dart';
-import '../helper_ads/ads_lovin_utils.dart';
-
-const double _kMediaViewAspectRatio = 16 / 9;
+// const double _kMediaViewAspectRatio = 16 / 9;
 
 class AdsNativeApplovinMedium extends StatefulWidget {
   const AdsNativeApplovinMedium({Key? key, this.showAdsWhenNotHave = false})
@@ -19,45 +13,45 @@ class AdsNativeApplovinMedium extends StatefulWidget {
 
 class _AdsNativeApplovinState extends State<AdsNativeApplovinMedium>
     with AutomaticKeepAliveClientMixin {
-  final MaxNativeAdViewController _nativeAdViewController =
-      MaxNativeAdViewController();
-  double _mediaViewAspectRatio = _kMediaViewAspectRatio;
-  late NativeAdListener nativeAdListener;
+  // final MaxNativeAdViewController _nativeAdViewController =
+  //     MaxNativeAdViewController();
+  // double _mediaViewAspectRatio = _kMediaViewAspectRatio;
+  // late NativeAdListener nativeAdListener;
   bool hasAds = false;
   @override
   bool get wantKeepAlive => true;
-  @override
-  void initState() {
-    super.initState();
-    nativeAdListener = NativeAdListener(
-        onAdLoadedCallback: (ad) {
-          setState(() {
-            _mediaViewAspectRatio =
-                ad.nativeAd?.mediaContentAspectRatio ?? _kMediaViewAspectRatio;
-            hasAds = true;
-          });
-          Future.delayed(const Duration(seconds: 30)).whenComplete(() {
-            _nativeAdViewController.loadAd();
-          });
-        },
-        onAdLoadFailedCallback: (adUnitId, error) {
-          Future.delayed(const Duration(seconds: 15)).whenComplete(() {
-            _nativeAdViewController.loadAd();
-          });
-        },
-        onAdClickedCallback: (ad) {},
-        onAdRevenuePaidCallback: (ad) {
-          FirebaseAnalytics.instance
-              .logEvent(name: 'ad_impression', parameters: {
-            'ad_platform': 'appLovin',
-            'ad_unit_name': ad.adUnitId,
-            'ad_format': 'native',
-            'ad_source': ad.networkName,
-            'value': ad.revenue,
-            'currency': 'USD'
-          });
-        });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // nativeAdListener = NativeAdListener(
+  //   //     onAdLoadedCallback: (ad) {
+  //   //       setState(() {
+  //   //         _mediaViewAspectRatio =
+  //   //             ad.nativeAd?.mediaContentAspectRatio ?? _kMediaViewAspectRatio;
+  //   //         hasAds = true;
+  //   //       });
+  //   //       Future.delayed(const Duration(seconds: 30)).whenComplete(() {
+  //   //         _nativeAdViewController.loadAd();
+  //   //       });
+  //   //     },
+  //   //     onAdLoadFailedCallback: (adUnitId, error) {
+  //   //       Future.delayed(const Duration(seconds: 15)).whenComplete(() {
+  //   //         _nativeAdViewController.loadAd();
+  //   //       });
+  //   //     },
+  //   //     onAdClickedCallback: (ad) {},
+  //   //     onAdRevenuePaidCallback: (ad) {
+  //   //       FirebaseAnalytics.instance
+  //   //           .logEvent(name: 'ad_impression', parameters: {
+  //   //         'ad_platform': 'appLovin',
+  //   //         'ad_unit_name': ad.adUnitId,
+  //   //         'ad_format': 'native',
+  //   //         'ad_source': ad.networkName,
+  //   //         'value': ad.revenue,
+  //   //         'currency': 'USD'
+  //   //       });
+  //   //     });
+  // }
 
   @override
   Widget build(BuildContext context) {

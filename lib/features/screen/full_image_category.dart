@@ -12,12 +12,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../app/widget_support.dart';
 import '../../common/bloc/recent_face/bloc_recent_face.dart';
 import '../../common/bloc/set_user_pro/set_user_pro_bloc.dart';
-import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/models/category_model.dart';
 import '../../common/models/image_category_model.dart';
 import '../../common/route/routes.dart';
@@ -32,7 +30,6 @@ import '../widget/dotted_image.dart';
 import '../widget/go_pro_logo.dart';
 import '../widget/image_opacity.dart';
 import '../widget/loading_img_full.dart';
-import '../widget/not_enough_token.dart';
 import '../widget/recent_face.dart';
 import 'price_first_time.dart';
 import 'step_three.dart';
@@ -102,7 +99,7 @@ class _FullImageCategoryState extends State<FullImageCategory> {
             pathYourFace = value['path'];
             _faceIndex = 0;
           });
-          AdLovinUtils().showAdIfReady();
+          // AdLovinUtils().showAdIfReady();
           await uploadFace(context, yourFace);
           EasyLoading.dismiss();
         }
@@ -135,7 +132,7 @@ class _FullImageCategoryState extends State<FullImageCategory> {
     }
     Uint8List? imageSwap;
     EasyLoading.show();
-    showInterApplovin(context, () {}, seconds: 5);
+    // showInterApplovin(context, () {}, seconds: 5);
     if (hasHandleFace) {
       //handle face
       final face = await getImage(

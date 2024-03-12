@@ -31,7 +31,6 @@ import '../graphql/config.dart';
 import '../graphql/mutations.dart';
 import '../graphql/queries.dart';
 import '../graphql/subscription.dart';
-import '../helper_ads/ads_lovin_utils.dart';
 import '../models/image_removebg.dart';
 import '../models/request_model.dart';
 import '../models/user_model.dart';
@@ -411,7 +410,7 @@ Future<void> shareContentMultiUrl(
       subject: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp',
       text: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp');
   if (result.status == ShareResultStatus.success) {
-    AdLovinUtils().showAdIfReady();
+    // AdLovinUtils().showAdIfReady();
     shareImageGetToken(context);
     FirebaseAnalytics.instance.logEvent(name: 'click_share_image');
     BotToast.showText(

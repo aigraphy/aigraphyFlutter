@@ -32,7 +32,6 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/models/request_model.dart';
 import '../../common/route/routes.dart';
 import '../../common/util/upload_image.dart';
@@ -469,7 +468,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
       return;
     }
     EasyLoading.show();
-    showInterApplovin(context, () {}, seconds: 5);
+    // showInterApplovin(context, () {}, seconds: 5);
     final binaryIntList =
         await screenshotController.capture(pixelRatio: pixelRatio);
 
@@ -496,7 +495,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
     if (widget.image != null) {
       loadImage(widget.image!);
     }
-    checkHasAds();
+    // checkHasAds();
     super.initState();
   }
 
@@ -1439,7 +1438,7 @@ class _ImageFiltersState extends State<ImageFilters> {
             ),
             onPressed: () async {
               EasyLoading.show();
-              AdLovinUtils().showAdIfReady();
+              // AdLovinUtils().showAdIfReady();
               final data = await screenshotController.capture();
               EasyLoading.dismiss();
               if (mounted) {

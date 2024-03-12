@@ -9,7 +9,6 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
-import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
@@ -35,7 +34,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
   late String imageRemoveBG;
 
   void navigatePop() {
-    checkHasAds();
+    // checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -44,7 +43,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
     super.initState();
     _controller = AnimationController(vsync: this);
     imageRemoveBG = widget.url;
-    checkHasAds();
+    // checkHasAds();
   }
 
   @override
@@ -94,7 +93,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
                     child: AnimationClick(
                         function: () async {
                           EasyLoading.show();
-                          showOpenAdsWhenDownShare();
+                          // showOpenAdsWhenDownShare();
                           await downloadMultiImage([imageRemoveBG]);
                           EasyLoading.dismiss();
                         },
