@@ -9,14 +9,13 @@ import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
-import '../../translations/export_lang.dart';
 import '../screen/price.dart';
 import '../screen/price_first_time.dart';
 
 class GoPro extends StatelessWidget {
   const GoPro(
       {super.key,
-      this.text = LocaleKeys.goPro.tr(),
+      this.text = 'Go Pro',
       this.showCoin = true,
       this.showPro = true});
   final String text;
