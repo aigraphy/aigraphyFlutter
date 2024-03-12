@@ -114,7 +114,7 @@ class _BottomBarState extends State<BottomBar> {
         children: [
           const Expanded(child: SizedBox()),
           Expanded(
-            flex: 5,
+            flex: 2,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(28),
               child: BottomNavigationBar(
