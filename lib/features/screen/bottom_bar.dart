@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../app/widget_support.dart';
 import '../../common/bloc/list_requests/list_requests_bloc.dart';
@@ -85,8 +84,8 @@ class _BottomBarState extends State<BottomBar> {
       getRecentFace(mounted, context);
     });
     // await Purchases.setEmail(firebaseUser.email!);
-    // listenInAppPurchase(context);
-    // createNoti();
+    listenInAppPurchase(context);
+    createNoti();
     checkShowPrice();
     checkUserPro(context);
   }

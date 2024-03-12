@@ -35,7 +35,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
   late String imageRemoveBG;
 
   void navigatePop() {
-    // checkHasAds();
+    checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -44,7 +44,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
     super.initState();
     _controller = AnimationController(vsync: this);
     imageRemoveBG = widget.url;
-    // checkHasAds();
+    checkHasAds();
   }
 
   @override
@@ -94,7 +94,7 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
                     child: AnimationClick(
                         function: () async {
                           EasyLoading.show();
-                          // showOpenAdsWhenDownShare();
+                          showOpenAdsWhenDownShare();
                           await downloadMultiImage([imageRemoveBG]);
                           EasyLoading.dismiss();
                         },

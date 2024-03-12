@@ -41,7 +41,7 @@ class _ResultEditImageState extends State<ResultEditImage>
   PageController? controller;
 
   void navigatePop() {
-    // checkHasAds();
+    checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -52,7 +52,7 @@ class _ResultEditImageState extends State<ResultEditImage>
     controller = PageController();
     requestId = widget.requestId;
     imageEdit = widget.imageEdit;
-    // checkHasAds();
+    checkHasAds();
   }
 
   @override
@@ -104,11 +104,11 @@ class _ResultEditImageState extends State<ResultEditImage>
                         function: () async {
                           EasyLoading.show();
                           if (imageRemoveBG != null) {
-                            // AdLovinUtils().showAdIfReady();
+                            AdLovinUtils().showAdIfReady();
                             await downloadMultiImage(
                                 [imageEdit, imageRemoveBG!]);
                           } else {
-                            // showOpenAdsWhenDownShare();
+                            showOpenAdsWhenDownShare();
                             await downloadMultiImage([imageEdit]);
                           }
                           EasyLoading.dismiss();

@@ -1,18 +1,14 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:graphql/client.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../common/constant/colors.dart';
-import '../common/constant/helper.dart';
 import '../common/constant/images.dart';
 import '../common/constant/styles.dart';
 import '../common/graphql/config.dart';
 import '../common/graphql/mutations.dart';
-import '../common/route/routes.dart';
 import '../common/widget/animation_click.dart';
 import '../translations/export_lang.dart';
 

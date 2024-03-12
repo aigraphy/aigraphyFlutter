@@ -17,8 +17,8 @@ class ListenLanguageBloc
     switch (locale) {
       case 'es':
         return 'Spanish';
-      case 'hi':
-        return 'Hindi';
+      case 'fr':
+        return 'Frensh';
       case 'ja':
         return 'Japanese';
       case 'pt':

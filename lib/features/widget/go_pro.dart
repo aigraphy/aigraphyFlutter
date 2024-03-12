@@ -9,42 +9,28 @@ import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
+import '../../translations/export_lang.dart';
 import '../screen/price.dart';
 import '../screen/price_first_time.dart';
 
 class GoPro extends StatelessWidget {
-  const GoPro({super.key, this.text = 'Go Pro'});
+  const GoPro(
+      {super.key,
+      this.text = LocaleKeys.goPro.tr(),
+      this.showCoin = true,
+      this.showPro = true});
   final String text;
+  final bool showCoin;
+  final bool showPro;
   @override
   Widget build(BuildContext context) {
-    return AnimationClick(
-      function: () {
-        if (context.read<SetUserPro>().state) {
-          Navigator.of(context)
-              .pushNamed(Routes.price, arguments: PriceScreen());
-        } else {
-          Navigator.of(context)
-              .pushNamed(Routes.price_first_time, arguments: PriceFirstTime());
-        }
-      },
-      child: context.watch<SetUserPro>().state
-          ? Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                  color: grey200, borderRadius: BorderRadius.circular(24)),
-              child: Row(
-                children: [
-                  Image.asset(token, width: 20, height: 20),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${formatToken(context).format(context.watch<UserBloc>().userModel?.token ?? 0)}',
-                    style: headline(color: grey1100),
-                  )
-                ],
-              ),
-            )
-          : Container(
+    return Row(
+      children: [
+        if (showPro)
+          if (!context.watch<SetUserPro>().state)
+            Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              margin: const EdgeInsets.only(right: 8),
               decoration: BoxDecoration(
                   color: corn1, borderRadius: BorderRadius.circular(24)),
               child: Row(
@@ -65,6 +51,34 @@ class GoPro extends StatelessWidget {
                 ],
               ),
             ),
+        if (showCoin)
+          AnimationClick(
+            function: () {
+              if (context.read<SetUserPro>().state) {
+                Navigator.of(context)
+                    .pushNamed(Routes.price, arguments: PriceScreen());
+              } else {
+                Navigator.of(context).pushNamed(Routes.price_first_time,
+                    arguments: PriceFirstTime());
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                  color: grey200, borderRadius: BorderRadius.circular(24)),
+              child: Row(
+                children: [
+                  Image.asset(token, width: 20, height: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${formatToken(context).format(context.watch<UserBloc>().userModel?.token ?? 0)}',
+                    style: headline(color: grey1100),
+                  )
+                ],
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

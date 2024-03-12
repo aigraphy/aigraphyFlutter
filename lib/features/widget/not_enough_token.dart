@@ -88,8 +88,8 @@ class NotEnoughToken extends StatelessWidget {
                     const SizedBox(height: 24),
                     AnimationClick(
                       function: () {
-                        // showRewardApplovin(context, updateTokenUser,
-                        //     reward: TOKEN_REWARD);
+                        showRewardApplovin(context, updateTokenUser,
+                            reward: TOKEN_REWARD);
                       },
                       child: GradientText(
                         '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',

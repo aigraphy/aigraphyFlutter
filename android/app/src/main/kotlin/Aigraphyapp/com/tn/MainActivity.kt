@@ -1,4 +1,4 @@
-package Aigraphyapp.com.tn
+package aigraphyapp.com.tn
 
 import io.flutter.embedding.android.FlutterActivity
 

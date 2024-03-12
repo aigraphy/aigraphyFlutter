@@ -50,8 +50,8 @@
         <!-- MUST CONFIG  -->
         <!-- <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="your_admob_id_app"/>
-        <meta-data android:name="applovin.sdk.key" android:value="your_key_sdk_applovin"/> -->
+            android:value="your_admob_id_app"/> -->
+        <meta-data android:name="applovin.sdk.key" android:value="CfEmtbSTTX1IDgKt5LK7hVynAAoJZIWWLQZmg2H7FaOmbVU9dcK0Jei3BhNgIggFwDiguDhyO3UqdGWol_zv5X"/>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

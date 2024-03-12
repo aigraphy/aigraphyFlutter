@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../features/screen/bottom_bar.dart';
 import '../../features/screen/detail_history.dart';
 import '../../features/screen/full_image_category.dart';
+import '../../features/screen/guide_face.dart';
 import '../../features/screen/image_full_screen.dart';
 import '../../features/screen/language.dart';
 import '../../features/screen/menu.dart';
@@ -114,6 +115,8 @@ mixin RouteGenerator {
       case Routes.token_success:
         final args = settings.arguments as TokenSuccess;
         return TokenSuccess(tokens: args.tokens);
+      case Routes.guide_face:
+        return GuideFace();
       case Routes.menu:
         return MaterialPageRoute<dynamic>(
           builder: (context) => const MenuScreen(),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:applovin_max/applovin_max.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../app/widget_support.dart';
+import '../../common/bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../../common/bloc/user/user_bloc.dart';
 import '../../common/bloc/user/user_event.dart';
 import '../../common/constant/colors.dart';
@@ -15,6 +17,7 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
+import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
@@ -167,7 +170,7 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
         'identifier': tokenIdentifier4
       }
     ];
-    // AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
+    AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
   }
 
   @override
@@ -197,14 +200,16 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
                 sizeAsset: 16,
                 onPressed: isChecked
                     ? () async {
-                        if (products.isNotEmpty) {
-                          await makeAPurchase(products
-                              .firstWhere((e) => e.identifier == identifier));
-                        } else {
-                          BotToast.showText(
-                              text: SOMETHING_WENT_WRONG,
-                              textStyle: body(color: grey1100));
-                        }
+                        context.read<SetUserPro>().setIndex(true);
+                        Navigator.of(context).pop();
+                        // if (products.isNotEmpty) {
+                        //   await makeAPurchase(products
+                        //       .firstWhere((e) => e.identifier == identifier));
+                        // } else {
+                        //   BotToast.showText(
+                        //       text: SOMETHING_WENT_WRONG,
+                        //       textStyle: body(color: grey1100));
+                        // }
                       }
                     : () {}),
             const SizedBox(height: 8),
@@ -282,8 +287,8 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
               top: 64,
               child: AnimationClick(
                 function: () {
-                  // showRewardApplovin(context, updateTokenUser,
-                  //     reward: TOKEN_REWARD);
+                  showRewardApplovin(context, updateTokenUser,
+                      reward: TOKEN_REWARD);
                 },
                 child: Container(
                   padding:

@@ -82,12 +82,13 @@ dependencies:
   sqflite_common_ffi: ^2.3.0+4
   sqflite: ^2.3.0
   firebase_messaging: ^14.7.9
+  flutter_native_splash: ^2.3.2
+  video_player: ^2.8.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.3.2
   change_app_package_name: ^1.1.0
 
   # The "flutter_lints" package below contains a set of recommended lints to

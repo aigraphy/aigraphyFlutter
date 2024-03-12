@@ -77,11 +77,11 @@
 				<string>Editor</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>com.googleusercontent.apps.635220140788-0v3dqvtaq9gmbunidr1p35mgf2sc229g</string>
+					<string>com.googleusercontent.apps.635220140788-ji2cgb94tsf0ttb2a2845e2sr49pus6c</string>
 				</array>
 			</dict>
 		</array>
-		<!-- <key>AppLovinSdkKey</key>
-	<string>your_key_sdk_applovin</string> -->
+		<key>AppLovinSdkKey</key>
+		<string>CfEmtbSTTX1IDgKt5LK7hVynAAoJZIWWLQZmg2H7FaOmbVU9dcK0Jei3BhNgIggFwDiguDhyO3UqdGWol_zv5X</string>
 	</dict>
 </plist>

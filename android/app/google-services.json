@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:635220140788:android:2a9c6e326fdbf8b40a34a1",
+        "mobilesdk_app_id": "1:635220140788:android:9fc55b5a07933d120a34a1",
         "android_client_info": {
-          "package_name": "Aigraphyapp.com.tn"
+          "package_name": "aigraphyapp.com.tn"
         }
       },
       "oauth_client": [
         {
-          "client_id": "635220140788-fsi75l8jnr9cjh66856f8hg1o28dogp0.apps.googleusercontent.com",
+          "client_id": "635220140788-qm31bofp8bffna8g7om4u7ja9ufbom29.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "Aigraphyapp.com.tn",
+            "package_name": "aigraphyapp.com.tn",
             "certificate_hash": "ded2c68b3c18c95a8f5a2a62e31786f00f17ebfe"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "635220140788-0v3dqvtaq9gmbunidr1p35mgf2sc229g.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "Aigraphyapp.com.tn"
+                "bundle_id": "aigraphyapp.com.tn"
               }
             }
           ]

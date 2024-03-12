@@ -1,5 +1,6 @@
 class Routes {
   static const String onboarding = '/onboarding';
+  static const String guide_face = '/guide_face';
   static const String bottom_bar = '/bottom_bar';
   static const String step_two = '/step_two';
   static const String step_three = '/step_three';

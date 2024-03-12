@@ -48,9 +48,9 @@ import 'styles.dart';
 /* MUST CONFIG */
 const apiEndpoint = 'http://164.90.175.136:8000';
 const apiUploadImageEndpoint = 'https://aigraphy.vercel.app';
-const tokenIdentifier1 = 'dev_ditustudio_faceswap1';
-const tokenIdentifier2 = 'dev_ditustudio_faceswap2';
-const tokenIdentifier4 = 'dev_ditustudio_faceswap4';
+const tokenIdentifier1 = 'aigraphyapp_com_tn1';
+const tokenIdentifier2 = 'aigraphyapp_com_tn2';
+const tokenIdentifier4 = 'aigraphyapp_com_tn3';
 const version = 'v1.0.0';
 
 const defaultAvatar =
@@ -114,9 +114,9 @@ List<Map<String, dynamic>> languagesData = [
     'locale': 'en',
   },
   <String, dynamic>{
-    'title': 'Hindi',
-    'image': india,
-    'locale': 'hi',
+    'title': 'Frensh',
+    'image': frensh,
+    'locale': 'fr',
   },
   <String, dynamic>{
     'title': 'Vietnamese',
@@ -285,7 +285,7 @@ Future<void> handleTokenUser(int reward, BuildContext context) async {
 Future<void> initPlatformState(BuildContext context) async {
   late PurchasesConfiguration configuration;
   if (Platform.isAndroid) {
-    configuration = PurchasesConfiguration('your_api_key');
+    configuration = PurchasesConfiguration('goog_OAkBVKgNhwYeCsSWKqnPadjQPOH');
   } else if (Platform.isIOS) {
     configuration = PurchasesConfiguration('your_api_key');
   }
@@ -299,8 +299,6 @@ void listenInAppPurchase(BuildContext context) {
       await handleTokenUser(reward, context);
       await setRewardTokenIAP(0);
       await checkUserPro(context);
-      await checkNotiFirstTime(customerInfo);
-      await checkNotiOneTime(customerInfo);
     }
   });
 }
@@ -413,7 +411,7 @@ Future<void> shareContentMultiUrl(
       subject: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp',
       text: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp');
   if (result.status == ShareResultStatus.success) {
-    // AdLovinUtils().showAdIfReady();
+    AdLovinUtils().showAdIfReady();
     shareImageGetToken(context);
     FirebaseAnalytics.instance.logEvent(name: 'click_share_image');
     BotToast.showText(

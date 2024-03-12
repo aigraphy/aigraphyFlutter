@@ -142,15 +142,21 @@ class _ProfileState extends State<Profile> with AutomaticKeepAliveClientMixin {
           ),
           right: Padding(
             padding: const EdgeInsets.only(right: 24),
-            child: AnimationClick(
-              function: () {
-                Navigator.of(context).pushNamed(Routes.menu);
-              },
-              child: Image.asset(
-                circles_four,
-                width: 24,
-                height: 24,
-              ),
+            child: Row(
+              children: [
+                const GoPro(showCoin: true, showPro: false),
+                const SizedBox(width: 12),
+                AnimationClick(
+                  function: () {
+                    Navigator.of(context).pushNamed(Routes.menu);
+                  },
+                  child: Image.asset(
+                    circles_four,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -174,17 +180,18 @@ class _ProfileState extends State<Profile> with AutomaticKeepAliveClientMixin {
                       gradient: Theme.of(context).colorLinear),
                   child: Column(
                     children: [
-                      Text('Remove Ads & Unlock All Feature',
+                      Text(LocaleKeys.removeAds.tr(),
                           style: title4(color: grey1100)),
                       Padding(
                         padding: const EdgeInsets.only(top: 8, bottom: 8),
-                        child: Text('Buy more Coin now',
+                        child: Text(LocaleKeys.buyMoreCoinNow.tr(),
                             style: subhead(color: grey900)),
                       ),
-                      const Row(
+                      Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          GoPro(text: 'Go Pro Now'),
+                          GoPro(
+                              text: LocaleKeys.goProNow.tr(), showCoin: false),
                         ],
                       ),
                     ],

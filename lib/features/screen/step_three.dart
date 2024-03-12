@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:aigraphy_flutter/common/widget/lottie_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +13,13 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
+import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/app_bar_cpn.dart';
 import '../../common/widget/gradient_text.dart';
+import '../../common/widget/lottie_widget.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/generate_image/bloc_generate_image.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
@@ -58,7 +59,7 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
     context
         .read<RemoveBGImageBloc>()
         .add(const ResetRemoveBGImage(hasLoaded: true));
-    // checkHasAds();
+    checkHasAds();
     Navigator.of(context).pop();
   }
 
@@ -67,7 +68,7 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(vsync: this);
     controller = PageController();
-    // checkHasAds();
+    checkHasAds();
   }
 
   @override
@@ -175,11 +176,11 @@ class _StepThreeState extends State<StepThree> with TickerProviderStateMixin {
                             function: () async {
                               EasyLoading.show();
                               if (imageRemoveBG != null) {
-                                // AdLovinUtils().showAdIfReady();
+                                AdLovinUtils().showAdIfReady();
                                 await downloadMultiImage(
                                     [state.url!, imageRemoveBG!]);
                               } else {
-                                // showOpenAdsWhenDownShare();
+                                showOpenAdsWhenDownShare();
                                 await downloadMultiImage([state.url!]);
                               }
                               EasyLoading.dismiss();

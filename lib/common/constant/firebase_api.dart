@@ -37,12 +37,12 @@ Future<void> initPushNoti() async {
 }
 
 Future<void> checkUserPro(BuildContext context) async {
-  // final customerInfo = await Purchases.getCustomerInfo();
-  // if (customerInfo.nonSubscriptionTransactions.isEmpty) {
-  //   context.read<SetUserPro>().setIndex(false);
-  // } else {
-  context.read<SetUserPro>().setIndex(true);
-  // }
+  final customerInfo = await Purchases.getCustomerInfo();
+  if (customerInfo.nonSubscriptionTransactions.isEmpty) {
+    context.read<SetUserPro>().setIndex(false);
+  } else {
+    context.read<SetUserPro>().setIndex(true);
+  }
 }
 
 Future<void> checkNotiFirstTime(CustomerInfo customerInfo) async {

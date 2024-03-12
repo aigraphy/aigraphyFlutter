@@ -131,8 +131,8 @@ class _CheckInWidgetState extends State<CheckInWidget> {
                               colorAsset: grey100,
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                // showRewardApplovin(context, updateTokenUser,
-                                //     reward: TOKEN_REWARD);
+                                showRewardApplovin(context, updateTokenUser,
+                                    reward: TOKEN_REWARD);
                               },
                               bgColor: grey1100,
                               borderColor: grey1100,

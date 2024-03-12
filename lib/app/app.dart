@@ -24,7 +24,6 @@ import '../common/constant/firebase_api.dart';
 import '../common/constant/helper.dart';
 import '../common/constant/images.dart';
 import '../common/constant/styles.dart';
-import '../common/helper_ads/ads_lovin_utils.dart';
 import '../common/preference/shared_preference_builder.dart';
 import '../common/route/route_generator.dart';
 import '../common/widget/lottie_widget.dart';
@@ -51,8 +50,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // AppLifecycleReactor appLifecycleReactor = const AppLifecycleReactor();
-
   Future<String?> getToken() async {
     final User? firebaseUser = FirebaseAuth.instance.currentUser;
     if (firebaseUser == null) {
@@ -76,7 +73,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     getToken();
-    // initPlatformState(context);
+    initPlatformState(context);
     EasyLoading.instance
       ..loadingStyle = EasyLoadingStyle.custom
       ..userInteractions = false
@@ -92,9 +89,7 @@ class _MyAppState extends State<MyApp> {
         lottie: loading,
         height: 100,
       );
-    // AdLovinUtils().initOpenAds();
     showPrice();
-    // appLifecycleReactor.listenToAppStateChanges(context);
   }
 
   @override

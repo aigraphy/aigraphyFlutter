@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:applovin_max/applovin_max.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ import '../../common/constant/error_code.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
+import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/animation_click.dart';
@@ -159,7 +161,7 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
       ),
     );
 
-    // AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
+    AppLovinMAX.loadRewardedAd(AdLovinUtils().rewardAdUnitIdApplovin);
   }
 
   @override
@@ -275,8 +277,8 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
               top: 64,
               child: AnimationClick(
                 function: () {
-                  // showRewardApplovin(context, updateTokenUser,
-                  //     reward: TOKEN_REWARD);
+                  showRewardApplovin(context, updateTokenUser,
+                      reward: TOKEN_REWARD);
                 },
                 child: Container(
                   padding:

@@ -9,6 +9,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'app/app.dart';
+import 'common/helper_ads/ads_lovin_utils.dart';
 import 'translations/codegen_loader.g.dart';
 
 Future<void> main() async {
@@ -17,14 +18,14 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   tz.initializeTimeZones();
   // await MobileAds.instance.initialize();
-  // await AppLovinMAX.initialize(AdLovinUtils().keySdkApplovin);
+  await AppLovinMAX.initialize(AdLovinUtils().keySdkApplovin);
   await EasyLocalization.ensureInitialized();
   if (Platform.isMacOS || Platform.isIOS) {
     /* MUST CONFIG */
     await Firebase.initializeApp(
         options: const FirebaseOptions(
             apiKey: 'AIzaSyCLUqlbAPYbLusw4m2v3aIiayCcp4JjwpM',
-            appId: '1:635220140788:android:2a9c6e326fdbf8b40a34a1',
+            appId: '1:635220140788:ios:38b7663ff2c472bd0a34a1',
             messagingSenderId: '635220140788',
             projectId: 'aigraphy-e594d'));
   } else {
@@ -43,7 +44,7 @@ Future<void> main() async {
       supportedLocales: const [
         Locale('en'),
         Locale('es'),
-        Locale('hi'),
+        Locale('fr'),
         Locale('ja'),
         Locale('pt'),
         Locale('vi'),

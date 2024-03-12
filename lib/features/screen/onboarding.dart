@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../app/widget_support.dart';
 import '../../common/bloc/slider/slider_bloc.dart';
@@ -29,11 +30,16 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  late VideoPlayerController _controller1;
+  late VideoPlayerController _controller2;
+  late VideoPlayerController _controller3;
+
   List<String> landings = [
     onboarding1,
     onboarding2,
-    onboarding3,
+    onboarding4,
   ];
+
   List<Map<String, String>> titles = [
     {'title1': 'Swap your face', 'title2': 'to image'},
     {'title1': 'High quality', 'title2': 'render image'},
@@ -41,15 +47,14 @@ class _OnboardingState extends State<Onboarding> {
   ];
 
   bool isChecked = true;
-  Widget landing(BuildContext context, int index, double width, double height) {
+  Widget landing(BuildContext context, VideoPlayerController _controller,
+      int index, double width, double height) {
     return Stack(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.center,
       children: [
-        Image.asset(
-          landings[index],
-          width: width,
-          fit: BoxFit.cover,
-          alignment: Alignment.topCenter,
+        AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
         ),
         Positioned(
           bottom: 0,
@@ -89,7 +94,24 @@ class _OnboardingState extends State<Onboarding> {
     await signInSocials(token!);
     EasyLoading.dismiss();
     Navigator.of(context)
-        .pushNamed(Routes.bottom_bar, arguments: const BottomBar());
+        .pushReplacementNamed(Routes.bottom_bar, arguments: const BottomBar());
+    Navigator.of(context).pushNamed(Routes.guide_face);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller1 = VideoPlayerController.asset(landings[0])..initialize();
+    _controller2 = VideoPlayerController.asset(landings[1])..initialize();
+    _controller3 = VideoPlayerController.asset(landings[2])..initialize();
+  }
+
+  @override
+  void dispose() {
+    _controller1.dispose();
+    _controller2.dispose();
+    _controller3.dispose();
+    super.dispose();
   }
 
   @override
@@ -105,8 +127,27 @@ class _OnboardingState extends State<Onboarding> {
           CarouselSlider.builder(
               itemCount: landings.length,
               itemBuilder:
-                  (BuildContext context, int itemIndex, int pageViewIndex) =>
-                      landing(context, itemIndex, width, height),
+                  (BuildContext context, int itemIndex, int pageViewIndex) {
+                if (itemIndex == 0) {
+                  _controller1
+                    ..play()
+                    ..setLooping(true);
+                  return landing(
+                      context, _controller1, itemIndex, width, height);
+                } else if (itemIndex == 1) {
+                  _controller2
+                    ..play()
+                    ..setLooping(true);
+                  return landing(
+                      context, _controller2, itemIndex, width, height);
+                } else {
+                  _controller3
+                    ..play()
+                    ..setLooping(true);
+                  return landing(
+                      context, _controller3, itemIndex, width, height);
+                }
+              },
               options: CarouselOptions(
                 enableInfiniteScroll: false,
                 height: height / 1.3,

@@ -310,16 +310,15 @@ class _RecentFaceState extends State<RecentFace> {
                   context: context,
                   icon: ic_add_face,
                   sizeAsset: 24,
-                  input: 'Add New Face',
+                  input: LocaleKeys.addNewFace.tr(),
                   onPressed: () async {
                     await checkShowSlot();
                     setPhoto();
                   },
                   textColor: grey1100),
             ),
-
             const SizedBox(height: 16),
-            // if (!isIOS) const Center(child: AdsApplovinBanner())
+            if (!isIOS) const Center(child: AdsApplovinBanner())
           ],
         ),
       ),

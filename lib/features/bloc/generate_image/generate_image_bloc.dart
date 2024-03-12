@@ -80,7 +80,7 @@ class GenerateImageBloc extends Bloc<GenerateImageEvent, GenerateImageState> {
     Uint8List? result;
     try {
       final request =
-          http.MultipartRequest('POST', Uri.parse('$apiEndpoint/upload'));
+          http.MultipartRequest('POST', Uri.parse('$apiEndpoint/swap_image'));
       request.files.addAll([
         await http.MultipartFile.fromPath('srcPath', srcPath),
         await http.MultipartFile.fromPath('dstPath', dstPath)
@@ -88,8 +88,6 @@ class GenerateImageBloc extends Bloc<GenerateImageEvent, GenerateImageState> {
       request.fields['uuid'] = firebaseUser.uid;
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
-      print(response.statusCode);
-      print(response.bodyBytes);
       if (response.statusCode == 200) {
         result = response.bodyBytes;
       } else {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -17,6 +18,7 @@ import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
+import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/app_bar_cpn.dart';
 import '../../common/widget/gradient_text.dart';
@@ -97,7 +99,7 @@ class _StepTwoState extends State<StepTwo> {
     });
   }
 
-  void earnedReward({bool handleToken = false}) {
+  Future<void> earnedReward({bool handleToken = false}) async {
     context
         .read<RemoveBGImageBloc>()
         .add(const ResetRemoveBGImage(hasLoaded: true));
@@ -114,7 +116,28 @@ class _StepTwoState extends State<StepTwo> {
               dstImage: yourFace!,
               dstPath: path!,
               srcPath: widget.pathSource!));
-    } else {}
+    } else {
+      final imageSwapTmp = await getImage(widget.imageCate!);
+      final tempDirImageSwap = await Directory.systemTemp.createTemp();
+      final tempFileImageSwap = File(
+          '${tempDirImageSwap.path}/${DateTime.now().toIso8601String()}.jpg');
+      await tempFileImageSwap.writeAsBytes(imageSwapTmp);
+      final imageSwap = imageSwapTmp;
+      final pathImageSwap = tempFileImageSwap.path;
+      context.read<GenerateImageBloc>().add(InitialGenerateImage(
+          context: context,
+          srcPath: pathImageSwap,
+          dstPath: path!,
+          handleToken: true));
+
+      Navigator.of(context).pushNamed(Routes.step_three,
+          arguments: StepThree(
+              dstPath: path!,
+              srcPath: pathImageSwap,
+              srcImage: imageSwap,
+              isSwapCate: true,
+              dstImage: yourFace!));
+    }
   }
 
   Future<void> showChooseFace() async {
@@ -125,7 +148,7 @@ class _StepTwoState extends State<StepTwo> {
   void initState() {
     super.initState();
     showChooseFace();
-    // checkHasAds();
+    checkHasAds();
   }
 
   @override
@@ -178,24 +201,24 @@ class _StepTwoState extends State<StepTwo> {
                 textColor: grey1100,
                 icon: token,
                 sizeAsset: 16,
-                onPressed: () {
-                  final userModel = context.read<UserBloc>().userModel!;
-                  if (userModel.token >= TOKEN_SWAP) {
-                    EasyLoading.show();
-                    // showInterApplovin(context, () {}, seconds: 5);
-                    earnedReward(handleToken: true);
-                    if (hasUpdateFace) {
-                      uploadFace(context, yourFace);
-                    }
-                    EasyLoading.dismiss();
-                  } else {
-                    showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const NotEnoughToken();
-                      },
-                    );
+                onPressed: () async {
+                  // final userModel = context.read<UserBloc>().userModel!;
+                  // if (userModel.token >= TOKEN_SWAP) {
+                  EasyLoading.show();
+                  showInterApplovin(context, () {}, seconds: 5);
+                  await earnedReward(handleToken: true);
+                  if (hasUpdateFace) {
+                    uploadFace(context, yourFace);
                   }
+                  EasyLoading.dismiss();
+                  // } else {
+                  //   showDialog<void>(
+                  //     context: context,
+                  //     builder: (BuildContext context) {
+                  //       return const NotEnoughToken();
+                  //     },
+                  //   );
+                  // }
                 })
             : AppWidget.typeButtonStartAction(
                 context: context,
@@ -211,11 +234,11 @@ class _StepTwoState extends State<StepTwo> {
       ),
       body: ListView(
         children: [
-          // if (!isIOS)
-          //   const Padding(
-          //     padding: EdgeInsets.only(bottom: 24),
-          //     child: AdsApplovinBanner(),
-          //   ),
+          if (!isIOS)
+            const Padding(
+              padding: EdgeInsets.only(bottom: 24),
+              child: AdsApplovinBanner(),
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

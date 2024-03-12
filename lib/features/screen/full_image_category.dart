@@ -17,9 +17,11 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
+import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/models/category_model.dart';
 import '../../common/models/image_category_model.dart';
 import '../../common/route/routes.dart';
+import '../../common/widget/ads_native_applovin_normal.dart';
 import '../../common/widget/animation_click.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/full_image_cate/full_image_cate_bloc.dart';
@@ -100,7 +102,7 @@ class _FullImageCategoryState extends State<FullImageCategory> {
             pathYourFace = value['path'];
             _faceIndex = 0;
           });
-          // AdLovinUtils().showAdIfReady();
+          AdLovinUtils().showAdIfReady();
           await uploadFace(context, yourFace);
           EasyLoading.dismiss();
         }
@@ -109,81 +111,81 @@ class _FullImageCategoryState extends State<FullImageCategory> {
   }
 
   Future<void> handleGenerate() async {
-    final userModel = context.read<UserBloc>().userModel!;
-    if (userModel.token >= TOKEN_SWAP) {
-      if (context.read<RecentFaceBloc>().recentFaces.isEmpty) {
-        BotToast.showText(text: LocaleKeys.pleaseAddYourFace.tr());
-        return;
-      }
-      late String imageSwapTmpLink;
-      late ImageCategoryModel imageCategoryModel;
-      //handle image swap
-      if (context.read<SetImageSwapCubit>().state != null) {
-        imageCategoryModel = context.read<SetImageSwapCubit>().state!;
-        imageSwapTmpLink = imageCategoryModel.image;
-      } else {
-        imageCategoryModel = widget.categoryModel.images[0];
-        imageSwapTmpLink = imageCategoryModel.image;
-      }
-
-      if (!context.read<SetUserPro>().state && imageCategoryModel.isPro) {
-        Navigator.of(context)
-            .pushNamed(Routes.price_first_time, arguments: PriceFirstTime());
-        return;
-      }
-      Uint8List? imageSwap;
-      EasyLoading.show();
-      // showInterApplovin(context, () {}, seconds: 5);
-      if (hasHandleFace) {
-        //handle face
-        final face = await getImage(
-            context.read<RecentFaceBloc>().recentFaces[_faceIndex].face);
-        final tempDirFace = await Directory.systemTemp.createTemp();
-        final tempFileFace =
-            File('${tempDirFace.path}/${DateTime.now().toIso8601String()}.jpg');
-
-        await tempFileFace.writeAsBytes(face);
-        yourFace = face;
-        pathYourFace = tempFileFace.path;
-      }
-      if (yourFace == null) {
-        EasyLoading.dismiss();
-        BotToast.showText(text: LocaleKeys.pleaseChooseYourFace.tr());
-        return;
-      }
-
-      final imageSwapTmp = await getImage(imageSwapTmpLink);
-      final tempDirImageSwap = await Directory.systemTemp.createTemp();
-      final tempFileImageSwap = File(
-          '${tempDirImageSwap.path}/${DateTime.now().toIso8601String()}.jpg');
-      await tempFileImageSwap.writeAsBytes(imageSwapTmp);
-      imageSwap = imageSwapTmp;
-      pathImageSwap = tempFileImageSwap.path;
-      context
-          .read<TrendingBloc>()
-          .add(TrendingCount(categoryModel: imageCategoryModel));
-      context.read<GenerateImageBloc>().add(InitialGenerateImage(
-          context: context,
-          srcPath: pathImageSwap!,
-          dstPath: pathYourFace!,
-          handleToken: true));
-      context.read<SetImageSwapCubit>().reset();
-      EasyLoading.dismiss();
-      Navigator.of(context).pushNamed(Routes.step_three,
-          arguments: StepThree(
-              dstPath: pathYourFace!,
-              srcPath: pathImageSwap!,
-              srcImage: imageSwap,
-              isSwapCate: true,
-              dstImage: yourFace!));
-    } else {
-      showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return const NotEnoughToken();
-        },
-      );
+    // final userModel = context.read<UserBloc>().userModel!;
+    // if (userModel.token >= TOKEN_SWAP) {
+    if (context.read<RecentFaceBloc>().recentFaces.isEmpty) {
+      BotToast.showText(text: LocaleKeys.pleaseAddYourFace.tr());
+      return;
     }
+    late String imageSwapTmpLink;
+    late ImageCategoryModel imageCategoryModel;
+    //handle image swap
+    if (context.read<SetImageSwapCubit>().state != null) {
+      imageCategoryModel = context.read<SetImageSwapCubit>().state!;
+      imageSwapTmpLink = imageCategoryModel.image;
+    } else {
+      imageCategoryModel = widget.categoryModel.images[0];
+      imageSwapTmpLink = imageCategoryModel.image;
+    }
+
+    if (!context.read<SetUserPro>().state && imageCategoryModel.isPro) {
+      Navigator.of(context)
+          .pushNamed(Routes.price_first_time, arguments: PriceFirstTime());
+      return;
+    }
+    Uint8List? imageSwap;
+    EasyLoading.show();
+    showInterApplovin(context, () {}, seconds: 5);
+    if (hasHandleFace) {
+      //handle face
+      final face = await getImage(
+          context.read<RecentFaceBloc>().recentFaces[_faceIndex].face);
+      final tempDirFace = await Directory.systemTemp.createTemp();
+      final tempFileFace =
+          File('${tempDirFace.path}/${DateTime.now().toIso8601String()}.jpg');
+
+      await tempFileFace.writeAsBytes(face);
+      yourFace = face;
+      pathYourFace = tempFileFace.path;
+    }
+    if (yourFace == null) {
+      EasyLoading.dismiss();
+      BotToast.showText(text: LocaleKeys.pleaseChooseYourFace.tr());
+      return;
+    }
+
+    final imageSwapTmp = await getImage(imageSwapTmpLink);
+    final tempDirImageSwap = await Directory.systemTemp.createTemp();
+    final tempFileImageSwap = File(
+        '${tempDirImageSwap.path}/${DateTime.now().toIso8601String()}.jpg');
+    await tempFileImageSwap.writeAsBytes(imageSwapTmp);
+    imageSwap = imageSwapTmp;
+    pathImageSwap = tempFileImageSwap.path;
+    context
+        .read<TrendingBloc>()
+        .add(TrendingCount(categoryModel: imageCategoryModel));
+    context.read<GenerateImageBloc>().add(InitialGenerateImage(
+        context: context,
+        srcPath: pathImageSwap!,
+        dstPath: pathYourFace!,
+        handleToken: true));
+    context.read<SetImageSwapCubit>().reset();
+    EasyLoading.dismiss();
+    Navigator.of(context).pushNamed(Routes.step_three,
+        arguments: StepThree(
+            dstPath: pathYourFace!,
+            srcPath: pathImageSwap!,
+            srcImage: imageSwap,
+            isSwapCate: true,
+            dstImage: yourFace!));
+    // } else {
+    //   showDialog<void>(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return const NotEnoughToken();
+    //     },
+    //   );
+    // }
   }
 
   @override
@@ -256,7 +258,7 @@ class _FullImageCategoryState extends State<FullImageCategory> {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: AppWidget.typeButtonStartAction(
+              child: AppWidget.typeButtonGradientAfter(
                   context: context,
                   input: '${LocaleKeys.generate.tr()} -$TOKEN_SWAP',
                   bgColor: primary,
@@ -285,12 +287,12 @@ class _FullImageCategoryState extends State<FullImageCategory> {
             return ListView(
               controller: _scrollController,
               children: [
-                // !isIOS
-                //     ? const Padding(
-                //         padding: EdgeInsets.symmetric(horizontal: 8),
-                //         child: AdsNativeApplovinNormal(),
-                //       )
-                //     : const SizedBox(height: 8),
+                !isIOS
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: AdsNativeApplovinNormal(),
+                      )
+                    : const SizedBox(height: 8),
                 GridView.builder(
                   padding: const EdgeInsets.all(16),
                   physics: const NeverScrollableScrollPhysics(),

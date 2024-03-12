@@ -187,10 +187,10 @@ class _DetailHistoryState extends State<DetailHistory> {
                       function: () async {
                         EasyLoading.show();
                         if (imageRemoveBG != null) {
-                          // AdLovinUtils().showAdIfReady();
+                          AdLovinUtils().showAdIfReady();
                           await downloadMultiImage([urlResult, imageRemoveBG!]);
                         } else {
-                          // showOpenAdsWhenDownShare();
+                          showOpenAdsWhenDownShare();
                           await downloadMultiImage([urlResult]);
                         }
                         EasyLoading.dismiss();

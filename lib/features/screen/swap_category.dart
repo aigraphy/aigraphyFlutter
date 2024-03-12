@@ -12,7 +12,7 @@ import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/models/category_model.dart';
 import '../../common/route/routes.dart';
-// import '../../common/widget/ads_native_applovin_medium.dart';
+import '../../common/widget/ads_native_applovin_medium.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/app_bar_cpn.dart';
 import '../../translations/export_lang.dart';
@@ -375,7 +375,6 @@ class _SwapCategoryState extends State<SwapCategory>
   @override
   void initState() {
     super.initState();
-    // checkHasAds();
     _scrollController.addListener(_onScroll);
   }
 
@@ -442,7 +441,7 @@ class _SwapCategoryState extends State<SwapCategory>
                               style: subhead(color: grey800)),
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16),
-                            // child: AdsNativeApplovinMedium(),
+                            child: AdsNativeApplovinMedium(),
                           )
                         ],
                       ));
@@ -466,52 +465,6 @@ class _SwapCategoryState extends State<SwapCategory>
               },
             ),
           ),
-          // Expanded(
-          //   child: RefreshIndicator(
-          //     onRefresh: () => Future.sync(
-          //       () {
-          //         context
-          //             .read<ListCategoriesBloc>()
-          //             .add(ResetListCategories());
-          //         context.read<NewTodayBloc>().add(ResetNewToday());
-          //         context.read<TrendingBloc>().add(ResetTrending());
-          //         context
-          //             .read<ListCategoriesBloc>()
-          //             .add(ListCategoriesFetched());
-          //         context.read<NewTodayBloc>().add(NewTodayFetched());
-          //         context.read<TrendingBloc>().add(TrendingFetched());
-          //       },
-          //     ),
-          //     child: SingleChildScrollView(
-          //       controller: _scrollController,
-          //       child: Column(
-          //         children: [
-          //           BlocBuilder<NewTodayBloc, NewTodayState>(
-          //               builder: (context, state) {
-          //             switch (state.status) {
-          //               case NewTodayStatus.success:
-          //                 return newToday(height, state.images);
-          //               default:
-          //                 return const SizedBox();
-          //             }
-          //           }),
-          //           const SizedBox(height: 16),
-          //           BlocBuilder<TrendingBloc, TrendingState>(
-          //               builder: (context, state) {
-          //             switch (state.status) {
-          //               case TrendingStatus.success:
-          //                 return trending(height, state.images);
-          //               default:
-          //                 return const SizedBox();
-          //             }
-          //           }),
-          //           const SizedBox(height: 16),
-          //           listCategory(height),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

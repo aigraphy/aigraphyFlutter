@@ -1,4 +1,6 @@
+import 'package:applovin_max/applovin_max.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../app/widget_support.dart';
 import '../../common/constant/colors.dart';
@@ -6,12 +8,37 @@ import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
 import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/route/routes.dart';
+import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/gradient_text.dart';
 import '../widget/image_opacity.dart';
 import 'bottom_bar.dart';
 
-class OnboardingSecond extends StatelessWidget {
+class OnboardingSecond extends StatefulWidget {
   const OnboardingSecond({super.key});
+
+  @override
+  State<OnboardingSecond> createState() => _OnboardingSecondState();
+}
+
+class _OnboardingSecondState extends State<OnboardingSecond> {
+  late VideoPlayerController _controller;
+  @override
+  void initState() {
+    super.initState();
+    AppLovinMAX.loadAppOpenAd(AdLovinUtils().openAdUnitIdApplovin);
+    _controller = VideoPlayerController.asset(onboarding3)
+      ..initialize().then((value) {
+        setState(() {});
+      })
+      ..play()
+      ..setLooping(true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +55,13 @@ class OnboardingSecond extends StatelessWidget {
                 alignment: Alignment.bottomLeft,
                 clipBehavior: Clip.none,
                 children: [
-                  TweenAnimationBuilder<double>(
-                      tween: Tween<double>(begin: 0.5, end: 1.0),
-                      curve: Curves.ease,
-                      duration: const Duration(seconds: 1),
-                      builder: (BuildContext context, double opacity,
-                          Widget? child) {
-                        return Opacity(
-                            opacity: opacity,
-                            child: Image.asset(onboarding4,
-                                width: width,
-                                height: height,
-                                alignment: Alignment.topCenter,
-                                fit: BoxFit.cover));
-                      }),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    ),
+                  ),
                   Positioned(
                     bottom: -1,
                     child: Container(
@@ -52,7 +72,7 @@ class OnboardingSecond extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                      bottom: 24,
+                      bottom: 48,
                       left: 32,
                       right: 32,
                       child: Column(
@@ -83,7 +103,7 @@ class OnboardingSecond extends StatelessWidget {
                                   context: context,
                                   input: "Let's Start",
                                   onPressed: () {
-                                    // AdLovinUtils().showAdIfReady();
+                                    AdLovinUtils().showAdIfReady();
                                     Navigator.of(context).pushReplacementNamed(
                                         Routes.bottom_bar,
                                         arguments: const BottomBar());
@@ -99,10 +119,10 @@ class OnboardingSecond extends StatelessWidget {
               ),
             ),
           ),
-          // const Padding(
-          //   padding: EdgeInsets.only(bottom: 24, top: 24),
-          //   child: AdsApplovinBanner(),
-          // )
+          const Padding(
+            padding: EdgeInsets.only(bottom: 24, top: 24),
+            child: AdsApplovinBanner(),
+          )
         ],
       ),
     );

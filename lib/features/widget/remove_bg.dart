@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -9,12 +8,10 @@ import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
-import '../../common/constant/styles.dart';
-import '../../common/route/routes.dart';
+import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/widget/gradient_text.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
-import '../screen/price.dart';
 import 'not_enough_token.dart';
 
 class RemoveBg extends StatefulWidget {
@@ -36,7 +33,7 @@ class _RemoveBgState extends State<RemoveBg> {
   @override
   void initState() {
     super.initState();
-    // checkHasAds();
+    checkHasAds();
     options = [
       {
         'title': LocaleKeys.humanAndAnimal.tr(),
@@ -90,7 +87,7 @@ class _RemoveBgState extends State<RemoveBg> {
                 );
               } else {
                 EasyLoading.show();
-                // showInterApplovin(context, () {}, seconds: 5);
+                showInterApplovin(context, () {}, seconds: 5);
                 BlocProvider.of<RemoveBGImageBloc>(context).add(
                     InitialRemoveBGImage(
                         context: widget.ctx,
@@ -112,8 +109,8 @@ class _RemoveBgState extends State<RemoveBg> {
             input:
                 '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
             onPressed: () {
-              // showRewardApplovin(context, updateTokenUser,
-              //     reward: TOKEN_REWARD);
+              showRewardApplovin(context, updateTokenUser,
+                  reward: TOKEN_REWARD);
             },
             textColor: grey1100),
         const SizedBox(height: 24)

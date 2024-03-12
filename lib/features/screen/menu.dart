@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -12,6 +13,7 @@ import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
 import '../../common/constant/styles.dart';
+import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
@@ -29,6 +31,7 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  bool switchNoti = false;
 
   Widget item(String title, {Widget? trailing}) {
     return Padding(
@@ -58,9 +61,16 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
+  Future<bool> getNotification() async {
+    switchNoti = await getNoti();
+    setState(() {});
+    return switchNoti;
+  }
+
   @override
   void initState() {
     super.initState();
+    getNotification();
   }
 
   @override
@@ -76,7 +86,8 @@ class _MenuScreenState extends State<MenuScreen> {
             child: Image.asset(icClose, width: 24, height: 24, color: grey1100),
           ),
         ),
-        center: Text('Settings', style: headline(color: grey1100)),
+        center:
+            Text(LocaleKeys.settings.tr(), style: headline(color: grey1100)),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -101,7 +112,7 @@ class _MenuScreenState extends State<MenuScreen> {
             child: AdsApplovinBanner(),
           ),
           Text(
-            'Support',
+            LocaleKeys.support.tr(),
             style: subhead(color: grey600),
           ),
           Container(
@@ -111,7 +122,45 @@ class _MenuScreenState extends State<MenuScreen> {
                 color: grey200, borderRadius: BorderRadius.circular(16)),
             child: Column(
               children: [
-                item('Contact Support'),
+                item(LocaleKeys.contactSupport.tr()),
+                Container(
+                  decoration: BoxDecoration(
+                      color: grey200, borderRadius: BorderRadius.circular(16)),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          LocaleKeys.notification.tr(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: body(color: grey1100, fontWeight: '400'),
+                        ),
+                      ),
+                      CupertinoSwitch(
+                        activeColor: primary,
+                        value: switchNoti,
+                        onChanged: (value) async {
+                          setState(() {
+                            switchNoti = value;
+                          });
+                          if (switchNoti) {
+                            EasyLoading.show();
+                            await setNoti(true);
+                            try {
+                              await requestPermissions();
+                              EasyLoading.dismiss();
+                            } catch (e) {
+                              EasyLoading.dismiss();
+                            }
+                          } else {
+                            await setNoti(false);
+                            flutterLocalNotificationsPlugin.cancelAll();
+                          }
+                        },
+                      )
+                    ],
+                  ),
+                ),
                 AnimationClick(
                     function: () {
                       AppWidget.showDialogCustom(LocaleKeys.doYouWant.tr(),
@@ -129,12 +178,12 @@ class _MenuScreenState extends State<MenuScreen> {
                             Routes.onboarding, (route) => false);
                       });
                     },
-                    child: item('Delete Account')),
+                    child: item(LocaleKeys.deleteAccount.tr())),
               ],
             ),
           ),
           Text(
-            'About',
+            LocaleKeys.about.tr(),
             style: subhead(color: grey600),
           ),
           Container(
@@ -144,12 +193,12 @@ class _MenuScreenState extends State<MenuScreen> {
                 color: grey200, borderRadius: BorderRadius.circular(16)),
             child: Column(
               children: [
-                item('About AIGraphy'),
+                item(LocaleKeys.aboutAIGraphy.tr()),
                 AnimationClick(
                   function: () {
                     Navigator.of(context).pushNamed(Routes.language);
                   },
-                  child: item('Language',
+                  child: item(LocaleKeys.language.tr(),
                       trailing: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -170,7 +219,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ],
                       )),
                 ),
-                item('Security terms'),
+                item(LocaleKeys.securityTerms.tr()),
                 AnimationClick(
                     function: () {
                       showDialog(
@@ -213,9 +262,9 @@ class _MenuScreenState extends State<MenuScreen> {
                               const EdgeInsets.symmetric(horizontal: 4.0),
                           onRatingUpdate: (rating) {},
                         ))),
-                item('Subscription Policy'),
-                item('Discord community'),
-                item('App version',
+                item(LocaleKeys.subscriptionPolicy.tr()),
+                item(LocaleKeys.discordCommunity.tr()),
+                item(LocaleKeys.appVersion.tr(),
                     trailing: Text(
                       version,
                       style: callout(color: grey600, fontWeight: '400'),

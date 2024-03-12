@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,11 +7,9 @@ import '../../common/bloc/user/bloc_user.dart';
 import '../../common/constant/colors.dart';
 import '../../common/constant/helper.dart';
 import '../../common/constant/images.dart';
-import '../../common/constant/styles.dart';
-import '../../common/route/routes.dart';
+import '../../common/helper_ads/ads_lovin_utils.dart';
 import '../../common/widget/gradient_text.dart';
 import '../../translations/export_lang.dart';
-import '../screen/price.dart';
 import 'not_enough_token.dart';
 
 class RemoveBGImageDevice extends StatefulWidget {
@@ -29,7 +26,7 @@ class _RemoveBGImageDeviceState extends State<RemoveBGImageDevice> {
   @override
   void initState() {
     super.initState();
-    // checkHasAds();
+    checkHasAds();
     options = [
       {
         'title': LocaleKeys.humanAndAnimal.tr(),
@@ -82,7 +79,7 @@ class _RemoveBGImageDeviceState extends State<RemoveBGImageDevice> {
                   },
                 );
               } else {
-                // showInterApplovin(context, () {}, seconds: 5);
+                showInterApplovin(context, () {}, seconds: 5);
                 FirebaseAnalytics.instance.logEvent(name: 'click_remove_bg');
                 removeBGImageDevice(widget.ctx, widget.path,
                     option: options[0]['option']);
@@ -98,8 +95,8 @@ class _RemoveBGImageDeviceState extends State<RemoveBGImageDevice> {
             input:
                 '${LocaleKeys.watchAdsGet.tr()} $TOKEN_REWARD ${LocaleKeys.tokens.tr()}',
             onPressed: () {
-              // showRewardApplovin(context, updateTokenUser,
-              //     reward: TOKEN_REWARD);
+              showRewardApplovin(context, updateTokenUser,
+                  reward: TOKEN_REWARD);
             },
             bgColor: grey300,
             borderColor: grey300,
