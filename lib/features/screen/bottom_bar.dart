@@ -15,7 +15,6 @@ import '../../common/models/user_model.dart';
 import '../../common/preference/shared_preference_builder.dart';
 import '../../common/route/routes.dart';
 import '../../common/widget/check_in.dart';
-import '../../features/screen/step_one.dart';
 import '../../features/screen/swap_category.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/list_categories/list_categories_bloc.dart';
@@ -96,7 +95,7 @@ class _BottomBarState extends State<BottomBar> {
     context.read<SetIndexBottomBar>().setIndex(widget.index);
     listWidget = [
       const SwapCategory(),
-      const StepOne(),
+      // const StepOne(),
       const Profile(),
     ];
     loadData();
@@ -131,8 +130,8 @@ class _BottomBarState extends State<BottomBar> {
                 items: [
                   AppWidget.createItemNav(context, house_simple,
                       house_simple_active, LocaleKeys.category.tr()),
-                  AppWidget.createItemNav(context, paint_brush,
-                      paint_brush_active, LocaleKeys.home.tr()),
+                  // AppWidget.createItemNav(context, paint_brush,
+                  //     paint_brush_active, LocaleKeys.home.tr()),
                   AppWidget.createItemNav(context, profile, profile_active,
                       LocaleKeys.profile.tr()),
                 ],

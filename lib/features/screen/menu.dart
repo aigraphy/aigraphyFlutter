@@ -202,10 +202,12 @@ class _MenuScreenState extends State<MenuScreen> {
                       trailing: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            context.watch<ListenLanguageBloc>().language,
-                            style: callout(color: grey600, fontWeight: '400'),
-                          ),
+                          if (context.watch<ListenLanguageBloc>().language !=
+                              null)
+                            Text(
+                              context.watch<ListenLanguageBloc>().language!,
+                              style: callout(color: grey600, fontWeight: '400'),
+                            ),
                           const SizedBox(width: 8),
                           Padding(
                             padding: const EdgeInsets.only(top: 2),

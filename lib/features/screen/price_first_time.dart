@@ -8,7 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../app/widget_support.dart';
-import '../../common/bloc/set_user_pro/set_user_pro_bloc.dart';
+// import '../../common/bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../../common/bloc/user/user_bloc.dart';
 import '../../common/bloc/user/user_event.dart';
 import '../../common/constant/colors.dart';
@@ -198,16 +198,16 @@ class _PriceFirstTimeState extends State<PriceFirstTimeToken>
                 sizeAsset: 16,
                 onPressed: isChecked
                     ? () async {
-                        context.read<SetUserPro>().setIndex(true);
-                        Navigator.of(context).pop();
-                        // if (products.isNotEmpty) {
-                        //   await makeAPurchase(products
-                        //       .firstWhere((e) => e.identifier == identifier));
-                        // } else {
-                        //   BotToast.showText(
-                        //       text: SOMETHING_WENT_WRONG,
-                        //       textStyle: body(color: grey1100));
-                        // }
+                        // context.read<SetUserPro>().setIndex(true);
+                        // Navigator.of(context).pop();
+                        if (products.isNotEmpty) {
+                          await makeAPurchase(products
+                              .firstWhere((e) => e.identifier == identifier));
+                        } else {
+                          BotToast.showText(
+                              text: SOMETHING_WENT_WRONG,
+                              textStyle: body(color: grey1100));
+                        }
                       }
                     : () {}),
             const SizedBox(height: 8),

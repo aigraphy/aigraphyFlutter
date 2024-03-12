@@ -11,7 +11,7 @@ class ListenLanguageBloc
     on<ChangeLanguage>(_onChangeLanguage);
   }
   late String locale;
-  late String language;
+  String? language;
 
   String getLanguage(String locale) {
     switch (locale) {
