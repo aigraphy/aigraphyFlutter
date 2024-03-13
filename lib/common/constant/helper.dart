@@ -59,10 +59,8 @@ const String legalInappPurchase =
     'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
 
 /* MUST CONFIG */
-const linkApp = 'https://bit.ly/lpfaceswap';
-const linkAppAIGenVision = 'https://aivision.webflow.io/';
-const linkFacebook = 'https://www.facebook.com/profile.php?id=61555408634180';
-const linkTwitter = 'https://twitter.com/izidev2023';
+const linkApp = 'http://aigraphyapp.com';
+const linkInsta = 'https://www.instagram.com/aigraphy.app';
 const linkPolicy = 'https://aigraphyapp.com/terms-conditions-privacy-policy/';
 DateTime now = DateTime.now();
 
@@ -200,12 +198,6 @@ Future<void> showRatingWhenCreateImage(BuildContext context) async {
   setAmountShowReview(count);
 }
 
-Future<void> launchUrlFaceSwap() async {
-  final Uri _url = Uri.parse(linkAppAIGenVision);
-  if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');
-  }
-}
 
 bool canCheckIn(DateTime? currentDate, DateTime timeNow) {
   if (currentDate == null) {
@@ -575,9 +567,21 @@ Future<UserModel?> getUserInfo(bool mounted, BuildContext context) async {
           document: gql(Subscription.listenUser),
           variables: <String, dynamic>{'uuid': firebaseUser.uid}))
       .listen((value) async {
+         print('-------------');
+        print('-------------');
+        print(value);
+        print(mounted);
+         print('-------------');
+        print('-------------');
     if (mounted) {
       if (!value.hasException && value.data!['User'].length > 0) {
         userModel = UserModel.fromJson(value.data!['User'][0]);
+        print('-------------');
+        print('-------------');
+        print(userModel);
+        print('init');
+        print('-------------');
+        print('-------------');
         context.read<UserBloc>().add(GetUser(userModel!, context));
       }
     }

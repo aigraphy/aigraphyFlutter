@@ -139,7 +139,7 @@ class _LeaveFeedbackState extends State<LeaveFeedback> {
                                     subhead(color: grey1100, fontWeight: '400'),
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'Facebook fanpage',
+                                    text: 'Instagram',
                                     style: callout(
                                         color: blueLight,
                                         fontWeight: '600',
@@ -147,7 +147,7 @@ class _LeaveFeedbackState extends State<LeaveFeedback> {
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () async {
                                         final Uri _url =
-                                            Uri.parse(linkFacebook);
+                                            Uri.parse(linkInsta);
                                         if (!await launchUrl(_url)) {
                                           throw Exception(
                                               'Could not launch $_url');

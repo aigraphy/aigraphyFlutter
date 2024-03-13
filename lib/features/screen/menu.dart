@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../app/widget_support.dart';
 import '../../common/bloc/listen_language/bloc_listen_language.dart';
@@ -19,7 +18,6 @@ import '../../common/widget/ads_applovin_banner.dart';
 import '../../common/widget/animation_click.dart';
 import '../../common/widget/app_bar_cpn.dart';
 import '../../common/widget/leave_feedback.dart';
-import '../../common/widget/rate_app.dart';
 import '../../translations/export_lang.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -232,38 +230,38 @@ class _MenuScreenState extends State<MenuScreen> {
                       );
                     },
                     child: item(LocaleKeys.leaveYourFeedback.tr())),
-                AnimationClick(
-                    function: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const RateAppWidget();
-                        },
-                      );
-                    },
-                    child: item(LocaleKeys.rateAIGraphy.tr(),
-                        trailing: RatingBar(
-                          initialRating: 5,
-                          direction: Axis.horizontal,
-                          allowHalfRating: false,
-                          itemCount: 5,
-                          itemSize: 16,
-                          ignoreGestures: true,
-                          ratingWidget: RatingWidget(
-                            full: Image.asset(
-                              rate,
-                              color: corn2,
-                            ),
-                            half: const SizedBox(),
-                            empty: Image.asset(
-                              rate,
-                              color: corn2,
-                            ),
-                          ),
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 4.0),
-                          onRatingUpdate: (rating) {},
-                        ))),
+                // AnimationClick(
+                //     function: () {
+                //       showDialog(
+                //         context: context,
+                //         builder: (context) {
+                //           return const RateAppWidget();
+                //         },
+                //       );
+                //     },
+                //     child: item(LocaleKeys.rateAIGraphy.tr(),
+                //         trailing: RatingBar(
+                //           initialRating: 5,
+                //           direction: Axis.horizontal,
+                //           allowHalfRating: false,
+                //           itemCount: 5,
+                //           itemSize: 16,
+                //           ignoreGestures: true,
+                //           ratingWidget: RatingWidget(
+                //             full: Image.asset(
+                //               rate,
+                //               color: corn2,
+                //             ),
+                //             half: const SizedBox(),
+                //             empty: Image.asset(
+                //               rate,
+                //               color: corn2,
+                //             ),
+                //           ),
+                //           itemPadding:
+                //               const EdgeInsets.symmetric(horizontal: 4.0),
+                //           onRatingUpdate: (rating) {},
+                //         ))),
                 item(LocaleKeys.subscriptionPolicy.tr()),
                 item(LocaleKeys.discordCommunity.tr()),
                 item(LocaleKeys.appVersion.tr(),

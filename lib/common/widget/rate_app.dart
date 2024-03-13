@@ -16,14 +16,14 @@ class RateAppWidget extends StatefulWidget {
 }
 
 class _RateAppWidgetState extends State<RateAppWidget> {
-  /* MUST CONFIG */
-  Future<void> _rateAndReviewApp() async {
-    final _inAppReview = InAppReview.instance;
-    _inAppReview.openStoreListing(
-      appStoreId: '6471816673',
-      microsoftStoreId: 'dev.ditustudio.aigraphy_flutter',
-    );
-  }
+  // /* MUST CONFIG */
+  // Future<void> _rateAndReviewApp() async {
+  //   final _inAppReview = InAppReview.instance;
+  //   _inAppReview.openStoreListing(
+  //     appStoreId: '6471816673',
+  //     microsoftStoreId: 'dev.ditustudio.aigraphy_flutter',
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +62,16 @@ class _RateAppWidgetState extends State<RateAppWidget> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                AppWidget.typeButtonGradient(
-                    context: context,
-                    input: LocaleKeys.RateNow.tr(),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      _rateAndReviewApp();
-                    },
-                    vertical: 16,
-                    textColor: grey1100),
-                const SizedBox(height: 16),
+                // AppWidget.typeButtonGradient(
+                //     context: context,
+                //     input: LocaleKeys.RateNow.tr(),
+                //     onPressed: () {
+                //       Navigator.of(context).pop();
+                //       // _rateAndReviewApp();
+                //     },
+                //     vertical: 16,
+                //     textColor: grey1100),
+                // const SizedBox(height: 16),
                 AppWidget.typeButtonStartAction(
                     context: context,
                     input: LocaleKeys.later.tr(),

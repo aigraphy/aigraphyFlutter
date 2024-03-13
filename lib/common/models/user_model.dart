@@ -68,7 +68,6 @@ class UserModel extends Equatable {
         avatar,
         token,
         language,
-        dateCheckIn!,
         slotRecentFace,
         slotHistory
       ];
