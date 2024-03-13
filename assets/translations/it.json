@@ -113,7 +113,7 @@
   "photos": "Foto",
   "insertYourMessage": "Inserisci il tuo messaggio",
   "sliderWhiteBlackColor": "Slider Colore Bianco Nero",
-  "pleaseChoosePhoto": "Scegli una foto con dimensioni inferiori a 2 MB",
+  "pleaseChoosePhoto": "Scegli una foto con dimensioni inferiori a 6 MB",
   "weDontSupportGif": "Non supportiamo i file gif. Scegli un altro file",
   "failedToFetchRequests": "Impossibile recuperare le richieste",
   "noRequests": "Nessuna richiesta trovata",

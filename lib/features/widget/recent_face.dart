@@ -74,7 +74,7 @@ class _RecentFaceState extends State<RecentFace> {
     if (imageFile != null) {
       final File file = File(imageFile!.path);
       imageSelected = file.readAsBytesSync();
-      if (imageSelected.lengthInBytes / (1024 * 1024) >= 2) {
+      if (imageSelected.lengthInBytes / (1024 * 1024) > 6) {
         BotToast.showText(
             text: LocaleKeys.pleaseChoosePhoto.tr(),
             textStyle: body(color: grey1100));

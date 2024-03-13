@@ -27,27 +27,34 @@ class GoPro extends StatelessWidget {
       children: [
         if (showPro)
           if (!context.watch<SetUserPro>().state)
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                  color: corn1, borderRadius: BorderRadius.circular(24)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    ic_pro,
-                    width: 20,
-                    height: 20,
-                    color: grey100,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    text,
-                    style: headline(color: grey100),
-                  )
-                ],
+            AnimationClick(
+              function: () {
+                Navigator.of(context).pushNamed(Routes.price_first_time,
+                    arguments: PriceFirstTime());
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                    color: corn1, borderRadius: BorderRadius.circular(24)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      ic_pro,
+                      width: 20,
+                      height: 20,
+                      color: grey100,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      text,
+                      style: headline(color: grey100),
+                    )
+                  ],
+                ),
               ),
             ),
         if (showCoin)
