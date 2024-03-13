@@ -241,7 +241,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         },
                       );
                     },
-                    child: item(LocaleKeys.rateFaceSwap.tr(),
+                    child: item(LocaleKeys.rateAIGraphy.tr(),
                         trailing: RatingBar(
                           initialRating: 5,
                           direction: Axis.horizontal,

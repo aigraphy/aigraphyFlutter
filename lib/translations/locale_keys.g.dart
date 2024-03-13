@@ -30,7 +30,7 @@ abstract class  LocaleKeys {
   static const profile = 'profile';
   static const chooseFace = 'chooseFace';
   static const pleaseCropClear = 'pleaseCropClear';
-  static const fromFaceSwap = 'fromFaceSwap';
+  static const fromAIGraphy = 'fromAIGraphy';
   static const shareYourImage = 'shareYourImage';
   static const downloading = 'downloading';
   static const downloadSuccessfull = 'downloadSuccessfull';
@@ -60,7 +60,7 @@ abstract class  LocaleKeys {
   static const buyMore = 'buyMore';
   static const english = 'english';
   static const notification = 'notification';
-  static const rateFaceSwap = 'rateFaceSwap';
+  static const rateAIGraphy = 'rateAIGraphy';
   static const letStart = 'letStart';
   static const welcomeBack = 'welcomeBack';
   static const changeYourFace = 'changeYourFace';

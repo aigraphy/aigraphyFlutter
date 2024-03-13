@@ -361,7 +361,7 @@ Future<void> scheduleNotification(int hour, int minutes) async {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'FaceSwap',
+    'AIGraphy',
     'Remind Daily',
     channelDescription: 'Hey yo! Get a FREE Token now!',
   );
@@ -372,7 +372,7 @@ Future<void> scheduleNotification(int hour, int minutes) async {
   final offset = now.timeZoneOffset;
   await flutterLocalNotificationsPlugin.zonedSchedule(
       1,
-      'FaceSwap',
+      'AIGraphy',
       'Hey yo! Get a FREE Token now!',
       tz.TZDateTime(tz.local, now.year, now.month, now.day,
           hour - offset.inHours, minutes, 00),
@@ -407,8 +407,8 @@ Future<void> shareContentMultiUrl(
     files.add(xFile);
   }
   final result = await Share.shareXFiles(files,
-      subject: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp',
-      text: '${LocaleKeys.fromFaceSwap.tr()}: $linkApp');
+      subject: '${LocaleKeys.fromAIGraphy.tr()}: $linkApp',
+      text: '${LocaleKeys.fromAIGraphy.tr()}: $linkApp');
   if (result.status == ShareResultStatus.success) {
     // AdLovinUtils().showAdIfReady();
     shareImageGetToken(context);
