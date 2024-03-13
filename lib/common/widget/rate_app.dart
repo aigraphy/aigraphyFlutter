@@ -1,6 +1,5 @@
 import 'package:aigraphy_flutter/common/constant/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_review/in_app_review.dart';
 
 import '../../../app/widget_support.dart';
 import '../../../common/widget/gradient_text.dart';
@@ -20,8 +19,8 @@ class _RateAppWidgetState extends State<RateAppWidget> {
   // Future<void> _rateAndReviewApp() async {
   //   final _inAppReview = InAppReview.instance;
   //   _inAppReview.openStoreListing(
-  //     appStoreId: '6471816673',
-  //     microsoftStoreId: 'dev.ditustudio.aigraphy_flutter',
+  //     appStoreId: '',
+  //     microsoftStoreId: '',
   //   );
   // }
 

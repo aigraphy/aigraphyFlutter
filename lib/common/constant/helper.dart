@@ -18,7 +18,6 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../features/screen/result_remove_bg.dart';
 import '../../features/screen/token_success.dart';
@@ -78,7 +77,7 @@ Future<DateTime> getTime() async {
 
 String locale = 'en';
 const TOKEN_REWARD = 15;
-const TOKEN_DAILY = 15;
+const TOKEN_DAILY = 30;
 const TOKEN_SHARE = 3;
 const TOKEN_EDIT = 5;
 const TOKEN_OPEN_SLOT = 20;
