@@ -245,12 +245,17 @@ Future<void> uploadFace(BuildContext context, Uint8List? res) async {
 Future<void> updateInAppTokenUser(int tokens) async {
   final User firebaseUser = FirebaseAuth.instance.currentUser!;
   final String? token = await firebaseUser.getIdToken();
-  await Config.initializeClient(token!).value.mutate(MutationOptions(
+  await Config.initializeClient(token!)
+      .value
+      .mutate(MutationOptions(
           document: gql(Mutations.updateUser()),
           variables: <String, dynamic>{
             'uuid': firebaseUser.uid,
             'token': tokens,
-          }));
+          }))
+      .then((value) {
+    print(value);
+  });
 }
 
 Future<UserModel?> getUser(BuildContext context) async {
@@ -294,10 +299,21 @@ Future<void> initPlatformState(BuildContext context) async {
 void listenInAppPurchase(BuildContext context) {
   Purchases.addCustomerInfoUpdateListener((customerInfo) async {
     final reward = await getRewardTokenIAP();
+    print('----------------------');
+    print('----------------------');
+    print('----------------------');
+    print(reward);
+    print('----------------------');
+    print('----------------------');
+    print('----------------------');
     if (reward != 0) {
+      print('1');
       await handleTokenUser(reward, context);
+      print('2');
       await setRewardTokenIAP(0);
+      print('3');
       await checkUserPro(context);
+      print('4');
     }
   });
 }
