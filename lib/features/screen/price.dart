@@ -112,7 +112,7 @@ class _PriceState extends State<PriceToken>
 
   @override
   void initState() {
-    // getInappPurchase();
+    getInappPurchase();
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isVisible = true;

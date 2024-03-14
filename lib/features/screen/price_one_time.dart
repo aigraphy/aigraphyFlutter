@@ -140,8 +140,8 @@ class _PriceOneTimeState extends State<PriceOneTimeToken>
   @override
   void initState() {
     super.initState();
-    // getInappPurchase();
-    // checkTime();
+    getInappPurchase();
+    checkTime();
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isVisible = true;
