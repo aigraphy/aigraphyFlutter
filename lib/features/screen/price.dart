@@ -82,6 +82,7 @@ class _PriceState extends State<PriceToken>
         _kProductIds,
         productCategory: ProductCategory.nonSubscription,
       );
+      print(products);
     } on PlatformException catch (_) {
       BotToast.showText(text: SOMETHING_WENT_WRONG);
     }
