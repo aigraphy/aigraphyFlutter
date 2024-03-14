@@ -1,0 +1,115 @@
+{
+  "identifier" : "148C03AB",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "39.99",
+      "familyShareable" : false,
+      "internalID" : "6479427867",
+      "localizations" : [
+        {
+          "description" : "Use 39.99$ to buy 10000 Coins",
+          "displayName" : "10000 Coins AIGraphy",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "aigraphyapp_com_tn3",
+      "referenceName" : "10000 Coins AIGraphy",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : false,
+      "internalID" : "6479427484",
+      "localizations" : [
+        {
+          "description" : "Use 9.99$ to buy 1950 Coins",
+          "displayName" : "1950 Coins AIGraphy",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "aigraphyapp_com_tn2",
+      "referenceName" : "1950 Coins AIGraphy",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "6479427375",
+      "localizations" : [
+        {
+          "description" : "Use 1.99$ to buy 500 Coins",
+          "displayName" : "500 Coins AIGraphy",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "aigraphyapp_com_tn1",
+      "referenceName" : "500 Coins AIGraphy",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6479348091",
+    "_developerTeamID" : "AAWV3S98C7",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 732119112.609954,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

@@ -120,7 +120,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 color: grey200, borderRadius: BorderRadius.circular(16)),
             child: Column(
               children: [
-                item(LocaleKeys.contactSupport.tr()),
+                AnimationClick(
+                    function: () {
+                      launchUrlUlti('https://aigraphyapp.com/support');
+                    },
+                    child: item(LocaleKeys.contactSupport.tr())),
                 Container(
                   decoration: BoxDecoration(
                       color: grey200, borderRadius: BorderRadius.circular(16)),
@@ -191,7 +195,11 @@ class _MenuScreenState extends State<MenuScreen> {
                 color: grey200, borderRadius: BorderRadius.circular(16)),
             child: Column(
               children: [
-                item(LocaleKeys.aboutAIGraphy.tr()),
+                AnimationClick(
+                    function: () {
+                      launchUrlUlti('https://aigraphyapp.com/');
+                    },
+                    child: item(LocaleKeys.aboutAIGraphy.tr())),
                 AnimationClick(
                   function: () {
                     Navigator.of(context).pushNamed(Routes.language);
@@ -219,7 +227,12 @@ class _MenuScreenState extends State<MenuScreen> {
                         ],
                       )),
                 ),
-                item(LocaleKeys.securityTerms.tr()),
+                AnimationClick(
+                    function: () {
+                      launchUrlUlti(
+                          'https://aigraphyapp.com/terms-conditions-privacy-policy/');
+                    },
+                    child: item(LocaleKeys.securityTerms.tr())),
                 AnimationClick(
                     function: () {
                       showDialog(
@@ -262,8 +275,17 @@ class _MenuScreenState extends State<MenuScreen> {
                 //               const EdgeInsets.symmetric(horizontal: 4.0),
                 //           onRatingUpdate: (rating) {},
                 //         ))),
-                item(LocaleKeys.subscriptionPolicy.tr()),
-                item(LocaleKeys.discordCommunity.tr()),
+                AnimationClick(
+                    function: () {
+                      launchUrlUlti(
+                          'https://aigraphyapp.com/terms-conditions-privacy-policy/');
+                    },
+                    child: item(LocaleKeys.subscriptionPolicy.tr())),
+                AnimationClick(
+                    function: () {
+                      launchUrlUlti('https://bit.ly/4adQFfF');
+                    },
+                    child: item(LocaleKeys.discordCommunity.tr())),
                 item(LocaleKeys.appVersion.tr(),
                     trailing: Text(
                       version,

@@ -18,6 +18,7 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timezone/timezone.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../features/screen/result_remove_bg.dart';
 import '../../features/screen/token_success.dart';
@@ -282,7 +283,7 @@ Future<void> initPlatformState(BuildContext context) async {
   if (Platform.isAndroid) {
     configuration = PurchasesConfiguration('goog_OAkBVKgNhwYeCsSWKqnPadjQPOH');
   } else if (Platform.isIOS) {
-    configuration = PurchasesConfiguration('your_api_key');
+    configuration = PurchasesConfiguration('appl_kiDgmALwJliwfkHmfMuezrDLuxk');
   }
   await Purchases.configure(configuration);
 }
@@ -307,6 +308,12 @@ void listenInAppPurchase(BuildContext context) {
       print('4');
     }
   });
+}
+Future<void> launchUrlUlti(String url) async {
+  final Uri _url = Uri.parse(url);
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
+  }
 }
 
 /// Config notification
