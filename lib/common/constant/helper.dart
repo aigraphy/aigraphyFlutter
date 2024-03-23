@@ -244,10 +244,7 @@ Future<void> updateInAppTokenUser(int tokens) async {
           variables: <String, dynamic>{
             'uuid': firebaseUser.uid,
             'token': tokens,
-          }))
-      .then((value) {
-    print(value);
-  });
+          }));
 }
 
 Future<UserModel?> getUser(BuildContext context) async {
@@ -291,21 +288,11 @@ Future<void> initPlatformState(BuildContext context) async {
 void listenInAppPurchase(BuildContext context) {
   Purchases.addCustomerInfoUpdateListener((customerInfo) async {
     final reward = await getRewardTokenIAP();
-    print('----------------------');
-    print('----------------------');
-    print('----------------------');
-    print(reward);
-    print('----------------------');
-    print('----------------------');
-    print('----------------------');
+   
     if (reward != 0) {
-      print('1');
       await handleTokenUser(reward, context);
-      print('2');
       await setRewardTokenIAP(0);
-      print('3');
       await checkUserPro(context);
-      print('4');
     }
   });
 }
@@ -573,21 +560,11 @@ Future<UserModel?> getUserInfo(bool mounted, BuildContext context) async {
           document: gql(Subscription.listenUser),
           variables: <String, dynamic>{'uuid': firebaseUser.uid}))
       .listen((value) async {
-         print('-------------');
-        print('-------------');
-        print(value);
-        print(mounted);
-         print('-------------');
-        print('-------------');
+       
     if (mounted) {
       if (!value.hasException && value.data!['User'].length > 0) {
         userModel = UserModel.fromJson(value.data!['User'][0]);
-        print('-------------');
-        print('-------------');
-        print(userModel);
-        print('init');
-        print('-------------');
-        print('-------------');
+       
         context.read<UserBloc>().add(GetUser(userModel!, context));
       }
     }

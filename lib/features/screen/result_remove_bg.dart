@@ -54,7 +54,6 @@ class _ResultRemoveBgState extends State<ResultRemoveBg>
 
   @override
   Widget build(BuildContext context) {
-    print(imageRemoveBG);
     return WillPopScope(
       onWillPop: () async {
         navigatePop();
