@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-    <!-- <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> -->
     <application
         android:label="AIGraphy"
         android:name="${applicationName}"
@@ -47,11 +46,6 @@
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-        <!-- MUST CONFIG  -->
-        <!-- <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="your_admob_id_app"/> -->
-        <!-- <meta-data android:name="applovin.sdk.key" android:value="CfEmtbSTTX1IDgKt5LK7hVynAAoJZIWWLQZmg2H7FaOmbVU9dcK0Jei3BhNgIggFwDiguDhyO3UqdGWol_zv5X"/> -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

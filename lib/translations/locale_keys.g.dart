@@ -12,10 +12,10 @@ abstract class  LocaleKeys {
   static const someThingWentWrong = 'someThingWentWrong';
   static const successful = 'successful';
   static const checkInAnd = 'checkInAnd';
-  static const getTokens = 'getTokens';
+  static const getCoins = 'getCoins';
   static const checkInNow = 'checkInNow';
   static const youWillReceive = 'youWillReceive';
-  static const token = 'token';
+  static const coin = 'coin';
   static const youCanSave = 'youCanSave';
   static const faces = 'faces';
   static const weWillReplace = 'weWillReplace';
@@ -56,7 +56,7 @@ abstract class  LocaleKeys {
   static const filter = 'filter';
   static const emoji = 'emoji';
   static const saveChange = 'saveChange';
-  static const tokensRemaining = 'tokensRemaining';
+  static const coinsRemaining = 'coinsRemaining';
   static const buyMore = 'buyMore';
   static const english = 'english';
   static const notification = 'notification';
@@ -72,9 +72,9 @@ abstract class  LocaleKeys {
   static const bestSeller = 'bestSeller';
   static const youAgreeWithOur = 'youAgreeWithOur';
   static const buyNow = 'buyNow';
-  static const tokens = 'tokens';
+  static const coins = 'coins';
   static const youHave = 'youHave';
-  static const buyMoreTokens = 'buyMoreTokens';
+  static const buyMoreCoins = 'buyMoreCoins';
   static const noRequest = 'noRequest';
   static const youNeedChoose = 'youNeedChoose';
   static const swapImage = 'swapImage';
@@ -107,8 +107,8 @@ abstract class  LocaleKeys {
   static const selectEmoji = 'selectEmoji';
   static const sizeAdjust = 'sizeAdjust';
   static const allPhotos = 'allPhotos';
-  static const haveEnoughToken = 'haveEnoughToken';
-  static const buyMoreToken = 'buyMoreToken';
+  static const haveEnoughCoin = 'haveEnoughCoin';
+  static const buyMoreCoin = 'buyMoreCoin';
   static const watchAdsGet = 'watchAdsGet';
   static const orAddNewFace = 'orAddNewFace';
   static const camera = 'camera';
@@ -139,7 +139,7 @@ abstract class  LocaleKeys {
   static const thankFor = 'thankFor';
   static const deleteImageBackground = 'deleteImageBackground';
   static const youAreRunning = 'youAreRunning';
-  static const buyMoreTokenNow = 'buyMoreTokenNow';
+  static const buyMoreCoinNow = 'buyMoreCoinNow';
   static const videoSwap = 'videoSwap';
   static const comingSoon = 'comingSoon';
   static const guideOption = 'guideOption';
@@ -148,7 +148,7 @@ abstract class  LocaleKeys {
   static const human = 'human';
   static const anime = 'anime';
   static const humanAndAnimal = 'humanAndAnimal';
-  static const enoughToken = 'enoughToken';
+  static const enoughCoin = 'enoughCoin';
   static const youDontHave = 'youDontHave';
   static const removeBackground = 'removeBackground';
   static const wi = 'wi';
@@ -189,7 +189,6 @@ abstract class  LocaleKeys {
   static const badImage = 'badImage';
   static const photoAreBlurry = 'photoAreBlurry';
   static const removeAds = 'removeAds';
-  static const buyMoreCoinNow = 'buyMoreCoinNow';
   static const pleaseTryOtherVideo = 'pleaseTryOtherVideo';
   static const tryToBuy = 'tryToBuy';
   static const next = 'next';

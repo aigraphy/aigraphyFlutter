@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-import 'app/app.dart';
+import 'aigraphy.dart';
 import 'translations/codegen_loader.g.dart';
 
 Future<void> main() async {
@@ -15,11 +15,8 @@ Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   tz.initializeTimeZones();
-  // await MobileAds.instance.initialize();
-  // await AppLovinMAX.initialize(AdLovinUtils().keySdkApplovin);
   await EasyLocalization.ensureInitialized();
   if (Platform.isMacOS || Platform.isIOS) {
-    /* MUST CONFIG */
     await Firebase.initializeApp(
         options: const FirebaseOptions(
             apiKey: 'AIzaSyCLUqlbAPYbLusw4m2v3aIiayCcp4JjwpM',
@@ -51,5 +48,5 @@ Future<void> main() async {
       saveLocale: false,
       useOnlyLangCode: true,
       assetLoader: const CodegenLoader(),
-      child: const MyApp()));
+      child: const AIGraphy()));
 }

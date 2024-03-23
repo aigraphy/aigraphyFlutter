@@ -14,7 +14,6 @@ import firebase_messaging
 import flutter_image_compress_macos
 import flutter_local_notifications
 import flutter_secure_storage_macos
-import in_app_review
 import path_provider_foundation
 import photo_manager
 import purchases_flutter
@@ -35,7 +34,6 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FlutterImageCompressMacosPlugin.register(with: registry.registrar(forPlugin: "FlutterImageCompressMacosPlugin"))
   FlutterLocalNotificationsPlugin.register(with: registry.registrar(forPlugin: "FlutterLocalNotificationsPlugin"))
   FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
-  InAppReviewPlugin.register(with: registry.registrar(forPlugin: "InAppReviewPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   PhotoManagerPlugin.register(with: registry.registrar(forPlugin: "PhotoManagerPlugin"))
   PurchasesFlutterPlugin.register(with: registry.registrar(forPlugin: "PurchasesFlutterPlugin"))
