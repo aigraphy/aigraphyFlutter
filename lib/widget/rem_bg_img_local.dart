@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
-import '../widget_helper.dart';
 import 'get_more_coin.dart';
 import 'text_gradient.dart';
 
@@ -66,8 +66,14 @@ class _RemBGImgLocalState extends State<RemBGImgLocal> {
               onPressed: () {
                 final userModel = context.read<PersonBloc>().userModel!;
                 if (userModel.coin < TOKEN_REMOVE_BG) {
-                  showDialog<void>(
+                  showModalBottomSheet<void>(
                     context: context,
+                    backgroundColor: spaceCadet,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10)),
+                    ),
                     builder: (BuildContext context) {
                       return const GetMoreCoin();
                     },

@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
@@ -19,7 +20,6 @@ import '../widget/click_widget.dart';
 import '../widget/item_iap.dart';
 import '../widget/privacy.dart';
 import '../widget/text_gradient.dart';
-import '../widget_helper.dart';
 
 final List<String> _kProductIds = <String>[
   coinProductId1,

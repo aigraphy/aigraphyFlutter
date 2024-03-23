@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../aigraphy_widget.dart';
 import '../config/config_color.dart';
 import '../config/config_helper.dart';
-import '../widget_helper.dart';
 
 class Privacy extends StatefulWidget {
   const Privacy({this.title, this.url});

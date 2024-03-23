@@ -17,7 +17,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../bloc/face/bloc_face.dart';
-import '../bloc/list_histories/list_histories_bloc.dart';
+import '../bloc/histories/histories_bloc.dart';
 import '../bloc/listen_language/bloc_listen_language.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config_graphql/config_mutation.dart';
@@ -328,7 +328,7 @@ Future<HistoryModel?> insertRequest(String url, BuildContext context) async {
       requestModel =
           HistoryModel.convertToObj(value.data!['insert_Request_one']);
       context
-          .read<ListHistoriesBloc>()
+          .read<HistoriesBloc>()
           .add(InsertHistory(requestModel: requestModel!));
     }
   });
@@ -353,7 +353,7 @@ Future<ImgRemoveBG?> insertImageRemBG(
       imageRemoveBG =
           ImgRemoveBG.convertToObj(value.data!['insert_ImageRemBG_one']);
       context
-          .read<ListHistoriesBloc>()
+          .read<HistoriesBloc>()
           .add(UpdateRemImg(imageRemoveBG: imageRemoveBG!));
     }
   });
@@ -423,9 +423,14 @@ Future<void> showDaily(BuildContext context) async {
     if (user != null) {
       final timeNow = await getTime();
       if (canCheckIn(user.dateCheckIn, timeNow)) {
-        showDialog(
+        showModalBottomSheet<void>(
           context: context,
-          builder: (context) {
+          backgroundColor: spaceCadet,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+          ),
+          builder: (BuildContext context) {
             return const DailyCoin();
           },
         );

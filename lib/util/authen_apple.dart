@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../widget_helper.dart';
+import '../aigraphy_widget.dart';
 
 mixin AuthenApple {
   static String generateNonce([int length = 32]) {

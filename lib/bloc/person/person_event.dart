@@ -30,7 +30,7 @@ class UpdateCurrentCheckIn extends PersonEvent {
   List<Object> get props => [];
 }
 
-class UpdateSlotRecentFace extends PersonEvent {
+class UpdateSlotFace extends PersonEvent {
   @override
   List<Object> get props => [];
 }

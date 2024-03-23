@@ -8,7 +8,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 
 import '../../translations/export_lang.dart';
-import '../bloc/list_histories/list_histories_bloc.dart';
+import '../aigraphy_widget.dart';
+import '../bloc/histories/histories_bloc.dart';
 import '../bloc/person/bloc_person.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
@@ -26,7 +27,6 @@ import '../widget/expandable_custom.dart';
 import '../widget/offer_first_time.dart';
 import '../widget/rem_bg.dart';
 import '../widget/text_gradient.dart';
-import '../widget_helper.dart';
 import 'editor_img.dart';
 import 'in_app_purchase.dart';
 
@@ -131,7 +131,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
                                     deleteFileDO(imageRemoveBG!);
                                   }
                                   context
-                                      .read<ListHistoriesBloc>()
+                                      .read<HistoriesBloc>()
                                       .add(RemoveHistory(id: idRequest));
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
@@ -141,10 +141,8 @@ class _HistoryDetailState extends State<HistoryDetail> {
                                   if (imageRemoveBG != null) {
                                     deleteFileDO(imageRemoveBG!);
                                   }
-                                  context.read<ListHistoriesBloc>().add(
-                                      RemoveImgBG(
-                                          requestId: idRequest,
-                                          context: context));
+                                  context.read<HistoriesBloc>().add(RemoveImgBG(
+                                      requestId: idRequest, context: context));
                                   Navigator.of(context).pop();
                                 }
                               },

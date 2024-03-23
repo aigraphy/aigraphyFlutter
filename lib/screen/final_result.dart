@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../bloc/swap_image/bloc_swap_img.dart';
@@ -27,7 +28,6 @@ import '../widget/lottie_custom.dart';
 import '../widget/offer_first_time.dart';
 import '../widget/rem_bg.dart';
 import '../widget/text_gradient.dart';
-import '../widget_helper.dart';
 import 'editor_img.dart';
 import 'in_app_purchase.dart';
 
@@ -148,8 +148,14 @@ class _FinalResultState extends State<FinalResult>
                               dstPath: widget.dstPath,
                               handleCoin: true));
                         } else {
-                          showDialog<void>(
+                          showModalBottomSheet<void>(
                             context: context,
+                            backgroundColor: spaceCadet,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10)),
+                            ),
                             builder: (BuildContext context) {
                               return const GetMoreCoin();
                             },

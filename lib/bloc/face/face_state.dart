@@ -14,12 +14,12 @@ class FaceLoading extends FaceState {
 }
 
 class FaceLoaded extends FaceState {
-  const FaceLoaded({required this.recentFaces});
+  const FaceLoaded({required this.faces});
 
-  final List<FaceModel> recentFaces;
+  final List<FaceModel> faces;
 
   @override
-  List<Object> get props => [recentFaces];
+  List<Object> get props => [faces];
 }
 
 class FaceError extends FaceState {

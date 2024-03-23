@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
 import '../config_router/name_router.dart';
 import '../widget/click_widget.dart';
-import '../widget_helper.dart';
 import 'home.dart';
 
 class CoinSuccess extends PageRouteBuilder<dynamic> {

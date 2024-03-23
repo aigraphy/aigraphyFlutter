@@ -27,6 +27,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
@@ -42,7 +43,6 @@ import '../widget/get_more_coin.dart';
 import '../widget/image_brush.dart';
 import '../widget/image_filter.dart';
 import '../widget/offer_first_time.dart';
-import '../widget_helper.dart';
 import 'in_app_purchase.dart';
 
 late Size viewportSize;
@@ -216,8 +216,13 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
     resetTransformation();
     final user = context.read<PersonBloc>().userModel;
     if (user!.coin < TOKEN_EDIT) {
-      showDialog<void>(
+      showModalBottomSheet<void>(
         context: context,
+        backgroundColor: spaceCadet,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+        ),
         builder: (BuildContext context) {
           return const GetMoreCoin();
         },

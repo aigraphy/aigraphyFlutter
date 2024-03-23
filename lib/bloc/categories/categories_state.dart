@@ -1,24 +1,24 @@
-part of 'list_categories_bloc.dart';
+part of 'categories_bloc.dart';
 
-enum ListCategoriesStatus { initial, success, failure }
+enum CategoriesStatus { initial, success, failure }
 
-final class ListCategoriesState extends Equatable {
-  const ListCategoriesState({
-    this.status = ListCategoriesStatus.initial,
+final class CategoriesState extends Equatable {
+  const CategoriesState({
+    this.status = CategoriesStatus.initial,
     this.categories = const <CateModel>[],
     this.hasReachedMax = false,
   });
 
-  final ListCategoriesStatus status;
+  final CategoriesStatus status;
   final List<CateModel> categories;
   final bool hasReachedMax;
 
-  ListCategoriesState copyWith({
-    ListCategoriesStatus? status,
+  CategoriesState copyWith({
+    CategoriesStatus? status,
     List<CateModel>? categories,
     bool? hasReachedMax,
   }) {
-    return ListCategoriesState(
+    return CategoriesState(
       status: status ?? this.status,
       categories: categories ?? this.categories,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

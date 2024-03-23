@@ -12,19 +12,19 @@ import 'bloc_face.dart';
 
 class FaceBloc extends Bloc<FaceEvent, FaceState> {
   FaceBloc() : super(FaceLoading()) {
-    on<GetFace>(_onGetRecentFace);
+    on<GetFace>(_onGetFaces);
     on<UpdateFace>(_onUpdateFace);
     on<DeleteFace>(_onDeleteFace);
   }
   User userFB = FirebaseAuth.instance.currentUser!;
 
-  List<FaceModel> recentFaces = [];
+  List<FaceModel> faces = [];
 
-  Future<void> _onGetRecentFace(GetFace event, Emitter<FaceState> emit) async {
+  Future<void> _onGetFaces(GetFace event, Emitter<FaceState> emit) async {
     try {
-      recentFaces.clear();
-      recentFaces = await getRecentFace();
-      emit(FaceLoaded(recentFaces: recentFaces));
+      faces.clear();
+      faces = await getFaces();
+      emit(FaceLoaded(faces: faces));
     } catch (_) {
       emit(FaceError());
     }
@@ -34,17 +34,17 @@ class FaceBloc extends Bloc<FaceEvent, FaceState> {
     final state = this.state;
     if (state is FaceLoaded) {
       try {
-        if (recentFaces.length >=
-            event.context.read<PersonBloc>().userModel!.slotRecentFace) {
-          recentFaces.sort((a, b) => a.updatedAt.compareTo(b.updatedAt));
-          final recent = recentFaces.first;
+        if (faces.length >=
+            event.context.read<PersonBloc>().userModel!.slotFaces) {
+          faces.sort((a, b) => a.updatedAt.compareTo(b.updatedAt));
+          final recent = faces.first;
           deleteFileDO(recent.face);
-          updateRecentFace(recent.id!, event.face);
+          updateFace(recent.id!, event.face);
         } else {
-          insertRecentFace(event.face);
+          insertFace(event.face);
         }
 
-        emit(FaceLoaded(recentFaces: recentFaces));
+        emit(FaceLoaded(faces: faces));
       } catch (_) {
         emit(FaceError());
       }
@@ -56,17 +56,17 @@ class FaceBloc extends Bloc<FaceEvent, FaceState> {
     if (state is FaceLoaded) {
       emit(FaceLoading());
       try {
-        recentFaces.removeWhere((e) => e.id == event.id);
-        deleteRecentFace(event.id);
+        faces.removeWhere((e) => e.id == event.id);
+        deleteFace(event.id);
         deleteFileDO(event.urlFace);
-        emit(FaceLoaded(recentFaces: recentFaces));
+        emit(FaceLoaded(faces: faces));
       } catch (_) {
         emit(FaceError());
       }
     }
   }
 
-  Future<List<FaceModel>> getRecentFace() async {
+  Future<List<FaceModel>> getFaces() async {
     final List<FaceModel> recents = [];
     final String? token = await userFB.getIdToken();
     await Graphql.initialize(token!)
@@ -86,7 +86,7 @@ class FaceBloc extends Bloc<FaceEvent, FaceState> {
     return recents;
   }
 
-  Future<void> updateRecentFace(int id, String face) async {
+  Future<void> updateFace(int id, String face) async {
     final String? token = await userFB.getIdToken();
     await Graphql.initialize(token!).value.mutate(MutationOptions(
             document: gql(ConfigMutation.updateFace()),
@@ -96,7 +96,7 @@ class FaceBloc extends Bloc<FaceEvent, FaceState> {
             }));
   }
 
-  Future<void> deleteRecentFace(int id) async {
+  Future<void> deleteFace(int id) async {
     final String? token = await userFB.getIdToken();
     await Graphql.initialize(token!).value.mutate(MutationOptions(
             document: gql(ConfigMutation.deleteFace()),
@@ -105,7 +105,7 @@ class FaceBloc extends Bloc<FaceEvent, FaceState> {
             }));
   }
 
-  Future<void> insertRecentFace(String face) async {
+  Future<void> insertFace(String face) async {
     final String? token = await userFB.getIdToken();
     await Graphql.initialize(token!).value.mutate(MutationOptions(
             document: gql(ConfigMutation.insertFace()),

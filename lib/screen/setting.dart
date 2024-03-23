@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/listen_language/bloc_listen_language.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
@@ -18,7 +19,6 @@ import '../util/config_shared_pre.dart';
 import '../widget/appbar_custom.dart';
 import '../widget/banner_ads.dart';
 import '../widget/click_widget.dart';
-import '../widget_helper.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});

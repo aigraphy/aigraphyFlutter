@@ -10,6 +10,7 @@ import 'package:image_editor_plus/options.dart' as o;
 import 'package:image_picker/image_picker.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/face/bloc_face.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
@@ -18,7 +19,6 @@ import '../config/config_helper.dart';
 import '../config/config_image.dart';
 import '../config_model/face_model.dart';
 import '../screen/cropper_img.dart';
-import '../widget_helper.dart';
 import 'banner_ads.dart';
 import 'buy_more_slot.dart';
 import 'cached_face.dart';
@@ -111,7 +111,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
     });
   }
 
-  Widget itemRecent(int index, FaceModel recentFaceModel) {
+  Widget itemRecent(int index, FaceModel faceModel) {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.bottomCenter,
@@ -130,7 +130,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
             EasyLoading.show();
             if (widget.handling) {
               try {
-                final image = await getImage(recentFaceModel.face);
+                final image = await getImage(faceModel.face);
                 final tempDir = await Directory.systemTemp.createTemp();
                 final tempFile = File(
                     '${tempDir.path}/${DateTime.now().toIso8601String()}.jpg');
@@ -156,7 +156,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
                 border: _currentIndex == index
                     ? Border.all(color: white, width: 2)
                     : null),
-            child: CachedFace(link: recentFaceModel.face),
+            child: CachedFace(link: faceModel.face),
           ),
         ),
         showDelete
@@ -165,8 +165,9 @@ class _ChooseFacesState extends State<ChooseFaces> {
                 top: 6,
                 child: ClickWidget(
                   function: () {
-                    context.read<FaceBloc>().add(
-                        DeleteFace(recentFaceModel.id!, recentFaceModel.face));
+                    context
+                        .read<FaceBloc>()
+                        .add(DeleteFace(faceModel.id!, faceModel.face));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(4),
@@ -187,11 +188,11 @@ class _ChooseFacesState extends State<ChooseFaces> {
   }
 
   Widget recentWidget() {
-    final recentsCount =
-        context.watch<PersonBloc>().userModel?.slotRecentFace ?? DEFAULT_SLOT;
+    final facesCount =
+        context.watch<PersonBloc>().userModel?.slotFaces ?? DEFAULT_SLOT;
     return BlocBuilder<FaceBloc, FaceState>(builder: (context, state) {
       if (state is FaceLoaded) {
-        final List<FaceModel> recentFaces = state.recentFaces;
+        final List<FaceModel> faces = state.faces;
         return Align(
           alignment: Alignment.centerLeft,
           child: ListView.separated(
@@ -199,15 +200,19 @@ class _ChooseFacesState extends State<ChooseFaces> {
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(horizontal: 24),
             separatorBuilder: (context, index) => const SizedBox(width: 12),
-            itemCount: recentFaces.length >= recentsCount
-                ? recentsCount + 1
-                : recentsCount,
+            itemCount: faces.length >= facesCount ? facesCount + 1 : facesCount,
             itemBuilder: (context, index) {
-              return index >= recentsCount
+              return index >= facesCount
                   ? ClickWidget(
                       function: () {
-                        showDialog(
+                        showModalBottomSheet(
                           context: context,
+                          backgroundColor: spaceCadet,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                topLeft: Radius.circular(10)),
+                          ),
                           builder: (context) {
                             return const BuyMoreSlot();
                           },
@@ -228,7 +233,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
                             fit: BoxFit.cover, color: cultured),
                       ),
                     )
-                  : index > recentFaces.length - 1
+                  : index > faces.length - 1
                       ? Container(
                           width: 64,
                           height: 64,
@@ -239,7 +244,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
                               border: Border.all(color: isabelline),
                               borderRadius: BorderRadius.circular(10)),
                         )
-                      : itemRecent(index, recentFaces[index]);
+                      : itemRecent(index, faces[index]);
             },
           ),
         );
@@ -249,11 +254,16 @@ class _ChooseFacesState extends State<ChooseFaces> {
   }
 
   Future<void> checkShowSlot() async {
-    final recents = context.read<FaceBloc>().recentFaces;
+    final recents = context.read<FaceBloc>().faces;
     final userModel = context.read<PersonBloc>().userModel!;
-    if (recents.length >= userModel.slotRecentFace) {
-      await showDialog(
+    if (recents.length >= userModel.slotFaces) {
+      await showModalBottomSheet(
         context: context,
+        backgroundColor: spaceCadet,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+        ),
         builder: (context) {
           return const BuyMoreSlot();
         },

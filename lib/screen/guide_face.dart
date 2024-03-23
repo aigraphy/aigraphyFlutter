@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_image.dart';
 import '../widget/appbar_custom.dart';
 import '../widget/click_widget.dart';
 import '../widget/text_gradient.dart';
-import '../widget_helper.dart';
 
 class GuideFace extends PageRouteBuilder {
   GuideFace()

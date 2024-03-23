@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../translations/export_lang.dart';
-import '../bloc/list_histories/list_histories_bloc.dart';
+import '../bloc/histories/histories_bloc.dart';
 import '../bloc/person/bloc_person.dart';
 import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import '../bloc/set_user_pro/set_user_pro_bloc.dart';
@@ -38,9 +38,7 @@ class _HistoriesState extends State<Histories>
 
   void _onScroll() {
     if (_isBottom) {
-      context
-          .read<ListHistoriesBloc>()
-          .add(ListHistoriesFetched(context: context));
+      context.read<HistoriesBloc>().add(HistoriesFetched(context: context));
     }
   }
 
@@ -57,8 +55,14 @@ class _HistoriesState extends State<Histories>
     return context.watch<PersonBloc>().userModel != null
         ? ClickWidget(
             function: () {
-              showDialog(
+              showModalBottomSheet(
                 context: context,
+                backgroundColor: spaceCadet,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
+                ),
                 builder: (context) {
                   return const BuyMoreSlot(openSlotHistory: true);
                 },
@@ -68,7 +72,7 @@ class _HistoriesState extends State<Histories>
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
                 decoration: BoxDecoration(
-                    color: blackCoral, borderRadius: BorderRadius.circular(16)),
+                    color: spaceCadet, borderRadius: BorderRadius.circular(16)),
                 child: Column(
                   children: [
                     Image.asset(ic_open_slot,
@@ -205,24 +209,24 @@ class _HistoriesState extends State<Histories>
               child: RefreshIndicator(
                 onRefresh: () => Future.sync(
                   () {
-                    context.read<ListHistoriesBloc>().add(ResetListHistories());
+                    context.read<HistoriesBloc>().add(ResetHistories());
                     context
-                        .read<ListHistoriesBloc>()
-                        .add(ListHistoriesFetched(context: context));
+                        .read<HistoriesBloc>()
+                        .add(HistoriesFetched(context: context));
                   },
                 ),
                 child: ListView(
                   controller: _scrollController,
                   children: [
-                    BlocBuilder<ListHistoriesBloc, ListHistoriesState>(
+                    BlocBuilder<HistoriesBloc, HistoriesState>(
                       builder: (context, state) {
                         switch (state.status) {
-                          case ListHistoriesStatus.failure:
+                          case HistoriesStatus.failure:
                             return Center(
                                 child: Text(
                                     LocaleKeys.failedToFetchRequests.tr(),
                                     style: style9(color: cultured)));
-                          case ListHistoriesStatus.success:
+                          case HistoriesStatus.success:
                             if (state.requests.isEmpty) {
                               return Center(
                                   child: Column(
@@ -259,7 +263,7 @@ class _HistoriesState extends State<Histories>
                                           ? buySlot()
                                           : itemImage(state.requests[index]);
                                 });
-                          case ListHistoriesStatus.initial:
+                          case HistoriesStatus.initial:
                             return const Center(
                                 child: CupertinoActivityIndicator());
                         }

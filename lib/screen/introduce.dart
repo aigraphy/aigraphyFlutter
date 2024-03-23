@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:video_player/video_player.dart';
 
+import '../aigraphy_widget.dart';
 import '../bloc/slider/slider_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
@@ -19,7 +20,6 @@ import '../util/authen_apple.dart';
 import '../util/authen_google.dart';
 import '../widget/privacy.dart';
 import '../widget/text_gradient.dart';
-import '../widget_helper.dart';
 import 'home.dart';
 
 class Introduce extends StatefulWidget {
@@ -34,7 +34,6 @@ class _IntroduceState extends State<Introduce> {
   late VideoPlayerController _controller2;
   late VideoPlayerController _controller3;
 
-  bool isChecked = true;
   Widget landing(BuildContext context, VideoPlayerController _controller,
       int index, double width, double height) {
     return Stack(
@@ -183,51 +182,6 @@ class _IntroduceState extends State<Introduce> {
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Transform.scale(
-                      scale: 1.3,
-                      child: Checkbox(
-                        checkColor: white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        side: MaterialStateBorderSide.resolveWith(
-                          (states) =>
-                              const BorderSide(width: 1.0, color: whiteSmoke),
-                        ),
-                        focusColor: blue,
-                        activeColor: blue,
-                        value: isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isChecked = !isChecked;
-                          });
-                        },
-                      ),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: 'You agree with our ',
-                        style: style7(color: white),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Term & Policy',
-                            style: style6(color: white),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.of(context).pushNamed(Routes.policy,
-                                    arguments: const Privacy());
-                              },
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
                 if (Platform.isIOS) ...[
                   Row(children: [
                     Expanded(
@@ -253,14 +207,12 @@ class _IntroduceState extends State<Introduce> {
                       child: AigraphyWidget.typeButtonStartAction2(
                           context: context,
                           input: 'Google',
-                          onPressed: isChecked
-                              ? () async {
-                                  final User userFB =
-                                      await AuthenGoogle.signInWithGoogle(
-                                          context: context);
-                                  await signIn(context, userFB);
-                                }
-                              : () {},
+                          onPressed: () async {
+                            final User userFB =
+                                await AuthenGoogle.signInWithGoogle(
+                                    context: context);
+                            await signIn(context, userFB);
+                          },
                           bgColor: red2,
                           icon: google,
                           borderRadius: 32,
@@ -274,14 +226,11 @@ class _IntroduceState extends State<Introduce> {
                   AigraphyWidget.typeButtonStartAction2(
                       context: context,
                       input: 'Continue with Google',
-                      onPressed: isChecked
-                          ? () async {
-                              final User userFB =
-                                  await AuthenGoogle.signInWithGoogle(
-                                      context: context);
-                              await signIn(context, userFB);
-                            }
-                          : () {},
+                      onPressed: () async {
+                        final User userFB = await AuthenGoogle.signInWithGoogle(
+                            context: context);
+                        await signIn(context, userFB);
+                      },
                       bgColor: red2,
                       icon: google,
                       borderRadius: 32,
@@ -290,6 +239,25 @@ class _IntroduceState extends State<Introduce> {
                       borderColor: red2,
                       textColor: white)
                 },
+                const SizedBox(height: 16),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'By logging in, you are agreeing to the ',
+                    style: style7(color: white),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Term & Policy',
+                        style: style6(color: white),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.of(context).pushNamed(Routes.policy,
+                                arguments: const Privacy());
+                          },
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           )

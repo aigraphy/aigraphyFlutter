@@ -1,24 +1,24 @@
-part of 'list_histories_bloc.dart';
+part of 'histories_bloc.dart';
 
-enum ListHistoriesStatus { initial, success, failure }
+enum HistoriesStatus { initial, success, failure }
 
-final class ListHistoriesState extends Equatable {
-  const ListHistoriesState({
-    this.status = ListHistoriesStatus.initial,
+final class HistoriesState extends Equatable {
+  const HistoriesState({
+    this.status = HistoriesStatus.initial,
     this.requests = const <HistoryModel>[],
     this.hasReachedMax = false,
   });
 
-  final ListHistoriesStatus status;
+  final HistoriesStatus status;
   final List<HistoryModel> requests;
   final bool hasReachedMax;
 
-  ListHistoriesState copyWith({
-    ListHistoriesStatus? status,
+  HistoriesState copyWith({
+    HistoriesStatus? status,
     List<HistoryModel>? requests,
     bool? hasReachedMax,
   }) {
-    return ListHistoriesState(
+    return HistoriesState(
       status: status ?? this.status,
       requests: requests ?? this.requests,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

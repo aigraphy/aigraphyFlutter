@@ -7,6 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_editor_plus/options.dart' as o;
 
+import '../aigraphy_widget.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -16,7 +17,6 @@ import '../widget/appbar_custom.dart';
 import '../widget/banner_ads.dart';
 import '../widget/click_widget.dart';
 import '../widget/opacity_widget.dart';
-import '../widget_helper.dart';
 
 class CropperImg extends StatefulWidget {
   const CropperImg({

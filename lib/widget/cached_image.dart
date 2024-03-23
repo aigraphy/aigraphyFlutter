@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../aigraphy_widget.dart';
 import '../config/config_color.dart';
 import '../config_router/name_router.dart';
 import '../screen/full_img_screen.dart';
-import '../widget_helper.dart';
 import 'click_widget.dart';
 import 'opacity_widget.dart';
 

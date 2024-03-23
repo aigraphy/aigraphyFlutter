@@ -14,7 +14,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
     on<GetUser>(_onGetUser);
     on<UpdateCoinUser>(_onUpdateCoinUser);
     on<UpdateCurrentCheckIn>(_onUpdateCurrentCheckIn);
-    on<UpdateSlotRecentFace>(_onUpdateSlotRecentFace);
+    on<UpdateSlotFace>(_onUpdateSlotFace);
     on<UpdateSlotHistory>(_onUpdateSlotHistory);
     on<UpdateLanguageUser>(_onUpdateLanguageUser);
   }
@@ -47,7 +47,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
             uuid: userModel!.uuid,
             dateCheckIn: userModel!.dateCheckIn,
             language: userModel!.language,
-            slotRecentFace: userModel!.slotRecentFace,
+            slotFaces: userModel!.slotFaces,
             slotHistory: userModel!.slotHistory,
             avatar: userModel!.avatar,
             coin: event.coin);
@@ -72,7 +72,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
             email: userModel!.email,
             uuid: userModel!.uuid,
             dateCheckIn: date,
-            slotRecentFace: userModel!.slotRecentFace,
+            slotFaces: userModel!.slotFaces,
             slotHistory: userModel!.slotHistory,
             language: userModel!.language,
             avatar: userModel!.avatar,
@@ -84,17 +84,16 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
     }
   }
 
-  Future<void> _onUpdateSlotRecentFace(
-      UpdateSlotRecentFace event, Emitter<PersonState> emit) async {
+  Future<void> _onUpdateSlotFace(
+      UpdateSlotFace event, Emitter<PersonState> emit) async {
     final state = this.state;
     if (state is UserLoaded) {
       try {
         EasyLoading.show();
-        userModel = await updateSlotRecentFace(
-            userModel!.slotRecentFace + 1,
+        userModel = await updateSlotFace(
+            userModel!.slotFaces + 1,
             userModel!.coin -
-                (TOKEN_OPEN_SLOT +
-                    20 * (userModel!.slotRecentFace - DEFAULT_SLOT)));
+                (TOKEN_OPEN_SLOT + 20 * (userModel!.slotFaces - DEFAULT_SLOT)));
         EasyLoading.dismiss();
         emit(UserLoaded(user: userModel!));
       } catch (_) {
@@ -138,7 +137,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
             uuid: userModel!.uuid,
             avatar: userModel!.avatar,
             dateCheckIn: userModel!.dateCheckIn,
-            slotRecentFace: userModel!.slotRecentFace,
+            slotFaces: userModel!.slotFaces,
             slotHistory: userModel!.slotHistory,
             coin: userModel!.coin,
             language: event.language);
@@ -170,8 +169,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
             }));
   }
 
-  Future<PersonModel?> updateSlotRecentFace(
-      int slotRecentFace, int coins) async {
+  Future<PersonModel?> updateSlotFace(int slotFace, int coins) async {
     final String? coin = await userFB.getIdToken();
     PersonModel? userModel;
     await Graphql.initialize(coin!)
@@ -180,7 +178,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
             document: gql(ConfigMutation.updateSlotFace()),
             variables: <String, dynamic>{
               'uuid': userFB.uid,
-              'slot_recent_face': slotRecentFace,
+              'slot_recent_face': slotFace,
               'token': coins
             }))
         .then((value) {

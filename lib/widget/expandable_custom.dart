@@ -1,4 +1,4 @@
-import 'package:aigraphy_flutter/widget_helper.dart';
+import 'package:aigraphy_flutter/aigraphy_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

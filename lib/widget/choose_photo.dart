@@ -11,12 +11,12 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:photo_manager_image_provider/photo_manager_image_provider.dart';
 
 import '../../translations/export_lang.dart';
-import '../bloc/list_photo/list_photo_bloc.dart';
+import '../aigraphy_widget.dart';
+import '../bloc/photo/photo_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_image.dart';
 import '../screen/cropper_img.dart';
-import '../widget_helper.dart';
 import 'click_widget.dart';
 
 const ThumbnailOption option = ThumbnailOption(
@@ -42,8 +42,8 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
   void _onScroll() {
     if (_isBottom) {
       context
-          .read<ListPhotosBloc>()
-          .add(ListPhotosFetched(assetPathEntity: assetPathEntity));
+          .read<PhotosBloc>()
+          .add(PhotosFetched(assetPathEntity: assetPathEntity));
     }
   }
 
@@ -67,8 +67,8 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
       if (listAll.isNotEmpty) {
         assetPathEntity = listAll[0];
         context
-            .read<ListPhotosBloc>()
-            .add(ListPhotosFetched(assetPathEntity: assetPathEntity));
+            .read<PhotosBloc>()
+            .add(PhotosFetched(assetPathEntity: assetPathEntity));
         setState(() {
           showImages = true;
         });
@@ -164,7 +164,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
   void initState() {
     super.initState();
     getPhotoRecent();
-    context.read<ListPhotosBloc>().add(ResetListPhotos());
+    context.read<PhotosBloc>().add(ResetPhotos());
     _scrollController.addListener(_onScroll);
     selected = false;
   }
@@ -193,19 +193,20 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                 child: RefreshIndicator(
                   onRefresh: () => Future.sync(
                     () {
-                      context.read<ListPhotosBloc>().add(ResetListPhotos());
-                      context.read<ListPhotosBloc>().add(
-                          ListPhotosFetched(assetPathEntity: assetPathEntity));
+                      context.read<PhotosBloc>().add(ResetPhotos());
+                      context
+                          .read<PhotosBloc>()
+                          .add(PhotosFetched(assetPathEntity: assetPathEntity));
                     },
                   ),
-                  child: BlocBuilder<ListPhotosBloc, ListPhotosState>(
+                  child: BlocBuilder<PhotosBloc, PhotosState>(
                     builder: (context, state) {
                       switch (state.status) {
-                        case ListPhotosStatus.failure:
+                        case PhotosStatus.failure:
                           return Center(
                               child: Text(LocaleKeys.failedToFetchPhotos.tr(),
                                   style: style9(color: cultured)));
-                        case ListPhotosStatus.success:
+                        case PhotosStatus.success:
                           if (state.photos.isEmpty) {
                             return Center(
                                 child: Text(LocaleKeys.noPhotos.tr(),
@@ -249,7 +250,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                                       : itemView(state.photos[index]);
                             },
                           );
-                        case ListPhotosStatus.initial:
+                        case PhotosStatus.initial:
                           return const Center(
                               child: CupertinoActivityIndicator());
                       }
@@ -267,9 +268,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                           borderRadius: 12,
                           vertical: 16,
                           onPressed: () async {
-                            context
-                                .read<ListPhotosBloc>()
-                                .add(ResetListPhotos());
+                            context.read<PhotosBloc>().add(ResetPhotos());
                             await PhotoManager.presentLimited();
                             final List<AssetPathEntity> listAll =
                                 await PhotoManager.getAssetPathList(
@@ -278,9 +277,8 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                                     onlyAll: false);
                             if (listAll.isNotEmpty) {
                               assetPathEntity = listAll[0];
-                              context.read<ListPhotosBloc>().add(
-                                  ListPhotosFetched(
-                                      assetPathEntity: assetPathEntity));
+                              context.read<PhotosBloc>().add(PhotosFetched(
+                                  assetPathEntity: assetPathEntity));
                               return true;
                             }
                           },

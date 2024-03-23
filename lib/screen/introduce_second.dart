@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../aigraphy_widget.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_image.dart';
@@ -8,7 +9,6 @@ import '../config_router/name_router.dart';
 import '../widget/banner_ads.dart';
 import '../widget/opacity_widget.dart';
 import '../widget/text_gradient.dart';
-import '../widget_helper.dart';
 import 'home.dart';
 
 class IntroduceSecond extends StatefulWidget {

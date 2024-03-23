@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
@@ -16,7 +17,6 @@ import '../widget/cached_image.dart';
 import '../widget/click_widget.dart';
 import '../widget/coin_bonus.dart';
 import '../widget/offer_first_time.dart';
-import '../widget_helper.dart';
 import 'editor_img.dart';
 import 'in_app_purchase.dart';
 

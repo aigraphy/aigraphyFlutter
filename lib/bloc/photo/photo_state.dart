@@ -1,24 +1,24 @@
-part of 'list_photo_bloc.dart';
+part of 'photo_bloc.dart';
 
-enum ListPhotosStatus { initial, success, failure }
+enum PhotosStatus { initial, success, failure }
 
-final class ListPhotosState extends Equatable {
-  const ListPhotosState({
-    this.status = ListPhotosStatus.initial,
+final class PhotosState extends Equatable {
+  const PhotosState({
+    this.status = PhotosStatus.initial,
     this.photos = const <AssetEntity>[],
     this.hasReachedMax = false,
   });
 
-  final ListPhotosStatus status;
+  final PhotosStatus status;
   final List<AssetEntity> photos;
   final bool hasReachedMax;
 
-  ListPhotosState copyWith({
-    ListPhotosStatus? status,
+  PhotosState copyWith({
+    PhotosStatus? status,
     List<AssetEntity>? photos,
     bool? hasReachedMax,
   }) {
-    return ListPhotosState(
+    return PhotosState(
       status: status ?? this.status,
       photos: photos ?? this.photos,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

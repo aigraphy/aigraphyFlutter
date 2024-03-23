@@ -6,8 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../translations/export_lang.dart';
-import '../bloc/list_categories/list_categories_bloc.dart';
-import '../bloc/list_histories/list_histories_bloc.dart';
+import '../aigraphy_widget.dart';
+import '../bloc/categories/categories_bloc.dart';
+import '../bloc/histories/histories_bloc.dart';
 import '../bloc/new_today/new_today_bloc.dart';
 import '../bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
 import '../bloc/trending/trending_bloc.dart';
@@ -16,7 +17,6 @@ import '../config/config_helper.dart';
 import '../config/config_image.dart';
 import '../config/config_local_noti.dart';
 import '../config/config_noti_FCM.dart';
-import '../widget_helper.dart';
 import 'explored.dart';
 import 'histories.dart';
 import 'swap_cate.dart';
@@ -36,12 +36,10 @@ class _HomeState extends State<Home> {
     Future.delayed(const Duration(seconds: 1)).whenComplete(() {
       listenPersonInfo(mounted, context);
       getLanguagePerson(context);
-      context.read<ListCategoriesBloc>().add(ListCategoriesFetched());
+      context.read<CategoriesBloc>().add(CategoriesFetched());
       context.read<NewTodayBloc>().add(NewTodayFetched());
       context.read<TrendingBloc>().add(TrendingFetched());
-      context
-          .read<ListHistoriesBloc>()
-          .add(ListHistoriesFetched(context: context));
+      context.read<HistoriesBloc>().add(HistoriesFetched(context: context));
       listenFaces(mounted, context);
     });
     await Purchases.setEmail(userFB.email!);

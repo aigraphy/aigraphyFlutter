@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../translations/export_lang.dart';
-import '../bloc/list_categories/list_categories_bloc.dart';
+import '../aigraphy_widget.dart';
+import '../bloc/categories/categories_bloc.dart';
 import '../bloc/new_today/new_today_bloc.dart';
 import '../bloc/set_index_category/set_index_category_bloc.dart';
 import '../bloc/set_user_pro/set_user_pro_bloc.dart';
@@ -23,7 +24,6 @@ import '../widget/go_pro.dart';
 import '../widget/go_pro_logo.dart';
 import '../widget/native_medium_ads.dart';
 import '../widget/offer_first_time.dart';
-import '../widget_helper.dart';
 import 'full_img_cate.dart';
 import 'iap_first_time.dart';
 import 'select_face.dart';
@@ -41,7 +41,7 @@ class _SwapCateState extends State<SwapCate>
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<ListCategoriesBloc>().add(ListCategoriesFetched());
+      context.read<CategoriesBloc>().add(CategoriesFetched());
     }
   }
 
@@ -257,12 +257,12 @@ class _SwapCateState extends State<SwapCate>
   }
 
   Widget listCategory() {
-    return BlocBuilder<ListCategoriesBloc, ListCategoriesState>(
+    return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, state) {
         switch (state.status) {
-          case ListCategoriesStatus.failure:
+          case CategoriesStatus.failure:
             return const SizedBox();
-          case ListCategoriesStatus.success:
+          case CategoriesStatus.success:
             if (state.categories.isEmpty) {
               return const SizedBox();
             }
@@ -351,7 +351,7 @@ class _SwapCateState extends State<SwapCate>
                         : state.categories.length + 3),
               ),
             );
-          case ListCategoriesStatus.initial:
+          case CategoriesStatus.initial:
             return const SizedBox();
         }
       },
@@ -359,10 +359,10 @@ class _SwapCateState extends State<SwapCate>
   }
 
   void refresh() {
-    context.read<ListCategoriesBloc>().add(ResetListCategories());
+    context.read<CategoriesBloc>().add(ResetCategories());
     context.read<NewTodayBloc>().add(ResetNewToday());
     context.read<TrendingBloc>().add(ResetTrending());
-    context.read<ListCategoriesBloc>().add(ListCategoriesFetched());
+    context.read<CategoriesBloc>().add(CategoriesFetched());
     context.read<NewTodayBloc>().add(NewTodayFetched());
     context.read<TrendingBloc>().add(TrendingFetched());
     context.read<SetIndexCategory>().setIndex(0);
@@ -421,14 +421,14 @@ class _SwapCateState extends State<SwapCate>
         children: [
           listCategory(),
           Expanded(
-            child: BlocBuilder<ListCategoriesBloc, ListCategoriesState>(
+            child: BlocBuilder<CategoriesBloc, CategoriesState>(
               builder: (context, state) {
                 switch (state.status) {
-                  case ListCategoriesStatus.failure:
+                  case CategoriesStatus.failure:
                     return Center(
                         child: Text(LocaleKeys.failedToFetch.tr(),
                             style: style9(color: cultured)));
-                  case ListCategoriesStatus.success:
+                  case CategoriesStatus.success:
                     if (state.categories.isEmpty) {
                       return Center(
                           child: Column(
@@ -457,7 +457,7 @@ class _SwapCateState extends State<SwapCate>
                       }),
                     );
 
-                  case ListCategoriesStatus.initial:
+                  case CategoriesStatus.initial:
                     return const Center(child: CupertinoActivityIndicator());
                 }
               },

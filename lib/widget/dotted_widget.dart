@@ -1,9 +1,9 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
+import '../aigraphy_widget.dart';
 import '../config/config_color.dart';
 import '../config/config_image.dart';
-import '../widget_helper.dart';
 
 class DottedWidget extends StatelessWidget {
   const DottedWidget({super.key, this.size});

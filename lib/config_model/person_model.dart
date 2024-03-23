@@ -10,7 +10,7 @@ class PersonModel extends Equatable {
       required this.avatar,
       this.dateCheckIn,
       required this.language,
-      required this.slotRecentFace,
+      required this.slotFaces,
       required this.slotHistory});
   factory PersonModel.convertToObj(Map<String, dynamic> json) {
     return PersonModel(
@@ -19,7 +19,7 @@ class PersonModel extends Equatable {
         email: json['email'],
         uuid: json['uuid'],
         coin: json['token'],
-        slotRecentFace: json['slot_recent_face'],
+        slotFaces: json['slot_recent_face'],
         slotHistory: json['slot_history'],
         avatar: json['avatar'],
         language: json['language'],
@@ -36,18 +36,10 @@ class PersonModel extends Equatable {
   final int coin;
   final DateTime? dateCheckIn;
   final String language;
-  final int slotRecentFace;
+  final int slotFaces;
   final int slotHistory;
 
   @override
-  List<Object> get props => [
-        uuid,
-        name,
-        email,
-        avatar,
-        coin,
-        language,
-        slotRecentFace,
-        slotHistory
-      ];
+  List<Object> get props =>
+      [uuid, name, email, avatar, coin, language, slotFaces, slotHistory];
 }

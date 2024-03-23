@@ -61,9 +61,6 @@ abstract class  LocaleKeys {
   static const english = 'english';
   static const notification = 'notification';
   static const rateAIGraphy = 'rateAIGraphy';
-  static const letStart = 'letStart';
-  static const welcomeBack = 'welcomeBack';
-  static const changeYourFace = 'changeYourFace';
   static const language = 'language';
   static const thePurchaseHasBeenCancelled = 'thePurchaseHasBeenCancelled';
   static const thePurchaseIsStill = 'thePurchaseIsStill';

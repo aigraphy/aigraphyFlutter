@@ -18,8 +18,8 @@ import '../../config_model/img_removebg.dart';
 import '../person/bloc_person.dart';
 import '../remove_bg_image/bloc_remove_bg_image.dart';
 
-part 'list_histories_event.dart';
-part 'list_histories_state.dart';
+part 'histories_event.dart';
+part 'histories_state.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
 
@@ -29,10 +29,10 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
   };
 }
 
-class ListHistoriesBloc extends Bloc<ListHistoriesEvent, ListHistoriesState> {
-  ListHistoriesBloc() : super(const ListHistoriesState()) {
-    on<ListHistoriesFetched>(
-      _onListRequestsFetched,
+class HistoriesBloc extends Bloc<HistoriesEvent, HistoriesState> {
+  HistoriesBloc() : super(const HistoriesState()) {
+    on<HistoriesFetched>(
+      _onRequestsFetched,
       transformer: throttleDroppable(throttleDuration),
     );
     on<InsertHistory>(
@@ -51,26 +51,26 @@ class ListHistoriesBloc extends Bloc<ListHistoriesEvent, ListHistoriesState> {
       _onRemoveImageBG,
       transformer: throttleDroppable(throttleDuration),
     );
-    on<ResetListHistories>(
-      _onResetListRequests,
+    on<ResetHistories>(
+      _onResetRequests,
     );
   }
 
   final User userFB = FirebaseAuth.instance.currentUser!;
 
-  Future<void> _onListRequestsFetched(
-    ListHistoriesFetched event,
-    Emitter<ListHistoriesState> emit,
+  Future<void> _onRequestsFetched(
+    HistoriesFetched event,
+    Emitter<HistoriesState> emit,
   ) async {
     if (state.hasReachedMax) {
       return;
     }
     try {
-      if (state.status == ListHistoriesStatus.initial) {
+      if (state.status == HistoriesStatus.initial) {
         final requests = await getRequest(HISTORY_LIMIT);
         return emit(
           state.copyWith(
-            status: ListHistoriesStatus.success,
+            status: HistoriesStatus.success,
             requests: requests,
             hasReachedMax: requests.length < HISTORY_LIMIT,
           ),
@@ -83,74 +83,74 @@ class ListHistoriesBloc extends Bloc<ListHistoriesEvent, ListHistoriesState> {
         final requests = await getRequest(HISTORY_LIMIT, state.requests.length);
         emit(
           state.copyWith(
-            status: ListHistoriesStatus.success,
+            status: HistoriesStatus.success,
             requests: List.of(state.requests)..addAll(requests),
             hasReachedMax: requests.length < HISTORY_LIMIT,
           ),
         );
       }
     } catch (_) {
-      emit(state.copyWith(status: ListHistoriesStatus.failure));
+      emit(state.copyWith(status: HistoriesStatus.failure));
     }
   }
 
   Future<void> _onInsertRequest(
     InsertHistory event,
-    Emitter<ListHistoriesState> emit,
+    Emitter<HistoriesState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: ListHistoriesStatus.initial));
+      emit(state.copyWith(status: HistoriesStatus.initial));
       state.requests.insert(0, event.requestModel);
       emit(
         state.copyWith(
-            status: ListHistoriesStatus.success, requests: state.requests),
+            status: HistoriesStatus.success, requests: state.requests),
       );
     } catch (_) {
-      emit(state.copyWith(status: ListHistoriesStatus.failure));
+      emit(state.copyWith(status: HistoriesStatus.failure));
     }
   }
 
   Future<void> _onUpdateRemoveImage(
     UpdateRemImg event,
-    Emitter<ListHistoriesState> emit,
+    Emitter<HistoriesState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: ListHistoriesStatus.initial));
+      emit(state.copyWith(status: HistoriesStatus.initial));
       state.requests
           .firstWhere((e) => e.id == event.imageRemoveBG.requestId)
           .imageRemoveBG = event.imageRemoveBG;
       emit(
         state.copyWith(
-            status: ListHistoriesStatus.success, requests: state.requests),
+            status: HistoriesStatus.success, requests: state.requests),
       );
     } catch (_) {
-      emit(state.copyWith(status: ListHistoriesStatus.failure));
+      emit(state.copyWith(status: HistoriesStatus.failure));
     }
   }
 
   Future<void> _onRemoveRequest(
     RemoveHistory event,
-    Emitter<ListHistoriesState> emit,
+    Emitter<HistoriesState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: ListHistoriesStatus.initial));
+      emit(state.copyWith(status: HistoriesStatus.initial));
       removeRequest(event.id);
       state.requests.removeWhere((element) => element.id == event.id);
       emit(
         state.copyWith(
-            status: ListHistoriesStatus.success, requests: state.requests),
+            status: HistoriesStatus.success, requests: state.requests),
       );
     } catch (_) {
-      emit(state.copyWith(status: ListHistoriesStatus.failure));
+      emit(state.copyWith(status: HistoriesStatus.failure));
     }
   }
 
   Future<void> _onRemoveImageBG(
     RemoveImgBG event,
-    Emitter<ListHistoriesState> emit,
+    Emitter<HistoriesState> emit,
   ) async {
     try {
-      emit(state.copyWith(status: ListHistoriesStatus.initial));
+      emit(state.copyWith(status: HistoriesStatus.initial));
       final imageBG = state.requests
           .firstWhere((e) => e.id == event.requestId)
           .imageRemoveBG;
@@ -161,18 +161,18 @@ class ListHistoriesBloc extends Bloc<ListHistoriesEvent, ListHistoriesState> {
       event.context.read<RemoveBGImageBloc>().add(const RemoveBGImage());
       emit(
         state.copyWith(
-            status: ListHistoriesStatus.success, requests: state.requests),
+            status: HistoriesStatus.success, requests: state.requests),
       );
     } catch (_) {
-      emit(state.copyWith(status: ListHistoriesStatus.failure));
+      emit(state.copyWith(status: HistoriesStatus.failure));
     }
   }
 
-  Future<void> _onResetListRequests(
-    ResetListHistories event,
-    Emitter<ListHistoriesState> emit,
+  Future<void> _onResetRequests(
+    ResetHistories event,
+    Emitter<HistoriesState> emit,
   ) async {
-    return emit(const ListHistoriesState());
+    return emit(const HistoriesState());
   }
 
   Future<List<HistoryModel>> getRequest(int limit, [int page = 0]) async {

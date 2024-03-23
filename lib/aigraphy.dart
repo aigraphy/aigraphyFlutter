@@ -12,14 +12,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'bloc/categories/categories_bloc.dart';
 import 'bloc/face/bloc_face.dart';
 import 'bloc/full_img_cate/full_img_cate_bloc.dart';
-import 'bloc/list_categories/list_categories_bloc.dart';
-import 'bloc/list_histories/list_histories_bloc.dart';
-import 'bloc/list_photo/list_photo_bloc.dart';
+import 'bloc/histories/histories_bloc.dart';
 import 'bloc/listen_language/bloc_listen_language.dart';
 import 'bloc/new_today/new_today_bloc.dart';
 import 'bloc/person/bloc_person.dart';
+import 'bloc/photo/photo_bloc.dart';
 import 'bloc/remove_bg_image/bloc_remove_bg_image.dart';
 import 'bloc/set_image_swap/set_image_swap_bloc.dart';
 import 'bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
@@ -112,8 +112,8 @@ class _AIGraphyState extends State<AIGraphy> {
         BlocProvider<FaceBloc>(
           create: (BuildContext context) => FaceBloc(),
         ),
-        BlocProvider<ListCategoriesBloc>(
-          create: (BuildContext context) => ListCategoriesBloc(),
+        BlocProvider<CategoriesBloc>(
+          create: (BuildContext context) => CategoriesBloc(),
         ),
         BlocProvider<SetImageSwapCubit>(
           create: (BuildContext context) => SetImageSwapCubit(),
@@ -121,11 +121,11 @@ class _AIGraphyState extends State<AIGraphy> {
         BlocProvider<ListenLanguageBloc>(
           create: (BuildContext context) => ListenLanguageBloc(),
         ),
-        BlocProvider<ListPhotosBloc>(
-          create: (BuildContext context) => ListPhotosBloc(),
+        BlocProvider<PhotosBloc>(
+          create: (BuildContext context) => PhotosBloc(),
         ),
-        BlocProvider<ListHistoriesBloc>(
-          create: (BuildContext context) => ListHistoriesBloc(),
+        BlocProvider<HistoriesBloc>(
+          create: (BuildContext context) => HistoriesBloc(),
         ),
         BlocProvider<FullImgCateBloc>(
           create: (BuildContext context) => FullImgCateBloc(),

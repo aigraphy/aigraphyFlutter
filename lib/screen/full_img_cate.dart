@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../translations/export_lang.dart';
+import '../aigraphy_widget.dart';
 import '../bloc/face/bloc_face.dart';
 import '../bloc/full_img_cate/full_img_cate_bloc.dart';
 import '../bloc/set_image_swap/set_image_swap_bloc.dart';
@@ -30,7 +31,6 @@ import '../widget/dotted_widget.dart';
 import '../widget/go_pro_logo.dart';
 import '../widget/native_normal_ads.dart';
 import '../widget/opacity_widget.dart';
-import '../widget_helper.dart';
 import 'final_result.dart';
 import 'iap_first_time.dart';
 
@@ -107,7 +107,7 @@ class _FullImgCateState extends State<FullImgCate> {
   }
 
   Future<void> handleGenerate() async {
-    if (context.read<FaceBloc>().recentFaces.isEmpty) {
+    if (context.read<FaceBloc>().faces.isEmpty) {
       BotToast.showText(text: LocaleKeys.pleaseAddYourFace.tr());
       return;
     }
@@ -130,7 +130,7 @@ class _FullImgCateState extends State<FullImgCate> {
     EasyLoading.show();
     if (hasHandleFace) {
       final face =
-          await getImage(context.read<FaceBloc>().recentFaces[_faceIndex].face);
+          await getImage(context.read<FaceBloc>().faces[_faceIndex].face);
       final tempDirFace = await Directory.systemTemp.createTemp();
       final tempFileFace =
           File('${tempDirFace.path}/${DateTime.now().toIso8601String()}.jpg');
@@ -213,7 +213,7 @@ class _FullImgCateState extends State<FullImgCate> {
                 clipBehavior: Clip.none,
                 alignment: Alignment.bottomCenter,
                 children: [
-                  context.watch<FaceBloc>().recentFaces.isEmpty
+                  context.watch<FaceBloc>().faces.isEmpty
                       ? const DottedWidget(size: 58)
                       : OpacityWidget(
                           child: ClipRRect(
@@ -221,7 +221,7 @@ class _FullImgCateState extends State<FullImgCate> {
                             child: CachedNetworkImage(
                               imageUrl: context
                                   .watch<FaceBloc>()
-                                  .recentFaces[_faceIndex]
+                                  .faces[_faceIndex]
                                   .face,
                               width: 58,
                               height: 58,

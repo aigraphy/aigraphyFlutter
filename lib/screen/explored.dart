@@ -66,7 +66,7 @@ class Explored extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 64),
+        padding: const EdgeInsets.only(left: 24, right: 24, top: 64),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
