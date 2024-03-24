@@ -209,7 +209,7 @@ Future<void> handleCoinUser(int reward, BuildContext context) async {
 Future<void> initPlatformState(BuildContext context) async {
   late PurchasesConfiguration configuration;
   if (Platform.isAndroid) {
-    configuration = PurchasesConfiguration('goog_OAkBVKgNhwYeCsSWKqnPadjQPOH');
+    configuration = PurchasesConfiguration('goog_leeHKJluPftkFMvUPtvWOdHDwcD');
   } else if (Platform.isIOS) {
     configuration = PurchasesConfiguration('appl_kiDgmALwJliwfkHmfMuezrDLuxk');
   }
