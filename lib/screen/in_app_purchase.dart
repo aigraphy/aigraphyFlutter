@@ -194,7 +194,7 @@ class _InAppPurchaseState extends State<InAppPurchaseCoin>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              AigraphyWidget.typeButtonGradientAfter(
+              AigraphyWidget.buttonGradientAfter(
                   context: context,
                   input:
                       '${LocaleKeys.buyNow.tr()} + ${formatCoin(context).format(_coins)}',

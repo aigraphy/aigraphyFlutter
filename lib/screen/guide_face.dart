@@ -55,7 +55,7 @@ class GuideFaceWidget extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
-        child: AigraphyWidget.typeButtonGradientAfter(
+        child: AigraphyWidget.buttonGradientAfter(
             context: context,
             input: LocaleKeys.yeahSwapNow.tr(),
             textColor: white,

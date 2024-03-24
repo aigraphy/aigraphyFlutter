@@ -99,7 +99,7 @@ class _CropperImgState extends State<CropperImg> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AigraphyWidget.typeButtonGradient(
+            AigraphyWidget.buttonGradient(
                 context: context,
                 input: LocaleKeys.chooseFace.tr(),
                 textColor: white,

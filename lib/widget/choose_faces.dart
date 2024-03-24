@@ -312,7 +312,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
             const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: AigraphyWidget.typeButtonGradient(
+              child: AigraphyWidget.buttonGradient(
                   context: context,
                   icon: ic_add_face,
                   sizeAsset: 24,

@@ -56,7 +56,7 @@ class GetMoreCoin extends StatelessWidget {
               style: style9(color: white, fontWeight: '400'),
             ),
           ),
-          AigraphyWidget.typeButtonGradient(
+          AigraphyWidget.buttonGradient(
               context: context,
               input: LocaleKeys.buyMoreCoin.tr(),
               onPressed: () {

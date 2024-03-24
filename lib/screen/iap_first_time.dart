@@ -184,7 +184,7 @@ class _IAPFirstTimeState extends State<IAPFirstTimeCoin>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AigraphyWidget.typeButtonGradientAfter(
+            AigraphyWidget.buttonGradientAfter(
                 context: context,
                 input:
                     '${LocaleKeys.buyNow.tr()} + ${formatCoin(context).format(_coins * 2)}',

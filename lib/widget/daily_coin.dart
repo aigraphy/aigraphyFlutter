@@ -89,7 +89,7 @@ class DailyCoin extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          AigraphyWidget.typeButtonGradient(
+          AigraphyWidget.buttonGradient(
               context: context,
               input: LocaleKeys.checkInNow.tr(),
               vertical: 16,

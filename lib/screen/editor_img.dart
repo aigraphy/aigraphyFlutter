@@ -865,7 +865,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
           Padding(
             padding:
                 const EdgeInsets.only(left: 24, right: 24, bottom: 16, top: 8),
-            child: AigraphyWidget.typeButtonGradientAfter(
+            child: AigraphyWidget.buttonGradientAfter(
                 context: context,
                 input: '${LocaleKeys.saveChange.tr()} -$TOKEN_EDIT',
                 textColor: white,

@@ -90,7 +90,7 @@ class _ResRemBgLocalImgState extends State<ResRemBgLocalImg>
                     child: ClickWidget(
                         function: () async {
                           EasyLoading.show();
-                          await downloadMultiImage([imageRemoveBG]);
+                          await downMultiImg([imageRemoveBG]);
                           EasyLoading.dismiss();
                         },
                         child: AigraphyWidget.option(download)),
@@ -100,7 +100,7 @@ class _ResRemBgLocalImgState extends State<ResRemBgLocalImg>
                     child: ClickWidget(
                         function: () async {
                           EasyLoading.show();
-                          await shareContentMultiUrl([imageRemoveBG], context);
+                          await shareMultiUrl([imageRemoveBG], context);
                           EasyLoading.dismiss();
                         },
                         child: Stack(

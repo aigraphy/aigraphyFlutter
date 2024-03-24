@@ -116,7 +116,7 @@ class RemBGImgBloc extends Bloc<RemBGImgEvent, RemBGImgState> {
     final imageFile = await createFileUploadDO(res!);
     url = await uploadFileDO(imageFile: imageFile);
     if (url != null) {
-      insertImageRemBG(requestId, url, context);
+      insertImgRemBG(requestId, url, context);
     }
     return url;
   }

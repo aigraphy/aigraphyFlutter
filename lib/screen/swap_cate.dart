@@ -104,7 +104,7 @@ class _SwapCateState extends State<SwapCate>
                         ),
                         child: CachedImgFull(
                             link: categoryModel.images[index].image)),
-                    AigraphyWidget.iconCount(
+                    AigraphyWidget.countSwap(
                         isMax, categoryModel.images[index].countSwap),
                     if (categoryModel.images[index].isPro)
                       const Positioned(right: 4, top: 4, child: GoProLogo())
@@ -178,7 +178,7 @@ class _SwapCateState extends State<SwapCate>
                           ),
                           child:
                               CachedImgFull(link: state.images[index].image)),
-                      AigraphyWidget.iconCount(
+                      AigraphyWidget.countSwap(
                           isMax, state.images[index].countSwap),
                       if (state.images[index].isPro)
                         const Positioned(right: 4, top: 4, child: GoProLogo())
@@ -242,7 +242,7 @@ class _SwapCateState extends State<SwapCate>
                           ),
                           child:
                               CachedImgFull(link: state.images[index].image)),
-                      AigraphyWidget.iconCount(
+                      AigraphyWidget.countSwap(
                           isMax, state.images[index].countSwap),
                       if (state.images[index].isPro)
                         const Positioned(right: 4, top: 4, child: GoProLogo())

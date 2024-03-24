@@ -104,7 +104,7 @@ class _AddFeedbackState extends State<AddFeedback> {
                 maxLines: 4,
               ),
               const SizedBox(height: 16),
-              AigraphyWidget.typeButtonGradient(
+              AigraphyWidget.buttonGradient(
                   context: context,
                   input: LocaleKeys.sentNow.tr(),
                   vertical: 16,

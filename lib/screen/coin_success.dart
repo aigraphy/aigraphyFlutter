@@ -131,7 +131,7 @@ class _CoinSuccessWidgetState extends State<CoinSuccessWidget> {
             Padding(
               padding: const EdgeInsets.only(
                   top: 48, left: 24, right: 24, bottom: 16),
-              child: AigraphyWidget.typeButtonGradient(
+              child: AigraphyWidget.buttonGradient(
                   context: context,
                   input: LocaleKeys.generateNow.tr(),
                   textColor: white,

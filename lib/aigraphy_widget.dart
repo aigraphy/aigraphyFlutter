@@ -216,7 +216,7 @@ mixin AigraphyWidget {
     );
   }
 
-  static Widget typeButtonGradient(
+  static Widget buttonGradient(
       {double? fontSize,
       required BuildContext context,
       double? height,
@@ -318,7 +318,7 @@ mixin AigraphyWidget {
     );
   }
 
-  static Widget typeButtonGradientAfter(
+  static Widget buttonGradientAfter(
       {double? fontSize,
       required BuildContext context,
       double? height,
@@ -435,7 +435,7 @@ mixin AigraphyWidget {
         ));
   }
 
-  static Widget iconCount(bool isMax, int countSwap) {
+  static Widget countSwap(bool isMax, int countSwap) {
     return countSwap == 0
         ? const SizedBox()
         : Positioned(

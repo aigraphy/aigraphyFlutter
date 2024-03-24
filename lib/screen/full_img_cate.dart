@@ -241,7 +241,7 @@ class _FullImgCateState extends State<FullImgCate> {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: AigraphyWidget.typeButtonGradientAfter(
+              child: AigraphyWidget.buttonGradientAfter(
                   context: context,
                   input: '${LocaleKeys.generate.tr()} -$TOKEN_SWAP',
                   bgColor: blue,
@@ -309,7 +309,7 @@ class _FullImgCateState extends State<FullImgCate> {
                               ),
                               child: CachedImgFull(
                                   link: state.images[index].image)),
-                          AigraphyWidget.iconCount(
+                          AigraphyWidget.countSwap(
                               isMax, state.images[index].countSwap),
                           if (state.images[index].isPro)
                             const Positioned(

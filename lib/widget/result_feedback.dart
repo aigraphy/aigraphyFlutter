@@ -68,7 +68,7 @@ class ResultFeedback extends StatelessWidget {
               style: style7(color: white),
             ),
             const SizedBox(height: 24),
-            AigraphyWidget.typeButtonGradient(
+            AigraphyWidget.buttonGradient(
                 context: context,
                 input: LocaleKeys.swapFaceNow.tr(),
                 vertical: 16,

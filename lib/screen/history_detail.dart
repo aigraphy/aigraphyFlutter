@@ -152,7 +152,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: AigraphyWidget.typeButtonGradient(
+                          child: AigraphyWidget.buttonGradient(
                               context: context,
                               input: LocaleKeys.cancel.tr(),
                               onPressed: () {
@@ -210,10 +210,10 @@ class _HistoryDetailState extends State<HistoryDetail> {
                       function: () async {
                         EasyLoading.show();
                         if (imageRemoveBG != null) {
-                          await shareContentMultiUrl(
+                          await shareMultiUrl(
                               [urlResult, imageRemoveBG!], context);
                         } else {
-                          await shareContentMultiUrl([urlResult], context);
+                          await shareMultiUrl([urlResult], context);
                         }
                         EasyLoading.dismiss();
                       },
@@ -232,9 +232,9 @@ class _HistoryDetailState extends State<HistoryDetail> {
                       function: () async {
                         EasyLoading.show();
                         if (imageRemoveBG != null) {
-                          await downloadMultiImage([urlResult, imageRemoveBG!]);
+                          await downMultiImg([urlResult, imageRemoveBG!]);
                         } else {
-                          await downloadMultiImage([urlResult]);
+                          await downMultiImg([urlResult]);
                         }
                         EasyLoading.dismiss();
                       },
@@ -287,7 +287,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
               ),
             ),
             const SizedBox(height: 8),
-            AigraphyWidget.typeButtonGradientAfter(
+            AigraphyWidget.buttonGradientAfter(
                 context: context,
                 input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
                 icon: coin,

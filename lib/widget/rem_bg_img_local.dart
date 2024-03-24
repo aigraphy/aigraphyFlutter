@@ -60,7 +60,7 @@ class _RemBGImgLocalState extends State<RemBGImgLocal> {
             ),
           ),
           const SizedBox(height: 24),
-          AigraphyWidget.typeButtonGradientAfter(
+          AigraphyWidget.buttonGradientAfter(
               context: context,
               input: '${LocaleKeys.removeNow.tr()} -$TOKEN_REMOVE_BG',
               onPressed: () {
@@ -80,7 +80,7 @@ class _RemBGImgLocalState extends State<RemBGImgLocal> {
                   );
                 } else {
                   FirebaseAnalytics.instance.logEvent(name: 'click_remove_bg');
-                  removeBGImageDevice(widget.ctx, widget.path,
+                  removeBGImgDevice(widget.ctx, widget.path,
                       option: options[0]['option']);
                   Navigator.of(context).pop();
                 }

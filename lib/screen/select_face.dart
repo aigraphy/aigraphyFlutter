@@ -188,7 +188,7 @@ class _SelectFaceState extends State<SelectFace> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 32),
         child: check
-            ? AigraphyWidget.typeButtonGradientAfter(
+            ? AigraphyWidget.buttonGradientAfter(
                 context: context,
                 input: '${LocaleKeys.generate.tr()}  -$TOKEN_SWAP',
                 textColor: white,

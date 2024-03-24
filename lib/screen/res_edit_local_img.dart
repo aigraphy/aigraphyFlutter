@@ -101,10 +101,9 @@ class _ResEditLocalImgState extends State<ResEditLocalImg>
                         function: () async {
                           EasyLoading.show();
                           if (imageRemoveBG != null) {
-                            await downloadMultiImage(
-                                [imageEdit, imageRemoveBG!]);
+                            await downMultiImg([imageEdit, imageRemoveBG!]);
                           } else {
-                            await downloadMultiImage([imageEdit]);
+                            await downMultiImg([imageEdit]);
                           }
                           EasyLoading.dismiss();
                         },
@@ -116,10 +115,10 @@ class _ResEditLocalImgState extends State<ResEditLocalImg>
                         function: () async {
                           EasyLoading.show();
                           if (imageRemoveBG != null) {
-                            await shareContentMultiUrl(
+                            await shareMultiUrl(
                                 [imageEdit, imageRemoveBG!], context);
                           } else {
-                            await shareContentMultiUrl([imageEdit], context);
+                            await shareMultiUrl([imageEdit], context);
                           }
                           EasyLoading.dismiss();
                         },

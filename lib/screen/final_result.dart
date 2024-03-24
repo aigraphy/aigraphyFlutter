@@ -133,7 +133,7 @@ class _FinalResultState extends State<FinalResult>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  AigraphyWidget.typeButtonGradient(
+                  AigraphyWidget.buttonGradient(
                       context: context,
                       input: LocaleKeys.generateAgain.tr(),
                       textColor: white,
@@ -207,11 +207,10 @@ class _FinalResultState extends State<FinalResult>
                             function: () async {
                               EasyLoading.show();
                               if (imageRemoveBG != null) {
-                                await shareContentMultiUrl(
+                                await shareMultiUrl(
                                     [state.url!, imageRemoveBG!], context);
                               } else {
-                                await shareContentMultiUrl(
-                                    [state.url!], context);
+                                await shareMultiUrl([state.url!], context);
                               }
                               EasyLoading.dismiss();
                             },
@@ -230,10 +229,10 @@ class _FinalResultState extends State<FinalResult>
                             function: () async {
                               EasyLoading.show();
                               if (imageRemoveBG != null) {
-                                await downloadMultiImage(
+                                await downMultiImg(
                                     [state.url!, imageRemoveBG!]);
                               } else {
-                                await downloadMultiImage([state.url!]);
+                                await downMultiImg([state.url!]);
                               }
                               EasyLoading.dismiss();
                             },
@@ -284,7 +283,7 @@ class _FinalResultState extends State<FinalResult>
                     ),
                   ),
                   const SizedBox(height: 8),
-                  AigraphyWidget.typeButtonGradientAfter(
+                  AigraphyWidget.buttonGradientAfter(
                       context: context,
                       input:
                           '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',

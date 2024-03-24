@@ -72,7 +72,7 @@ Future<DateTime> getTimeOnline() async {
 String locale = 'en';
 const TOKEN_REWARD = 15;
 const TOKEN_DAILY = 30;
-const TOKEN_SHARE = 3;
+const TOKEN_SHARE = 5;
 const TOKEN_EDIT = 5;
 const TOKEN_OPEN_SLOT = 20;
 const TOKEN_OPEN_HISTORY = 99;
@@ -227,7 +227,7 @@ void listenIAP(BuildContext context) {
   });
 }
 
-Future<XFile> createFile(Uint8List res) async {
+Future<XFile> createFileLocal(Uint8List res) async {
   final documentDirectory = await getTemporaryDirectory();
   final path =
       documentDirectory.path + '/${DateTime.now().toIso8601String()}.jpg';
@@ -237,32 +237,31 @@ Future<XFile> createFile(Uint8List res) async {
   return xFile;
 }
 
-Future<void> shareImageGetCoin(BuildContext context) async {
+Future<void> shareImgGetCoin(BuildContext context) async {
   final userBloc = context.read<PersonBloc>();
   userBloc.add(UpdateCoinUser(userBloc.userModel!.coin + TOKEN_SHARE));
 }
 
-Future<void> shareContentMultiUrl(
-    List<String> urls, BuildContext context) async {
+Future<void> shareMultiUrl(List<String> urls, BuildContext context) async {
   final List<XFile> files = [];
   for (String url in urls) {
     final responseData = await http.get(Uri.parse(url));
     final Uint8List res = responseData.bodyBytes;
-    final XFile xFile = await createFile(res);
+    final XFile xFile = await createFileLocal(res);
     files.add(xFile);
   }
   final result = await Share.shareXFiles(files,
       subject: '${LocaleKeys.fromAIGraphy.tr()}: $linkApp',
       text: '${LocaleKeys.fromAIGraphy.tr()}: $linkApp');
   if (result.status == ShareResultStatus.success) {
-    shareImageGetCoin(context);
+    shareImgGetCoin(context);
     FirebaseAnalytics.instance.logEvent(name: 'click_share_image');
     BotToast.showText(
         text: LocaleKeys.shareYourImage.tr(), textStyle: style7(color: white));
   }
 }
 
-Future<void> downloadMultiImage(List<String> urls) async {
+Future<void> downMultiImg(List<String> urls) async {
   for (String url in urls) {
     final responseData = await http.get(Uri.parse(url));
     final Uint8List res = responseData.bodyBytes;
@@ -274,7 +273,7 @@ Future<void> downloadMultiImage(List<String> urls) async {
       textStyle: style7(color: white));
 }
 
-Future<void> removeBGImageDevice(BuildContext context, String path,
+Future<void> removeBGImgDevice(BuildContext context, String path,
     {String? option}) async {
   EasyLoading.show();
   final User userFB = FirebaseAuth.instance.currentUser!;
@@ -335,7 +334,7 @@ Future<HistoryModel?> insertHistory(String url, BuildContext context) async {
   return historyModel;
 }
 
-Future<ImgRemoveBG?> insertImageRemBG(
+Future<ImgRemoveBG?> insertImgRemBG(
     int requestId, String link, BuildContext context) async {
   ImgRemoveBG? imageRemoveBG;
   final User userFB = FirebaseAuth.instance.currentUser!;

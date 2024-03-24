@@ -96,7 +96,7 @@ class _IntroduceSecondState extends State<IntroduceSecond> {
                             milliseconds: 2000,
                             child: SizedBox(
                               width: 150,
-                              child: AigraphyWidget.typeButtonGradient(
+                              child: AigraphyWidget.buttonGradient(
                                   context: context,
                                   input: "Let's Start",
                                   onPressed: () {

@@ -74,7 +74,7 @@ class _CheckInWidgetState extends State<BuyMoreSlot> {
                 ),
               ),
               const SizedBox(height: 16),
-              AigraphyWidget.typeButtonGradient(
+              AigraphyWidget.buttonGradient(
                   context: context,
                   input: LocaleKeys.openSlotNow.tr(),
                   vertical: 16,

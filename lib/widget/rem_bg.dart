@@ -67,7 +67,7 @@ class _RemBgState extends State<RemBg> {
             ),
           ),
           const SizedBox(height: 24),
-          AigraphyWidget.typeButtonGradientAfter(
+          AigraphyWidget.buttonGradientAfter(
               context: context,
               input: '${LocaleKeys.removeNow.tr()} -$TOKEN_REMOVE_BG',
               onPressed: () {
