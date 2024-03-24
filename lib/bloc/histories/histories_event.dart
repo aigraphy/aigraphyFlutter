@@ -13,10 +13,10 @@ final class HistoriesFetched extends HistoriesEvent {
 }
 
 final class InsertHistory extends HistoriesEvent {
-  InsertHistory({required this.requestModel});
-  final HistoryModel requestModel;
+  InsertHistory({required this.historyModel});
+  final HistoryModel historyModel;
   @override
-  List<Object> get props => [requestModel];
+  List<Object> get props => [historyModel];
 }
 
 final class UpdateRemImg extends HistoriesEvent {

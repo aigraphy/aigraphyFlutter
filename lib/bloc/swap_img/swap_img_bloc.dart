@@ -99,12 +99,12 @@ class SwapImgBloc extends Bloc<SwapImgEvent, SwapImgState> {
   Future<Map<String, dynamic>?> uploadImage(
       Uint8List? res, BuildContext context) async {
     String? url;
-    HistoryModel? requestModel;
+    HistoryModel? historyModel;
     final imageFile = await createFileUploadDO(res!);
     url = await uploadFileDO(imageFile: imageFile);
     if (url != null) {
-      requestModel = await insertRequest(url, context);
+      historyModel = await insertHistory(url, context);
     }
-    return {'url': url, 'request_id': requestModel!.id};
+    return {'url': url, 'request_id': historyModel!.id};
   }
 }

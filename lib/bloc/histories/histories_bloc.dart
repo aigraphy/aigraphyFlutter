@@ -101,7 +101,7 @@ class HistoriesBloc extends Bloc<HistoriesEvent, HistoriesState> {
   ) async {
     try {
       emit(state.copyWith(status: HistoriesStatus.initial));
-      state.requests.insert(0, event.requestModel);
+      state.requests.insert(0, event.historyModel);
       emit(
         state.copyWith(
             status: HistoriesStatus.success, requests: state.requests),

@@ -206,7 +206,7 @@ Future<void> handleCoinUser(int reward, BuildContext context) async {
   );
 }
 
-Future<void> initPlatformState(BuildContext context) async {
+Future<void> configRevenueCat(BuildContext context) async {
   late PurchasesConfiguration configuration;
   if (Platform.isAndroid) {
     configuration = PurchasesConfiguration('goog_leeHKJluPftkFMvUPtvWOdHDwcD');
@@ -216,7 +216,7 @@ Future<void> initPlatformState(BuildContext context) async {
   await Purchases.configure(configuration);
 }
 
-void listenInAppPurchase(BuildContext context) {
+void listenIAP(BuildContext context) {
   Purchases.addCustomerInfoUpdateListener((customerInfo) async {
     final reward = await getCoinIAP();
     if (reward != 0) {
@@ -294,7 +294,7 @@ Future<void> removeBGImageDevice(BuildContext context, String path,
       final imageFile = await createFileUploadDO(response.bodyBytes);
       final String? url = await uploadFileDO(imageFile: imageFile);
       if (url != null) {
-        final res = await insertRequest(url, context);
+        final res = await insertHistory(url, context);
         if (res != null) {
           EasyLoading.dismiss();
           Navigator.of(context).pushNamed(Routes.res_remove_bg_local_img,
@@ -311,8 +311,8 @@ Future<void> removeBGImageDevice(BuildContext context, String path,
   }
 }
 
-Future<HistoryModel?> insertRequest(String url, BuildContext context) async {
-  HistoryModel? requestModel;
+Future<HistoryModel?> insertHistory(String url, BuildContext context) async {
+  HistoryModel? historyModel;
   final User userFB = FirebaseAuth.instance.currentUser!;
   final String? token = await userFB.getIdToken();
   await Graphql.initialize(token!)
@@ -325,14 +325,14 @@ Future<HistoryModel?> insertRequest(String url, BuildContext context) async {
           }))
       .then((value) {
     if (!value.hasException && value.data!['insert_Request_one'] != null) {
-      requestModel =
+      historyModel =
           HistoryModel.convertToObj(value.data!['insert_Request_one']);
       context
           .read<HistoriesBloc>()
-          .add(InsertHistory(requestModel: requestModel!));
+          .add(InsertHistory(historyModel: historyModel!));
     }
   });
-  return requestModel;
+  return historyModel;
 }
 
 Future<ImgRemoveBG?> insertImageRemBG(

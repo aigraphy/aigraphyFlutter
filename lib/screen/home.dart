@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
       listenFaces(mounted, context);
     });
     await Purchases.setEmail(userFB.email!);
-    listenInAppPurchase(context);
+    listenIAP(context);
     createLocalNoti();
     showPrice(context);
     checkUserPro(context);

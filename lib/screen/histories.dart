@@ -97,21 +97,21 @@ class _HistoriesState extends State<Histories>
         : const SizedBox();
   }
 
-  Widget itemImage(HistoryModel requestModel) {
+  Widget itemHistory(HistoryModel historyModel) {
     return ClickWidget(
       function: () {
         context.read<RemBGImgBloc>().add(const ResetRemBGImg());
         Navigator.of(context).pushNamed(Routes.detail_history,
             arguments: HistoryDetail(
-                idRequest: requestModel.id!,
-                imageRes: requestModel.imageRes,
-                imageRemoveBG: requestModel.imageRemoveBG?.imageRembg));
+                idRequest: historyModel.id!,
+                imageRes: historyModel.imageRes,
+                imageRemoveBG: historyModel.imageRemoveBG?.imageRembg));
       },
       child: OpacityWidget(
         child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: CachedNetworkImage(
-              imageUrl: requestModel.imageRes,
+              imageUrl: historyModel.imageRes,
               fadeOutDuration: const Duration(milliseconds: 200),
               fadeInDuration: const Duration(milliseconds: 200),
               fit: BoxFit.cover,
@@ -261,7 +261,7 @@ class _HistoriesState extends State<Histories>
                                           child: CupertinoActivityIndicator())
                                       : ind == 0
                                           ? buySlot()
-                                          : itemImage(state.requests[index]);
+                                          : itemHistory(state.requests[index]);
                                 });
                           case HistoriesStatus.initial:
                             return const Center(

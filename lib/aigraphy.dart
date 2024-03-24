@@ -72,7 +72,7 @@ class _AIGraphyState extends State<AIGraphy> {
   void initState() {
     super.initState();
     getToken();
-    initPlatformState(context);
+    configRevenueCat(context);
     EasyLoading.instance
       ..loadingStyle = EasyLoadingStyle.custom
       ..userInteractions = false
