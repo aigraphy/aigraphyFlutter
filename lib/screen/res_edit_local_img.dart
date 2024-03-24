@@ -84,7 +84,7 @@ class _ResEditLocalImgState extends State<ResEditLocalImg>
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: Image.asset(swap_cate, width: 24, height: 24),
+                child: Image.asset(ic_home, width: 24, height: 24),
               )),
         ),
         floatingActionButton: const OfferFirstTime(),

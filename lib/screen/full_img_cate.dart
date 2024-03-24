@@ -130,7 +130,7 @@ class _FullImgCateState extends State<FullImgCate> {
     EasyLoading.show();
     if (hasHandleFace) {
       final face =
-          await getImage(context.read<FaceBloc>().faces[_faceIndex].face);
+          await getUint8List(context.read<FaceBloc>().faces[_faceIndex].face);
       final tempDirFace = await Directory.systemTemp.createTemp();
       final tempFileFace =
           File('${tempDirFace.path}/${DateTime.now().toIso8601String()}.jpg');
@@ -145,7 +145,7 @@ class _FullImgCateState extends State<FullImgCate> {
       return;
     }
 
-    final imageSwapTmp = await getImage(imageSwapTmpLink);
+    final imageSwapTmp = await getUint8List(imageSwapTmpLink);
     final tempDirImageSwap = await Directory.systemTemp.createTemp();
     final tempFileImageSwap = File(
         '${tempDirImageSwap.path}/${DateTime.now().toIso8601String()}.jpg');

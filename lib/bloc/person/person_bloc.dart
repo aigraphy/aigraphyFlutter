@@ -63,7 +63,7 @@ class PersonBloc extends Bloc<PersonEvent, PersonState> {
     final state = this.state;
     if (state is UserLoaded) {
       try {
-        final timeNow = await getTime();
+        final timeNow = await getTimeOnline();
         final date = DateTime(timeNow.year, timeNow.month, timeNow.day, 7, 58);
         updateCurrentCheckIn(date, userModel!.coin + TOKEN_DAILY);
         userModel = PersonModel(

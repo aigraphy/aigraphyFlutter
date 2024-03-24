@@ -74,7 +74,7 @@ class _ResRemBgLocalImgState extends State<ResRemBgLocalImg>
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: Image.asset(swap_cate, width: 24, height: 24),
+                child: Image.asset(ic_home, width: 24, height: 24),
               )),
         ),
         floatingActionButton: const OfferFirstTime(),
@@ -117,7 +117,7 @@ class _ResRemBgLocalImgState extends State<ResRemBgLocalImg>
                     child: ClickWidget(
                         function: () async {
                           EasyLoading.show();
-                          final unit8List = await getImage(imageRemoveBG);
+                          final unit8List = await getUint8List(imageRemoveBG);
                           EasyLoading.dismiss();
                           final editedImage = await Navigator.push(
                             context,

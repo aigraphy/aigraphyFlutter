@@ -7,27 +7,13 @@ import '../config_model/history_model.dart';
 import '../config_router/name_router.dart';
 import '../widget/choose_photo.dart';
 import '../widget/click_widget.dart';
-import '../widget/rem_bg_img_local.dart';
 import 'editor_img.dart';
 import 'res_edit_local_img.dart';
 
 class Explored extends StatelessWidget {
   const Explored({super.key});
 
-  void showRemoveBg(BuildContext context, String path) {
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: spaceCadet,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (BuildContext ctx) {
-        return RemBGImgLocal(path: path, ctx: context);
-      },
-    );
-  }
-
-  Future<void> setPhoto(BuildContext context, bool removeBg) async {
+  Future<void> setPhoto(BuildContext context) async {
     await showModalBottomSheet<Map<String, dynamic>>(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -42,21 +28,17 @@ class Explored extends StatelessWidget {
       context: context,
     ).then((value) async {
       if (value != null) {
-        if (removeBg) {
-          showRemoveBg(context, value['path']);
-        } else {
-          final res = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SingleImageEditor(image: value['bytes']),
-            ),
-          );
-          if (res != null) {
-            final request = res['request'] as HistoryModel;
-            Navigator.of(context).pushNamed(Routes.res_edit_local_img,
-                arguments: ResEditLocalImg(
-                    imageEdit: request.imageRes, requestId: request.id!));
-          }
+        final res = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SingleImageEditor(image: value['bytes']),
+          ),
+        );
+        if (res != null) {
+          final request = res['request'] as HistoryModel;
+          Navigator.of(context).pushNamed(Routes.res_edit_local_img,
+              arguments: ResEditLocalImg(
+                  imageEdit: request.imageRes, requestId: request.id!));
         }
       }
     });
@@ -77,30 +59,7 @@ class Explored extends StatelessWidget {
             const SizedBox(height: 24),
             ClickWidget(
               function: () {
-                setPhoto(context, true);
-              },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                decoration: BoxDecoration(
-                    color: green, borderRadius: BorderRadius.circular(12)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(ic_removebg, width: 40, height: 40),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Remove BG',
-                      style: style5(context: context),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            ClickWidget(
-              function: () {
-                setPhoto(context, false);
+                setPhoto(context);
               },
               child: Container(
                 width: double.infinity,

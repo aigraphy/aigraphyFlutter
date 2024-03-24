@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     await Purchases.setEmail(userFB.email!);
     listenIAP(context);
     createLocalNoti();
-    showPrice(context);
+    showPriceScreen(context);
     checkUserPro(context);
   }
 

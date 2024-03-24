@@ -52,7 +52,7 @@ class _IntroduceState extends State<Introduce> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextGradient(
-                titles[index]['title1']!,
+                titlesIntroduce[index]['title1']!,
                 style: const TextStyle(
                     fontSize: 36,
                     height: 1.5,
@@ -61,7 +61,7 @@ class _IntroduceState extends State<Introduce> {
                 gradient: Theme.of(context).linerPimary,
               ),
               TextGradient(
-                titles[index]['title2']!,
+                titlesIntroduce[index]['title2']!,
                 style: const TextStyle(
                     fontSize: 36,
                     height: 1,

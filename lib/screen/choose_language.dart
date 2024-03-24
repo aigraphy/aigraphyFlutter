@@ -42,14 +42,14 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
   }
 
   void setDefautLanguage() {
-    for (int i = 0; i < languagesData.length; i++) {
-      final select = context.read<ListenLanguageBloc>().locale ==
-          languagesData[i]['locale'];
+    for (int i = 0; i < langsData.length; i++) {
+      final select =
+          context.read<ListenLanguageBloc>().locale == langsData[i]['locale'];
       if (select) {
         _currentIndex = i;
       }
-      languagesData[i].addAll({'select': select});
-      languages.add(languagesData[i]);
+      langsData[i].addAll({'select': select});
+      languages.add(langsData[i]);
     }
   }
 

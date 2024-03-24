@@ -111,7 +111,7 @@ class _SelectFaceState extends State<SelectFace> {
               dstPath: path!,
               srcPath: widget.pathSource!));
     } else {
-      final imageSwapTmp = await getImage(widget.imageCate!);
+      final imageSwapTmp = await getUint8List(widget.imageCate!);
       final tempDirImageSwap = await Directory.systemTemp.createTemp();
       final tempFileImageSwap = File(
           '${tempDirImageSwap.path}/${DateTime.now().toIso8601String()}.jpg');

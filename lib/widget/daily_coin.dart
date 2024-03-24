@@ -97,8 +97,8 @@ class DailyCoin extends StatelessWidget {
                 final PersonModel? user = context.read<PersonBloc>().userModel;
                 if (user != null) {
                   EasyLoading.show();
-                  final timeNow = await getTime();
-                  if (canCheckIn(user.dateCheckIn, timeNow)) {
+                  final timeNow = await getTimeOnline();
+                  if (checkIn(user.dateCheckIn, timeNow)) {
                     context.read<PersonBloc>().add(UpdateCurrentCheckIn());
                   } else {
                     BotToast.showText(text: LocaleKeys.youWillReceive.tr());

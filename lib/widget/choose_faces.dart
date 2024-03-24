@@ -130,7 +130,7 @@ class _ChooseFacesState extends State<ChooseFaces> {
             EasyLoading.show();
             if (widget.handling) {
               try {
-                final image = await getImage(faceModel.face);
+                final image = await getUint8List(faceModel.face);
                 final tempDir = await Directory.systemTemp.createTemp();
                 final tempFile = File(
                     '${tempDir.path}/${DateTime.now().toIso8601String()}.jpg');

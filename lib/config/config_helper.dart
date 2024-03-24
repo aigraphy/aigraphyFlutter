@@ -57,7 +57,7 @@ const linkPolicy = 'https://aigraphyapp.com/terms-conditions-privacy-policy/';
 const linkDiscord = 'https://bit.ly/4adQFfF';
 DateTime now = DateTime.now();
 
-Future<DateTime> getTime() async {
+Future<DateTime> getTimeOnline() async {
   DateTime? dateTime;
   final res = await http
       .get(Uri.parse('https://worldtimeapi.org/api/timezone/Etc/UTC'));
@@ -85,7 +85,7 @@ const IMAGE_SHOW_LIMIT = 10;
 const DEFAULT_SLOT = 5;
 const DEFAULT_SLOT_HISTORY = 30;
 
-List<Map<String, dynamic>> languagesData = [
+List<Map<String, dynamic>> langsData = [
   <String, dynamic>{
     'title': 'English',
     'image': uk,
@@ -119,7 +119,7 @@ List<String> landings = [
   introduce4,
 ];
 
-List<Map<String, String>> titles = [
+List<Map<String, String>> titlesIntroduce = [
   {'title1': 'Swap your face', 'title2': 'to image'},
   {'title1': 'High quality', 'title2': 'render image'},
   {'title1': 'Keep all just', 'title2': 'funny.'}
@@ -132,7 +132,7 @@ NumberFormat formatCoin(BuildContext context, {int digit = 0}) {
 
 bool isIOS = Platform.isIOS || Platform.isMacOS;
 
-bool canCheckIn(DateTime? currentDate, DateTime timeNow) {
+bool checkIn(DateTime? currentDate, DateTime timeNow) {
   if (currentDate == null) {
     return true;
   } else {
@@ -153,7 +153,7 @@ Future<File> createFileUploadDO(Uint8List res) async {
   return file;
 }
 
-Future<Uint8List> getImage(String url) async {
+Future<Uint8List> getUint8List(String url) async {
   final responseData = await http.get(Uri.parse(url));
   final Uint8List res = responseData.bodyBytes;
   return res;
@@ -178,7 +178,7 @@ Future<void> updateInAppCoinUser(int coins) async {
           }));
 }
 
-Future<PersonModel?> getUser(BuildContext context) async {
+Future<PersonModel?> getPerson(BuildContext context) async {
   final User userFB = FirebaseAuth.instance.currentUser!;
   final String? token = await userFB.getIdToken();
   PersonModel? userModel;
@@ -196,7 +196,7 @@ Future<PersonModel?> getUser(BuildContext context) async {
 }
 
 Future<void> handleCoinUser(int reward, BuildContext context) async {
-  final PersonModel? user = await getUser(context);
+  final PersonModel? user = await getPerson(context);
   if (user != null) {
     await updateInAppCoinUser(user.coin + reward);
   }
@@ -417,12 +417,12 @@ Future<void> listenFaces(bool mounted, BuildContext context) async {
   });
 }
 
-Future<void> showDaily(BuildContext context) async {
+Future<void> showDailyReward(BuildContext context) async {
   Future.delayed(const Duration(seconds: 2)).whenComplete(() async {
     final PersonModel? user = context.read<PersonBloc>().userModel;
     if (user != null) {
-      final timeNow = await getTime();
-      if (canCheckIn(user.dateCheckIn, timeNow)) {
+      final timeNow = await getTimeOnline();
+      if (checkIn(user.dateCheckIn, timeNow)) {
         showModalBottomSheet<void>(
           context: context,
           backgroundColor: spaceCadet,
@@ -439,7 +439,7 @@ Future<void> showDaily(BuildContext context) async {
   });
 }
 
-Future<void> showPrice(BuildContext context) async {
+Future<void> showPriceScreen(BuildContext context) async {
   if (isIOS) {
     final bool showPrice = await getBoolVal(input: 'show_price') ?? false;
     if (showPrice) {
@@ -449,12 +449,12 @@ Future<void> showPrice(BuildContext context) async {
             Routes.in_app_purchase,
             arguments: InAppPurchase(showDaily: true)) as bool;
         if (res) {
-          showDaily(context);
+          showDailyReward(context);
         }
       });
     }
   } else {
-    showDaily(context);
+    showDailyReward(context);
   }
 }
 
