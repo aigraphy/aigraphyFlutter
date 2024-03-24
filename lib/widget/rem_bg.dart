@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
-import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
+import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
 import '../config/config_color.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
@@ -87,12 +87,11 @@ class _RemBgState extends State<RemBg> {
                   );
                 } else {
                   EasyLoading.show();
-                  BlocProvider.of<RemoveBGImageBloc>(context).add(
-                      InitialRemoveBGImage(
-                          context: widget.ctx,
-                          link: widget.link,
-                          requestId: widget.requestId,
-                          option: options[0]['option']));
+                  BlocProvider.of<RemBGImgBloc>(context).add(InitialRemBGImg(
+                      context: widget.ctx,
+                      link: widget.link,
+                      requestId: widget.requestId,
+                      option: options[0]['option']));
                   FirebaseAnalytics.instance.logEvent(name: 'click_remove_bg');
                   Navigator.of(context).pop();
                 }

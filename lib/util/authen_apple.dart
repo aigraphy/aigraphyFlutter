@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
-import '../aigraphy_widget.dart';
 
 mixin AuthenApple {
   static String generateNonce([int length = 32]) {
@@ -49,24 +48,14 @@ mixin AuthenApple {
       user = userCredential.user!;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          AigraphyWidget.customSnackBar(
-            content: 'The account already exists with a different credential.',
-          ),
-        );
+        BotToast.showText(
+            text: 'The account already exists with a different credential.');
       } else if (e.code == 'invalid-credential') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          AigraphyWidget.customSnackBar(
-            content: 'Error occurred while accessing credentials. Try again.',
-          ),
-        );
+        BotToast.showText(
+            text: 'Error occurred while accessing credentials. Try again.');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        AigraphyWidget.customSnackBar(
-          content: 'Error occurred using Apple Sign-In. Try again.',
-        ),
-      );
+      BotToast.showText(text: 'Error occurred using Apple Sign-In. Try again.');
     }
     return user!;
   }

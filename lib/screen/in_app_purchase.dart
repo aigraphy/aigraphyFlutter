@@ -177,8 +177,8 @@ class _InAppPurchaseState extends State<InAppPurchaseCoin>
 
   @override
   Widget build(BuildContext context) {
-    final width = AigraphyWidget.getWidthScreen(context);
-    final height = AigraphyWidget.getHeightScreen(context);
+    final width = AigraphyWidget.getWidth(context);
+    final height = AigraphyWidget.getHeight(context);
     return WillPopScope(
       onWillPop: () async {
         if (widget.showDaily) {

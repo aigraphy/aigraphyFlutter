@@ -1,24 +1,24 @@
-part of 'trending_bloc.dart';
+part of 'cate_trending_bloc.dart';
 
-enum TrendingStatus { initial, success, failure }
+enum CateTrendingStatus { initial, success, failure }
 
-final class TrendingState extends Equatable {
-  const TrendingState({
-    this.status = TrendingStatus.initial,
+final class CateTrendingState extends Equatable {
+  const CateTrendingState({
+    this.status = CateTrendingStatus.initial,
     this.images = const <ImgCateModel>[],
     this.hasReachedMax = false,
   });
 
-  final TrendingStatus status;
+  final CateTrendingStatus status;
   final List<ImgCateModel> images;
   final bool hasReachedMax;
 
-  TrendingState copyWith({
-    TrendingStatus? status,
+  CateTrendingState copyWith({
+    CateTrendingStatus? status,
     List<ImgCateModel>? images,
     bool? hasReachedMax,
   }) {
-    return TrendingState(
+    return CateTrendingState(
       status: status ?? this.status,
       images: images ?? this.images,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

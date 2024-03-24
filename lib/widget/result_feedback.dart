@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
-import '../bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
+import '../bloc/current_bottombar/current_bottombar_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_image.dart';
@@ -73,7 +73,7 @@ class ResultFeedback extends StatelessWidget {
                 input: LocaleKeys.swapFaceNow.tr(),
                 vertical: 16,
                 onPressed: () {
-                  context.read<SetIndexBottomBar>().setIndex(0);
+                  context.read<CurrentBottomBar>().setIndex(0);
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
                 },
@@ -81,7 +81,7 @@ class ResultFeedback extends StatelessWidget {
                 borderColor: blue,
                 textColor: white),
             const SizedBox(height: 16),
-            AigraphyWidget.typeButtonStartAction(
+            AigraphyWidget.buttonCustom(
                 context: context,
                 input: LocaleKeys.buyMoreCoin.tr(),
                 vertical: 16,

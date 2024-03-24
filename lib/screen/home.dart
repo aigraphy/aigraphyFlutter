@@ -6,12 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 import '../../translations/export_lang.dart';
-import '../aigraphy_widget.dart';
+import '../bloc/cate_today/cate_today_bloc.dart';
+import '../bloc/cate_trending/cate_trending_bloc.dart';
 import '../bloc/categories/categories_bloc.dart';
+import '../bloc/current_bottombar/current_bottombar_bloc.dart';
 import '../bloc/histories/histories_bloc.dart';
-import '../bloc/new_today/new_today_bloc.dart';
-import '../bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
-import '../bloc/trending/trending_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
@@ -37,8 +36,8 @@ class _HomeState extends State<Home> {
       listenPersonInfo(mounted, context);
       getLanguagePerson(context);
       context.read<CategoriesBloc>().add(CategoriesFetched());
-      context.read<NewTodayBloc>().add(NewTodayFetched());
-      context.read<TrendingBloc>().add(TrendingFetched());
+      context.read<CateTodayBloc>().add(CateTodayFetched());
+      context.read<CateTrendingBloc>().add(CateTrendingFetched());
       context.read<HistoriesBloc>().add(HistoriesFetched(context: context));
       listenFaces(mounted, context);
     });
@@ -49,10 +48,28 @@ class _HomeState extends State<Home> {
     checkUserPro(context);
   }
 
+  BottomNavigationBarItem createItemNav(BuildContext context,
+      String iconInactive, String iconActive, String label) {
+    return BottomNavigationBarItem(
+        activeIcon: Image.asset(
+          iconActive,
+          width: 24,
+          height: 24,
+          fit: BoxFit.cover,
+        ),
+        icon: Image.asset(
+          iconInactive,
+          width: 24,
+          height: 24,
+          fit: BoxFit.cover,
+        ),
+        label: label);
+  }
+
   @override
   void initState() {
     super.initState();
-    context.read<SetIndexBottomBar>().setIndex(widget.index);
+    context.read<CurrentBottomBar>().setIndex(widget.index);
     listWidget = [
       const SwapCate(),
       const Explored(),
@@ -65,7 +82,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index: context.watch<SetIndexBottomBar>().state,
+        index: context.watch<CurrentBottomBar>().state,
         children: listWidget,
       ),
       floatingActionButtonLocation:
@@ -78,21 +95,21 @@ class _HomeState extends State<Home> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(28),
               child: BottomNavigationBar(
-                currentIndex: context.watch<SetIndexBottomBar>().state,
+                currentIndex: context.watch<CurrentBottomBar>().state,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 backgroundColor: spaceCadet,
                 type: BottomNavigationBarType.fixed,
                 elevation: 0,
                 onTap: (value) {
-                  context.read<SetIndexBottomBar>().setIndex(value);
+                  context.read<CurrentBottomBar>().setIndex(value);
                 },
                 items: [
-                  AigraphyWidget.createItemNav(context, swap_cate,
-                      swap_cate_active, LocaleKeys.category.tr()),
-                  AigraphyWidget.createItemNav(context, take_photo,
-                      take_photo_active, LocaleKeys.home.tr()),
-                  AigraphyWidget.createItemNav(
+                  createItemNav(context, swap_cate, swap_cate_active,
+                      LocaleKeys.category.tr()),
+                  createItemNav(context, take_photo, take_photo_active,
+                      LocaleKeys.home.tr()),
+                  createItemNav(
                       context, person, person_active, LocaleKeys.profile.tr()),
                 ],
               ),

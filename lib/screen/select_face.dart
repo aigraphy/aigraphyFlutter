@@ -11,8 +11,8 @@ import 'package:image_editor_plus/options.dart' as o;
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
-import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
-import '../bloc/swap_image/bloc_swap_img.dart';
+import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
+import '../bloc/swap_img/bloc_swap_img.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -96,9 +96,7 @@ class _SelectFaceState extends State<SelectFace> {
   }
 
   Future<void> earnedReward({bool handleCoin = false}) async {
-    context
-        .read<RemoveBGImageBloc>()
-        .add(const ResetRemoveBGImage(hasLoaded: true));
+    context.read<RemBGImgBloc>().add(const ResetRemBGImg(hasLoaded: true));
     if (!widget.isImgCate) {
       context.read<SwapImgBloc>().add(InitialSwapImg(
           context: context,
@@ -148,7 +146,7 @@ class _SelectFaceState extends State<SelectFace> {
 
   @override
   Widget build(BuildContext context) {
-    final height = AigraphyWidget.getHeightScreen(context);
+    final height = AigraphyWidget.getHeight(context);
     final check = path != null && yourFace != null;
     return Scaffold(
       appBar: AppBarCustom(
@@ -204,7 +202,7 @@ class _SelectFaceState extends State<SelectFace> {
                   }
                   EasyLoading.dismiss();
                 })
-            : AigraphyWidget.typeButtonStartAction(
+            : AigraphyWidget.buttonCustom(
                 context: context,
                 input: '${LocaleKeys.generate.tr()}',
                 bgColor: spaceCadet,

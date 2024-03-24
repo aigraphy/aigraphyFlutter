@@ -12,13 +12,13 @@ import '../../config/config_font_styles.dart';
 import '../../config/config_helper.dart';
 import '../../util/upload_file_DO.dart';
 import '../person/bloc_person.dart';
-import 'bloc_remove_bg_image.dart';
+import 'bloc_rem_bg_img.dart';
 
-class RemoveBGImageBloc extends Bloc<RemoveBGImageEvent, RemoveBGImageState> {
-  RemoveBGImageBloc() : super(RemoveBGImageLoading()) {
-    on<InitialRemoveBGImage>(_onInitialRemoveBGImage);
-    on<RemoveBGImage>(_onRemoveBGImage);
-    on<ResetRemoveBGImage>(_onResetRemoveBGImage);
+class RemBGImgBloc extends Bloc<RemBGImgEvent, RemBGImgState> {
+  RemBGImgBloc() : super(RemBGImgLoading()) {
+    on<InitialRemBGImg>(_onInitialRemBGImg);
+    on<RemBGImg>(_onRemBGImg);
+    on<ResetRemBGImg>(_onResetRemBGImg);
   }
 
   User userFB = FirebaseAuth.instance.currentUser!;
@@ -26,9 +26,9 @@ class RemoveBGImageBloc extends Bloc<RemoveBGImageEvent, RemoveBGImageState> {
   String? url;
   String? errorText;
 
-  Future<void> _onInitialRemoveBGImage(
-      InitialRemoveBGImage event, Emitter<RemoveBGImageState> emit) async {
-    emit(RemoveBGImageLoading());
+  Future<void> _onInitialRemBGImg(
+      InitialRemBGImg event, Emitter<RemBGImgState> emit) async {
+    emit(RemBGImgLoading());
     try {
       result = null;
       url = null;
@@ -54,9 +54,8 @@ class RemoveBGImageBloc extends Bloc<RemoveBGImageEvent, RemoveBGImageState> {
     }
   }
 
-  Future<void> _onRemoveBGImage(
-      RemoveBGImage event, Emitter<RemoveBGImageState> emit) async {
-    emit(RemoveBGImageLoading());
+  Future<void> _onRemBGImg(RemBGImg event, Emitter<RemBGImgState> emit) async {
+    emit(RemBGImgLoading());
     try {
       result = null;
       url = null;
@@ -66,9 +65,9 @@ class RemoveBGImageBloc extends Bloc<RemoveBGImageEvent, RemoveBGImageState> {
     }
   }
 
-  Future<void> _onResetRemoveBGImage(
-      ResetRemoveBGImage event, Emitter<RemoveBGImageState> emit) async {
-    emit(RemoveBGImageLoading());
+  Future<void> _onResetRemBGImg(
+      ResetRemBGImg event, Emitter<RemBGImgState> emit) async {
+    emit(RemBGImgLoading());
     try {
       result = null;
       url = null;

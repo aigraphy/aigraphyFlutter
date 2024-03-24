@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
-import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
+import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -178,7 +178,7 @@ class _ResEditLocalImgState extends State<ResEditLocalImg>
                 ),
               ),
               const SizedBox(height: 8),
-              AigraphyWidget.typeButtonStartAction(
+              AigraphyWidget.buttonCustom(
                   context: context,
                   input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
                   bgColor: blue,
@@ -200,8 +200,7 @@ class _ResEditLocalImgState extends State<ResEditLocalImg>
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
           children: [
-            BlocBuilder<RemoveBGImageBloc, RemoveBGImageState>(
-                builder: (context, st) {
+            BlocBuilder<RemBGImgBloc, RemBGImgState>(builder: (context, st) {
               if (st is RemoveBGImageLoaded) {
                 imageRemoveBG = st.url;
                 if (controller!.hasClients) {

@@ -113,7 +113,7 @@ class DailyCoin extends StatelessWidget {
               borderColor: blue,
               textColor: white),
           const SizedBox(height: 16),
-          AigraphyWidget.typeButtonStartAction(
+          AigraphyWidget.buttonCustom(
               context: context,
               input: LocaleKeys.cancel.tr(),
               vertical: 16,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:graphql/client.dart';
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
@@ -14,6 +15,8 @@ import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
 import '../config/config_local_noti.dart';
+import '../config_graphql/config_mutation.dart';
+import '../config_graphql/graphql.dart';
 import '../config_router/name_router.dart';
 import '../util/config_shared_pre.dart';
 import '../widget/appbar_custom.dart';
@@ -65,6 +68,14 @@ class _SettingState extends State<Setting> {
     return switchNoti;
   }
 
+  Future<void> deleteUser() async {
+    final User userFB = FirebaseAuth.instance.currentUser!;
+    final String? token = await userFB.getIdToken();
+    await Graphql.initialize(token!).value.mutate(MutationOptions(
+        document: gql(ConfigMutation.deletePerson()),
+        variables: <String, dynamic>{'uuid': userFB.uid}));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -88,7 +99,7 @@ class _SettingState extends State<Setting> {
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: AigraphyWidget.typeButtonStartAction(
+        child: AigraphyWidget.buttonCustom(
             context: context,
             input: '${LocaleKeys.signOut.tr()}',
             bgColor: spaceCadet,
@@ -165,12 +176,13 @@ class _SettingState extends State<Setting> {
                 ),
                 ClickWidget(
                     function: () {
-                      AigraphyWidget.showDialogCustom(LocaleKeys.doYouWant.tr(),
-                          LocaleKeys.youWillLose.tr(), context: context,
-                          remove: () async {
+                      AigraphyWidget.showDialogDelAccount(
+                          LocaleKeys.doYouWant.tr(),
+                          LocaleKeys.youWillLose.tr(),
+                          context: context, remove: () async {
                         Navigator.of(context).pop();
                         EasyLoading.show();
-                        await AigraphyWidget.deleteUser();
+                        await deleteUser();
                         await FirebaseAuth.instance.signOut();
                         EasyLoading.dismiss();
                         BotToast.showText(

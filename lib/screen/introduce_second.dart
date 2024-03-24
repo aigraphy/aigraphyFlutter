@@ -39,8 +39,8 @@ class _IntroduceSecondState extends State<IntroduceSecond> {
 
   @override
   Widget build(BuildContext context) {
-    final width = AigraphyWidget.getWidthScreen(context);
-    final height = AigraphyWidget.getHeightScreen(context);
+    final width = AigraphyWidget.getWidth(context);
+    final height = AigraphyWidget.getHeight(context);
     return Scaffold(
       body: Column(
         children: [

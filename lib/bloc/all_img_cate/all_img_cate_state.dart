@@ -1,9 +1,9 @@
-part of 'full_img_cate_bloc.dart';
+part of 'all_img_cate_bloc.dart';
 
 enum FullImageCategoryStatus { initial, success, failure }
 
-final class FullImgCateState extends Equatable {
-  const FullImgCateState({
+final class AllImgCateState extends Equatable {
+  const AllImgCateState({
     this.status = FullImageCategoryStatus.initial,
     this.images = const <ImgCateModel>[],
     this.hasReachedMax = false,
@@ -13,12 +13,12 @@ final class FullImgCateState extends Equatable {
   final List<ImgCateModel> images;
   final bool hasReachedMax;
 
-  FullImgCateState copyWith({
+  AllImgCateState copyWith({
     FullImageCategoryStatus? status,
     List<ImgCateModel>? images,
     bool? hasReachedMax,
   }) {
-    return FullImgCateState(
+    return AllImgCateState(
       status: status ?? this.status,
       images: images ?? this.images,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

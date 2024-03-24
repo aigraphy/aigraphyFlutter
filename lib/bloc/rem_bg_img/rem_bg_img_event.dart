@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-sealed class RemoveBGImageEvent extends Equatable {
-  const RemoveBGImageEvent();
+sealed class RemBGImgEvent extends Equatable {
+  const RemBGImgEvent();
 }
 
-class InitialRemoveBGImage extends RemoveBGImageEvent {
-  const InitialRemoveBGImage(
+class InitialRemBGImg extends RemBGImgEvent {
+  const InitialRemBGImg(
       {required this.context,
       required this.link,
       this.option,
@@ -20,15 +20,15 @@ class InitialRemoveBGImage extends RemoveBGImageEvent {
   List<Object> get props => [context, link, requestId];
 }
 
-class ResetRemoveBGImage extends RemoveBGImageEvent {
-  const ResetRemoveBGImage({this.hasLoaded = false});
+class ResetRemBGImg extends RemBGImgEvent {
+  const ResetRemBGImg({this.hasLoaded = false});
   final bool hasLoaded;
   @override
   List<Object> get props => [hasLoaded];
 }
 
-class RemoveBGImage extends RemoveBGImageEvent {
-  const RemoveBGImage();
+class RemBGImg extends RemBGImgEvent {
+  const RemBGImg();
   @override
   List<Object> get props => [];
 }

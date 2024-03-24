@@ -1,25 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql/client.dart';
 
 import '../translations/export_lang.dart';
 import 'config/config_color.dart';
 import 'config/config_font_styles.dart';
 import 'config/config_image.dart';
-import 'config_graphql/config_mutation.dart';
-import 'config_graphql/graphql.dart';
 import 'widget/click_widget.dart';
 
 mixin AigraphyWidget {
-  static double getHeightScreen(BuildContext context) {
+  static double getHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
 
-  static double getWidthScreen(BuildContext context) {
+  static double getWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
   }
 
-  static Future<void> showDialogCustom(String title, String subTitle,
+  static Future<void> showDialogDelAccount(String title, String subTitle,
       {required BuildContext context, Function()? remove}) async {
     showDialog<dynamic>(
       context: context,
@@ -68,7 +64,7 @@ mixin AigraphyWidget {
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: AigraphyWidget.typeButtonStartAction(
+                      child: AigraphyWidget.buttonCustom(
                           context: context,
                           input: LocaleKeys.yes.tr(),
                           bgColor: red2,
@@ -89,7 +85,7 @@ mixin AigraphyWidget {
     );
   }
 
-  static PreferredSizeWidget createSimpleAppBar(
+  static PreferredSizeWidget createAppBar(
       {required BuildContext context,
       bool hasPop = true,
       Color? backgroundColor,
@@ -159,7 +155,7 @@ mixin AigraphyWidget {
     );
   }
 
-  static Widget typeButtonStartAction(
+  static Widget buttonCustom(
       {double? fontSize,
       required BuildContext context,
       double? height,
@@ -212,67 +208,6 @@ mixin AigraphyWidget {
                         height: sizeAsset,
                         color: colorAsset,
                       )),
-                    ],
-                  );
-                },
-              ),
-      ),
-    );
-  }
-
-  static Widget typeButtonStartAction2(
-      {double? fontSize,
-      required BuildContext context,
-      double? height,
-      double? vertical,
-      double? horizontal,
-      Function()? onPressed,
-      Color? bgColor,
-      Color? borderColor,
-      double miniSizeHorizontal = double.infinity,
-      Color? textColor,
-      String? input,
-      FontWeight? fontWeight,
-      double borderRadius = 32,
-      double sizeAsset = 16,
-      Color? colorAsset,
-      String? icon}) {
-    return ClickWidget(
-      child: TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(
-              vertical: vertical ?? 16, horizontal: horizontal ?? 0),
-          side: BorderSide(color: borderColor ?? white),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius)),
-          backgroundColor: bgColor,
-          minimumSize: Size(miniSizeHorizontal, 0),
-        ),
-        onPressed: onPressed,
-        child: icon == null
-            ? Text(
-                input!,
-                textAlign: TextAlign.center,
-                style: style6(context: context, color: textColor),
-              )
-            : LayoutBuilder(
-                builder: (context, constraints) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          child: Image.asset(
-                        icon,
-                        width: sizeAsset,
-                        height: sizeAsset,
-                        color: colorAsset,
-                      )),
-                      const SizedBox(width: 8),
-                      Text(
-                        input!,
-                        textAlign: TextAlign.center,
-                        style: style6(context: context, color: textColor),
-                      ),
                     ],
                   );
                 },
@@ -483,45 +418,6 @@ mixin AigraphyWidget {
         ),
       ),
     );
-  }
-
-  static SnackBar customSnackBar(
-      {required String content, Color? color, int? milliseconds}) {
-    return SnackBar(
-      duration: Duration(milliseconds: milliseconds ?? 800),
-      backgroundColor: color ?? blue,
-      content: Text(
-        content,
-        textAlign: TextAlign.center,
-        style: style7(color: white),
-      ),
-    );
-  }
-
-  static BottomNavigationBarItem createItemNav(BuildContext context,
-      String iconInactive, String iconActive, String label) {
-    return BottomNavigationBarItem(
-        activeIcon: Image.asset(
-          iconActive,
-          width: 24,
-          height: 24,
-          fit: BoxFit.cover,
-        ),
-        icon: Image.asset(
-          iconInactive,
-          width: 24,
-          height: 24,
-          fit: BoxFit.cover,
-        ),
-        label: label);
-  }
-
-  static Future<void> deleteUser() async {
-    final User userFB = FirebaseAuth.instance.currentUser!;
-    final String? token = await userFB.getIdToken();
-    await Graphql.initialize(token!).value.mutate(MutationOptions(
-        document: gql(ConfigMutation.deletePerson()),
-        variables: <String, dynamic>{'uuid': userFB.uid}));
   }
 
   static Widget option(String icon,

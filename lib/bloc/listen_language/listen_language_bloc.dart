@@ -19,12 +19,8 @@ class ListenLanguageBloc
         return 'Spanish';
       case 'fr':
         return 'Frensh';
-      case 'ja':
-        return 'Japanese';
       case 'pt':
         return 'Portuguese';
-      case 'vi':
-        return 'Vietnamese';
       case 'it':
         return 'Italian';
       default:

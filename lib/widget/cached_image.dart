@@ -39,7 +39,7 @@ class _CachedImageState extends State<CachedImage>
 
   @override
   Widget build(BuildContext context) {
-    final width = AigraphyWidget.getWidthScreen(context);
+    final width = AigraphyWidget.getWidth(context);
     return ClickWidget(
       function: () async {
         Navigator.of(context).pushNamed(Routes.full_img_screen,

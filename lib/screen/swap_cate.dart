@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
+import '../bloc/cate_today/cate_today_bloc.dart';
+import '../bloc/cate_trending/cate_trending_bloc.dart';
 import '../bloc/categories/categories_bloc.dart';
-import '../bloc/new_today/new_today_bloc.dart';
-import '../bloc/set_index_category/set_index_category_bloc.dart';
+import '../bloc/current_cate/current_cate_bloc.dart';
 import '../bloc/set_user_pro/set_user_pro_bloc.dart';
-import '../bloc/trending/trending_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -131,9 +131,10 @@ class _SwapCateState extends State<SwapCate>
   }
 
   Widget newToday() {
-    return BlocBuilder<NewTodayBloc, NewTodayState>(builder: (context, state) {
+    return BlocBuilder<CateTodayBloc, CateTodayState>(
+        builder: (context, state) {
       switch (state.status) {
-        case NewTodayStatus.success:
+        case CateTodayStatus.success:
           return RefreshIndicator(
             onRefresh: () => Future.sync(() {
               refresh();
@@ -194,9 +195,10 @@ class _SwapCateState extends State<SwapCate>
   }
 
   Widget trending() {
-    return BlocBuilder<TrendingBloc, TrendingState>(builder: (context, state) {
+    return BlocBuilder<CateTrendingBloc, CateTrendingState>(
+        builder: (context, state) {
       switch (state.status) {
-        case TrendingStatus.success:
+        case CateTrendingStatus.success:
           return RefreshIndicator(
             onRefresh: () => Future.sync(() {
               refresh();
@@ -288,9 +290,7 @@ class _SwapCateState extends State<SwapCate>
                                       Routes.iap_first_time,
                                       arguments: IAPFirstTime());
                                 } else {
-                                  context
-                                      .read<SetIndexCategory>()
-                                      .setIndex(index);
+                                  context.read<CurrentCate>().setIndex(index);
                                 }
                               },
                               child: Stack(
@@ -301,13 +301,13 @@ class _SwapCateState extends State<SwapCate>
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(32),
                                         color: context
-                                                    .watch<SetIndexCategory>()
+                                                    .watch<CurrentCate>()
                                                     .state ==
                                                 index
                                             ? null
                                             : spaceCadet,
                                         gradient: context
-                                                    .watch<SetIndexCategory>()
+                                                    .watch<CurrentCate>()
                                                     .state ==
                                                 index
                                             ? Theme.of(context).linerPimary
@@ -360,12 +360,12 @@ class _SwapCateState extends State<SwapCate>
 
   void refresh() {
     context.read<CategoriesBloc>().add(ResetCategories());
-    context.read<NewTodayBloc>().add(ResetNewToday());
-    context.read<TrendingBloc>().add(ResetTrending());
+    context.read<CateTodayBloc>().add(ResetCateToday());
+    context.read<CateTrendingBloc>().add(ResetCateTrending());
     context.read<CategoriesBloc>().add(CategoriesFetched());
-    context.read<NewTodayBloc>().add(NewTodayFetched());
-    context.read<TrendingBloc>().add(TrendingFetched());
-    context.read<SetIndexCategory>().setIndex(0);
+    context.read<CateTodayBloc>().add(CateTodayFetched());
+    context.read<CateTrendingBloc>().add(CateTrendingFetched());
+    context.read<CurrentCate>().setIndex(0);
   }
 
   @override
@@ -388,7 +388,7 @@ class _SwapCateState extends State<SwapCate>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final height = AigraphyWidget.getHeightScreen(context);
+    final height = AigraphyWidget.getHeight(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBarCustom(
@@ -445,7 +445,7 @@ class _SwapCateState extends State<SwapCate>
                       ));
                     }
                     return IndexedStack(
-                      index: context.watch<SetIndexCategory>().state,
+                      index: context.watch<CurrentCate>().state,
                       children:
                           List.generate(state.categories.length + 2, (index) {
                         return index == 0

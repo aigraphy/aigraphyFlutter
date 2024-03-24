@@ -16,7 +16,7 @@ import '../../config_graphql/graphql.dart';
 import '../../config_model/history_model.dart';
 import '../../config_model/img_removebg.dart';
 import '../person/bloc_person.dart';
-import '../remove_bg_image/bloc_remove_bg_image.dart';
+import '../rem_bg_img/bloc_rem_bg_img.dart';
 
 part 'histories_event.dart';
 part 'histories_state.dart';
@@ -67,7 +67,7 @@ class HistoriesBloc extends Bloc<HistoriesEvent, HistoriesState> {
     }
     try {
       if (state.status == HistoriesStatus.initial) {
-        final requests = await getRequest(HISTORY_LIMIT);
+        final requests = await _fetchHistories(HISTORY_LIMIT);
         return emit(
           state.copyWith(
             status: HistoriesStatus.success,
@@ -80,7 +80,8 @@ class HistoriesBloc extends Bloc<HistoriesEvent, HistoriesState> {
       if (state.requests.length >= user!.slotHistory) {
         emit(state.copyWith(hasReachedMax: true));
       } else {
-        final requests = await getRequest(HISTORY_LIMIT, state.requests.length);
+        final requests =
+            await _fetchHistories(HISTORY_LIMIT, state.requests.length);
         emit(
           state.copyWith(
             status: HistoriesStatus.success,
@@ -158,7 +159,7 @@ class HistoriesBloc extends Bloc<HistoriesEvent, HistoriesState> {
       removeImageBG(imageBG!.id!);
       state.requests.firstWhere((e) => e.id == event.requestId).imageRemoveBG =
           null;
-      event.context.read<RemoveBGImageBloc>().add(const RemoveBGImage());
+      event.context.read<RemBGImgBloc>().add(const RemBGImg());
       emit(
         state.copyWith(
             status: HistoriesStatus.success, requests: state.requests),
@@ -175,7 +176,7 @@ class HistoriesBloc extends Bloc<HistoriesEvent, HistoriesState> {
     return emit(const HistoriesState());
   }
 
-  Future<List<HistoryModel>> getRequest(int limit, [int page = 0]) async {
+  Future<List<HistoryModel>> _fetchHistories(int limit, [int page = 0]) async {
     final List<HistoryModel> requests = [];
     final String? token = await userFB.getIdToken();
     await Graphql.initialize(token!)

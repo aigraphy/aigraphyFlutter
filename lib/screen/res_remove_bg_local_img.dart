@@ -156,7 +156,7 @@ class _ResRemBgLocalImgState extends State<ResRemBgLocalImg>
                 ),
               ),
               const SizedBox(height: 8),
-              AigraphyWidget.typeButtonStartAction(
+              AigraphyWidget.buttonCustom(
                   context: context,
                   input: '${LocaleKeys.generateOtherImage.tr()} -$TOKEN_SWAP',
                   bgColor: blue,

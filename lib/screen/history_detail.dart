@@ -9,10 +9,10 @@ import 'package:http/http.dart' as http;
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
+import '../bloc/current_bottombar/current_bottombar_bloc.dart';
 import '../bloc/histories/histories_bloc.dart';
 import '../bloc/person/bloc_person.dart';
-import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
-import '../bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
+import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -74,7 +74,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AigraphyWidget.createSimpleAppBar(
+      appBar: AigraphyWidget.createAppBar(
         context: context,
         action: Image.asset(bin, width: 24, height: 24, color: white),
         onTap: () {
@@ -121,7 +121,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
                     Row(
                       children: [
                         Expanded(
-                          child: AigraphyWidget.typeButtonStartAction(
+                          child: AigraphyWidget.buttonCustom(
                               context: context,
                               input: LocaleKeys.delete.tr(),
                               onPressed: () {
@@ -295,7 +295,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
                 textColor: white,
                 onPressed: () {
                   Navigator.of(context).pop();
-                  context.read<SetIndexBottomBar>().setIndex(0);
+                  context.read<CurrentBottomBar>().setIndex(0);
                 }),
             const Padding(
               padding: EdgeInsets.only(top: 8),
@@ -307,8 +307,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
-          BlocBuilder<RemoveBGImageBloc, RemoveBGImageState>(
-              builder: (context, state) {
+          BlocBuilder<RemBGImgBloc, RemBGImgState>(builder: (context, state) {
             if (state is RemoveBGImageLoaded) {
               imageRemoveBG = state.url;
               if (controller!.hasClients) {

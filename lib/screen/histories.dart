@@ -7,7 +7,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../translations/export_lang.dart';
 import '../bloc/histories/histories_bloc.dart';
 import '../bloc/person/bloc_person.dart';
-import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
+import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
 import '../bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
@@ -100,7 +100,7 @@ class _HistoriesState extends State<Histories>
   Widget itemImage(HistoryModel requestModel) {
     return ClickWidget(
       function: () {
-        context.read<RemoveBGImageBloc>().add(const ResetRemoveBGImage());
+        context.read<RemBGImgBloc>().add(const ResetRemBGImg());
         Navigator.of(context).pushNamed(Routes.detail_history,
             arguments: HistoryDetail(
                 idRequest: requestModel.id!,

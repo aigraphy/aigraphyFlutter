@@ -13,8 +13,8 @@ import '../../config_graphql/config_query.dart';
 import '../../config_graphql/graphql.dart';
 import '../../config_model/img_cate_model.dart';
 
-part 'full_img_cate_event.dart';
-part 'full_img_cate_state.dart';
+part 'all_img_cate_event.dart';
+part 'all_img_cate_state.dart';
 
 const throttleDuration = Duration(milliseconds: 100);
 
@@ -24,22 +24,22 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
   };
 }
 
-class FullImgCateBloc extends Bloc<FullImgCateEvent, FullImgCateState> {
-  FullImgCateBloc() : super(const FullImgCateState()) {
-    on<FullImgCateFetched>(
-      _onFullImageCategoryFetched,
+class AllImgCateBloc extends Bloc<AllImgCateEvent, AllImgCateState> {
+  AllImgCateBloc() : super(const AllImgCateState()) {
+    on<AllImgCateFetched>(
+      _onAllImgCateFetched,
       transformer: throttleDroppable(throttleDuration),
     );
-    on<ResetFullImgCate>(
-      _onResetFullImageCategory,
+    on<ResetAllImgCate>(
+      _onResetAllImgCate,
     );
   }
 
   final User userFB = FirebaseAuth.instance.currentUser!;
 
-  Future<void> _onFullImageCategoryFetched(
-    FullImgCateFetched event,
-    Emitter<FullImgCateState> emit,
+  Future<void> _onAllImgCateFetched(
+    AllImgCateFetched event,
+    Emitter<AllImgCateState> emit,
   ) async {
     if (state.hasReachedMax) {
       return;
@@ -47,7 +47,7 @@ class FullImgCateBloc extends Bloc<FullImgCateEvent, FullImgCateState> {
     try {
       if (state.status == FullImageCategoryStatus.initial) {
         final images =
-            await _fetchImageCategory(event.categoryId, IMAGE_CATEGORY_LIMIT);
+            await _fetchAllImgCate(event.categoryId, IMAGE_CATEGORY_LIMIT);
         return emit(
           state.copyWith(
             status: FullImageCategoryStatus.success,
@@ -56,7 +56,7 @@ class FullImgCateBloc extends Bloc<FullImgCateEvent, FullImgCateState> {
           ),
         );
       }
-      final images = await _fetchImageCategory(
+      final images = await _fetchAllImgCate(
           event.categoryId, IMAGE_CATEGORY_LIMIT, state.images.length);
       if (images.isEmpty) {
         emit(state.copyWith(hasReachedMax: true));
@@ -74,14 +74,14 @@ class FullImgCateBloc extends Bloc<FullImgCateEvent, FullImgCateState> {
     }
   }
 
-  Future<void> _onResetFullImageCategory(
-    ResetFullImgCate event,
-    Emitter<FullImgCateState> emit,
+  Future<void> _onResetAllImgCate(
+    ResetAllImgCate event,
+    Emitter<AllImgCateState> emit,
   ) async {
-    return emit(const FullImgCateState());
+    return emit(const AllImgCateState());
   }
 
-  Future<List<ImgCateModel>> _fetchImageCategory(int categoryId, int limit,
+  Future<List<ImgCateModel>> _fetchAllImgCate(int categoryId, int limit,
       [int page = 0]) async {
     final List<ImgCateModel> images = [];
     final String? token = await userFB.getIdToken();

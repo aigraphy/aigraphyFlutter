@@ -262,7 +262,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                   ? Padding(
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 32),
-                      child: AigraphyWidget.typeButtonStartAction(
+                      child: AigraphyWidget.buttonCustom(
                           context: context,
                           input: LocaleKeys.selectMoreImages.tr(),
                           borderRadius: 12,

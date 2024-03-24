@@ -12,23 +12,23 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'bloc/all_img_cate/all_img_cate_bloc.dart';
+import 'bloc/cate_today/cate_today_bloc.dart';
+import 'bloc/cate_trending/cate_trending_bloc.dart';
 import 'bloc/categories/categories_bloc.dart';
+import 'bloc/current_bottombar/current_bottombar_bloc.dart';
+import 'bloc/current_cate/current_cate_bloc.dart';
+import 'bloc/current_img_swap/current_img_swap_bloc.dart';
 import 'bloc/face/bloc_face.dart';
-import 'bloc/full_img_cate/full_img_cate_bloc.dart';
 import 'bloc/histories/histories_bloc.dart';
 import 'bloc/listen_language/bloc_listen_language.dart';
-import 'bloc/new_today/new_today_bloc.dart';
+import 'bloc/pageview/pageview_bloc.dart';
 import 'bloc/person/bloc_person.dart';
 import 'bloc/photo/photo_bloc.dart';
-import 'bloc/remove_bg_image/bloc_remove_bg_image.dart';
-import 'bloc/set_image_swap/set_image_swap_bloc.dart';
-import 'bloc/set_index_bottombar/set_index_bottombar_bloc.dart';
-import 'bloc/set_index_category/set_index_category_bloc.dart';
+import 'bloc/rem_bg_img/bloc_rem_bg_img.dart';
 import 'bloc/set_user_pro/set_user_pro_bloc.dart';
 import 'bloc/show_offer/show_offer.dart';
-import 'bloc/slider/slider_bloc.dart';
-import 'bloc/swap_image/bloc_swap_img.dart';
-import 'bloc/trending/trending_bloc.dart';
+import 'bloc/swap_img/bloc_swap_img.dart';
 import 'config/config_color.dart';
 import 'config/config_font_styles.dart';
 import 'config/config_helper.dart';
@@ -100,8 +100,8 @@ class _AIGraphyState extends State<AIGraphy> {
     final botToastBuilder = BotToastInit();
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SliderCubit>(
-          create: (BuildContext context) => SliderCubit(),
+        BlocProvider<PageViewCubit>(
+          create: (BuildContext context) => PageViewCubit(),
         ),
         BlocProvider<PersonBloc>(
           create: (BuildContext context) => PersonBloc(),
@@ -115,8 +115,8 @@ class _AIGraphyState extends State<AIGraphy> {
         BlocProvider<CategoriesBloc>(
           create: (BuildContext context) => CategoriesBloc(),
         ),
-        BlocProvider<SetImageSwapCubit>(
-          create: (BuildContext context) => SetImageSwapCubit(),
+        BlocProvider<CurrentImgSwapCubit>(
+          create: (BuildContext context) => CurrentImgSwapCubit(),
         ),
         BlocProvider<ListenLanguageBloc>(
           create: (BuildContext context) => ListenLanguageBloc(),
@@ -127,26 +127,26 @@ class _AIGraphyState extends State<AIGraphy> {
         BlocProvider<HistoriesBloc>(
           create: (BuildContext context) => HistoriesBloc(),
         ),
-        BlocProvider<FullImgCateBloc>(
-          create: (BuildContext context) => FullImgCateBloc(),
+        BlocProvider<AllImgCateBloc>(
+          create: (BuildContext context) => AllImgCateBloc(),
         ),
-        BlocProvider<NewTodayBloc>(
-          create: (BuildContext context) => NewTodayBloc(),
+        BlocProvider<CateTodayBloc>(
+          create: (BuildContext context) => CateTodayBloc(),
         ),
-        BlocProvider<TrendingBloc>(
-          create: (BuildContext context) => TrendingBloc(),
+        BlocProvider<CateTrendingBloc>(
+          create: (BuildContext context) => CateTrendingBloc(),
         ),
-        BlocProvider<SetIndexBottomBar>(
-          create: (BuildContext context) => SetIndexBottomBar(),
+        BlocProvider<CurrentBottomBar>(
+          create: (BuildContext context) => CurrentBottomBar(),
         ),
-        BlocProvider<RemoveBGImageBloc>(
-          create: (BuildContext context) => RemoveBGImageBloc(),
+        BlocProvider<RemBGImgBloc>(
+          create: (BuildContext context) => RemBGImgBloc(),
         ),
         BlocProvider<ShowOffer>(
           create: (BuildContext context) => ShowOffer(),
         ),
-        BlocProvider<SetIndexCategory>(
-          create: (BuildContext context) => SetIndexCategory(),
+        BlocProvider<CurrentCate>(
+          create: (BuildContext context) => CurrentCate(),
         ),
         BlocProvider<SetUserPro>(
           create: (BuildContext context) => SetUserPro(),

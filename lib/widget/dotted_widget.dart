@@ -11,7 +11,7 @@ class DottedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = AigraphyWidget.getWidthScreen(context);
+    final width = AigraphyWidget.getWidth(context);
     return SizedBox(
       width: size ?? width / 1.5,
       height: size ?? width / 1.5,

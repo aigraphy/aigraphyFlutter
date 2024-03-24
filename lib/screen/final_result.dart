@@ -10,8 +10,8 @@ import 'package:lottie/lottie.dart';
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
 import '../bloc/person/bloc_person.dart';
-import '../bloc/remove_bg_image/bloc_remove_bg_image.dart';
-import '../bloc/swap_image/bloc_swap_img.dart';
+import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
+import '../bloc/swap_img/bloc_swap_img.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -56,9 +56,7 @@ class _FinalResultState extends State<FinalResult>
   PageController? controller;
 
   void navigatePop() {
-    context
-        .read<RemoveBGImageBloc>()
-        .add(const ResetRemoveBGImage(hasLoaded: true));
+    context.read<RemBGImgBloc>().add(const ResetRemBGImg(hasLoaded: true));
     Navigator.of(context).pop();
   }
 
@@ -179,8 +177,7 @@ class _FinalResultState extends State<FinalResult>
                     children: [
                       Expanded(
                         child: ClickWidget(
-                            function: context.watch<RemoveBGImageBloc>().url ==
-                                    null
+                            function: context.watch<RemBGImgBloc>().url == null
                                 ? () async {
                                     showModalBottomSheet<void>(
                                       context: context,
@@ -200,8 +197,7 @@ class _FinalResultState extends State<FinalResult>
                                 : () {},
                             child: AigraphyWidget.option(ic_removebg,
                                 iconColor:
-                                    context.watch<RemoveBGImageBloc>().url !=
-                                            null
+                                    context.watch<RemBGImgBloc>().url != null
                                         ? cadetBlueCrayola
                                         : white)),
                       ),
@@ -383,7 +379,7 @@ class _FinalResultState extends State<FinalResult>
                 _controller.stop();
                 return Column(
                   children: [
-                    BlocBuilder<RemoveBGImageBloc, RemoveBGImageState>(
+                    BlocBuilder<RemBGImgBloc, RemBGImgState>(
                         builder: (context, st) {
                       if (st is RemoveBGImageLoaded) {
                         imageRemoveBG = st.url;

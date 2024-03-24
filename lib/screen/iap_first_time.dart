@@ -176,8 +176,8 @@ class _IAPFirstTimeState extends State<IAPFirstTimeCoin>
 
   @override
   Widget build(BuildContext context) {
-    final width = AigraphyWidget.getWidthScreen(context);
-    final height = AigraphyWidget.getHeightScreen(context);
+    final width = AigraphyWidget.getWidth(context);
+    final height = AigraphyWidget.getHeight(context);
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),

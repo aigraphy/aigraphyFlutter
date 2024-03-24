@@ -42,7 +42,7 @@ class _PrivacyState extends State<Privacy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AigraphyWidget.createSimpleAppBar(
+      appBar: AigraphyWidget.createAppBar(
           context: context, title: widget.title ?? 'Term & Policy'),
       body: WebViewWidget(controller: controller),
     );

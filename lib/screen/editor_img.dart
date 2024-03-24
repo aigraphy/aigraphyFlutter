@@ -947,7 +947,7 @@ class _ImageCropperState extends State<ImageCropper> {
   Widget build(BuildContext context) {
     if (_controller.currentState != null) {}
     return Scaffold(
-      appBar: AigraphyWidget.createSimpleAppBar(
+      appBar: AigraphyWidget.createAppBar(
           context: context,
           onTap: () async {
             final state = _controller.currentState;

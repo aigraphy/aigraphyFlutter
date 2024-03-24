@@ -4,16 +4,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-sealed class RemoveBGImageState extends Equatable {
-  const RemoveBGImageState();
+sealed class RemBGImgState extends Equatable {
+  const RemBGImgState();
 }
 
-class RemoveBGImageLoading extends RemoveBGImageState {
+class RemBGImgLoading extends RemBGImgState {
   @override
   List<Object> get props => [];
 }
 
-class RemoveBGImageLoaded extends RemoveBGImageState {
+class RemoveBGImageLoaded extends RemBGImgState {
   const RemoveBGImageLoaded({this.imageRes, this.url});
   final Uint8List? imageRes;
   final String? url;
@@ -22,7 +22,7 @@ class RemoveBGImageLoaded extends RemoveBGImageState {
   List<Object?> get props => [url!, imageRes!];
 }
 
-class RemoveBGImageError extends RemoveBGImageState {
+class RemoveBGImageError extends RemBGImgState {
   const RemoveBGImageError({required this.error});
   final String error;
   @override

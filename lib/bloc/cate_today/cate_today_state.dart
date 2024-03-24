@@ -1,24 +1,24 @@
-part of 'new_today_bloc.dart';
+part of 'cate_today_bloc.dart';
 
-enum NewTodayStatus { initial, success, failure }
+enum CateTodayStatus { initial, success, failure }
 
-final class NewTodayState extends Equatable {
-  const NewTodayState({
-    this.status = NewTodayStatus.initial,
+final class CateTodayState extends Equatable {
+  const CateTodayState({
+    this.status = CateTodayStatus.initial,
     this.images = const <ImgCateModel>[],
     this.hasReachedMax = false,
   });
 
-  final NewTodayStatus status;
+  final CateTodayStatus status;
   final List<ImgCateModel> images;
   final bool hasReachedMax;
 
-  NewTodayState copyWith({
-    NewTodayStatus? status,
+  CateTodayState copyWith({
+    CateTodayStatus? status,
     List<ImgCateModel>? images,
     bool? hasReachedMax,
   }) {
-    return NewTodayState(
+    return CateTodayState(
       status: status ?? this.status,
       images: images ?? this.images,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,

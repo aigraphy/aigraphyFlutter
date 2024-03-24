@@ -62,8 +62,7 @@ class _ChooseLanguageState extends State<ChooseLanguage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AigraphyWidget.createSimpleAppBar(
-          context: context, title: 'Language'),
+      appBar: AigraphyWidget.createAppBar(context: context, title: 'Language'),
       body: ListView.separated(
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(vertical: 16),

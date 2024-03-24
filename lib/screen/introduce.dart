@@ -10,7 +10,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:video_player/video_player.dart';
 
 import '../aigraphy_widget.dart';
-import '../bloc/slider/slider_bloc.dart';
+import '../bloc/pageview/pageview_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -18,6 +18,7 @@ import '../config/config_image.dart';
 import '../config_router/name_router.dart';
 import '../util/authen_apple.dart';
 import '../util/authen_google.dart';
+import '../widget/click_widget.dart';
 import '../widget/privacy.dart';
 import '../widget/text_gradient.dart';
 import 'home.dart';
@@ -75,6 +76,67 @@ class _IntroduceState extends State<Introduce> {
     );
   }
 
+  Widget buttonLogin(
+      {double? fontSize,
+      required BuildContext context,
+      double? height,
+      double? vertical,
+      double? horizontal,
+      Function()? onPressed,
+      Color? bgColor,
+      Color? borderColor,
+      double miniSizeHorizontal = double.infinity,
+      Color? textColor,
+      String? input,
+      FontWeight? fontWeight,
+      double borderRadius = 32,
+      double sizeAsset = 16,
+      Color? colorAsset,
+      String? icon}) {
+    return ClickWidget(
+      child: TextButton(
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.symmetric(
+              vertical: vertical ?? 16, horizontal: horizontal ?? 0),
+          side: BorderSide(color: borderColor ?? white),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius)),
+          backgroundColor: bgColor,
+          minimumSize: Size(miniSizeHorizontal, 0),
+        ),
+        onPressed: onPressed,
+        child: icon == null
+            ? Text(
+                input!,
+                textAlign: TextAlign.center,
+                style: style6(context: context, color: textColor),
+              )
+            : LayoutBuilder(
+                builder: (context, constraints) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          child: Image.asset(
+                        icon,
+                        width: sizeAsset,
+                        height: sizeAsset,
+                        color: colorAsset,
+                      )),
+                      const SizedBox(width: 8),
+                      Text(
+                        input!,
+                        textAlign: TextAlign.center,
+                        style: style6(context: context, color: textColor),
+                      ),
+                    ],
+                  );
+                },
+              ),
+      ),
+    );
+  }
+
   Future<void> signInSocials(String _token) async {
     try {
       final response =
@@ -117,9 +179,9 @@ class _IntroduceState extends State<Introduce> {
 
   @override
   Widget build(BuildContext context) {
-    final height = AigraphyWidget.getHeightScreen(context);
-    final width = AigraphyWidget.getWidthScreen(context);
-    final sliderBloc = context.read<SliderCubit>();
+    final height = AigraphyWidget.getHeight(context);
+    final width = AigraphyWidget.getWidth(context);
+    final sliderBloc = context.read<PageViewCubit>();
     return Scaffold(
       backgroundColor: black,
       body: ListView(
@@ -173,7 +235,7 @@ class _IntroduceState extends State<Introduce> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 24, bottom: 24),
-                  child: BlocBuilder<SliderCubit, int>(
+                  child: BlocBuilder<PageViewCubit, int>(
                     builder: (context, state) {
                       return AigraphyWidget.createIndicator(
                           context: context,
@@ -185,7 +247,7 @@ class _IntroduceState extends State<Introduce> {
                 if (Platform.isIOS) ...[
                   Row(children: [
                     Expanded(
-                      child: AigraphyWidget.typeButtonStartAction2(
+                      child: buttonLogin(
                           context: context,
                           input: 'Apple',
                           onPressed: () async {
@@ -204,7 +266,7 @@ class _IntroduceState extends State<Introduce> {
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: AigraphyWidget.typeButtonStartAction2(
+                      child: buttonLogin(
                           context: context,
                           input: 'Google',
                           onPressed: () async {
@@ -223,7 +285,7 @@ class _IntroduceState extends State<Introduce> {
                     )
                   ])
                 ] else ...{
-                  AigraphyWidget.typeButtonStartAction2(
+                  buttonLogin(
                       context: context,
                       input: 'Continue with Google',
                       onPressed: () async {

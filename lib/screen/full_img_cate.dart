@@ -11,12 +11,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
+import '../bloc/all_img_cate/all_img_cate_bloc.dart';
+import '../bloc/cate_trending/cate_trending_bloc.dart';
+import '../bloc/current_img_swap/current_img_swap_bloc.dart';
 import '../bloc/face/bloc_face.dart';
-import '../bloc/full_img_cate/full_img_cate_bloc.dart';
-import '../bloc/set_image_swap/set_image_swap_bloc.dart';
 import '../bloc/set_user_pro/set_user_pro_bloc.dart';
-import '../bloc/swap_image/bloc_swap_img.dart';
-import '../bloc/trending/trending_bloc.dart';
+import '../bloc/swap_img/bloc_swap_img.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
@@ -55,8 +55,8 @@ class _FullImgCateState extends State<FullImgCate> {
   void _onScroll() {
     if (_isBottom) {
       context
-          .read<FullImgCateBloc>()
-          .add(FullImgCateFetched(categoryId: widget.categoryModel.id!));
+          .read<AllImgCateBloc>()
+          .add(AllImgCateFetched(categoryId: widget.categoryModel.id!));
     }
   }
 
@@ -113,8 +113,8 @@ class _FullImgCateState extends State<FullImgCate> {
     }
     late String imageSwapTmpLink;
     late ImgCateModel imageCategoryModel;
-    if (context.read<SetImageSwapCubit>().state != null) {
-      imageCategoryModel = context.read<SetImageSwapCubit>().state!;
+    if (context.read<CurrentImgSwapCubit>().state != null) {
+      imageCategoryModel = context.read<CurrentImgSwapCubit>().state!;
       imageSwapTmpLink = imageCategoryModel.image;
     } else {
       imageCategoryModel = widget.categoryModel.images[0];
@@ -153,14 +153,14 @@ class _FullImgCateState extends State<FullImgCate> {
     imageSwap = imageSwapTmp;
     pathImageSwap = tempFileImageSwap.path;
     context
-        .read<TrendingBloc>()
-        .add(TrendingCount(categoryModel: imageCategoryModel));
+        .read<CateTrendingBloc>()
+        .add(CateTrendingCount(categoryModel: imageCategoryModel));
     context.read<SwapImgBloc>().add(InitialSwapImg(
         context: context,
         srcPath: pathImageSwap!,
         dstPath: pathYourFace!,
         handleCoin: true));
-    context.read<SetImageSwapCubit>().reset();
+    context.read<CurrentImgSwapCubit>().reset();
     EasyLoading.dismiss();
     Navigator.of(context).pushNamed(Routes.final_result,
         arguments: FinalResult(
@@ -175,10 +175,10 @@ class _FullImgCateState extends State<FullImgCate> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    context.read<FullImgCateBloc>().add(ResetFullImgCate());
+    context.read<AllImgCateBloc>().add(ResetAllImgCate());
     context
-        .read<FullImgCateBloc>()
-        .add(FullImgCateFetched(categoryId: widget.categoryModel.id!));
+        .read<AllImgCateBloc>()
+        .add(AllImgCateFetched(categoryId: widget.categoryModel.id!));
   }
 
   @override
@@ -192,7 +192,7 @@ class _FullImgCateState extends State<FullImgCate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AigraphyWidget.createSimpleAppBar(
+      appBar: AigraphyWidget.createAppBar(
           context: context, title: widget.categoryModel.name),
       bottomNavigationBar: Container(
         padding:
@@ -257,7 +257,7 @@ class _FullImgCateState extends State<FullImgCate> {
           ],
         ),
       ),
-      body: BlocBuilder<FullImgCateBloc, FullImgCateState>(
+      body: BlocBuilder<AllImgCateBloc, AllImgCateState>(
           builder: (context, state) {
         switch (state.status) {
           case FullImageCategoryStatus.initial:
@@ -295,7 +295,7 @@ class _FullImgCateState extends State<FullImgCate> {
                           _imgSwapIndex = index;
                         });
                         context
-                            .read<SetImageSwapCubit>()
+                            .read<CurrentImgSwapCubit>()
                             .setImageSwap(state.images[index]);
                       },
                       child: Stack(
