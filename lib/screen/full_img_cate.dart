@@ -214,7 +214,7 @@ class _FullImgCateState extends State<FullImgCate> {
                 alignment: Alignment.bottomCenter,
                 children: [
                   context.watch<FaceBloc>().faces.isEmpty
-                      ? const DottedWidget(size: 58)
+                      ? const DottedWidget(size: 58, sizeIcon: 12)
                       : OpacityWidget(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),

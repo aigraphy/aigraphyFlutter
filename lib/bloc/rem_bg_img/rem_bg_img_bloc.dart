@@ -33,8 +33,7 @@ class RemBGImgBloc extends Bloc<RemBGImgEvent, RemBGImgState> {
       result = null;
       url = null;
       errorText = null;
-      result =
-          await removeBGImage(event.context, event.link, option: event.option);
+      result = await removeBGImage(event.context, event.link);
       if (result != null) {
         url = await uploadImage(result, event.requestId, event.context);
         if (url != null) {
@@ -84,8 +83,7 @@ class RemBGImgBloc extends Bloc<RemBGImgEvent, RemBGImgState> {
     BotToast.showText(text: input, textStyle: style7(color: white));
   }
 
-  Future<Uint8List?> removeBGImage(BuildContext context, String link,
-      {String? option}) async {
+  Future<Uint8List?> removeBGImage(BuildContext context, String link) async {
     Uint8List? result;
     try {
       final request =
@@ -93,9 +91,6 @@ class RemBGImgBloc extends Bloc<RemBGImgEvent, RemBGImgState> {
 
       request.fields['uuid'] = userFB.uid;
       request.fields['link'] = link;
-      if (option != null) {
-        request.fields['option'] = option;
-      }
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
       if (response.statusCode == 200) {

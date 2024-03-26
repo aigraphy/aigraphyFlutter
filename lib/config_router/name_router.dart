@@ -5,7 +5,7 @@ class Routes {
   static const String select_face = '/select_face';
   static const String final_result = '/final_result';
   static const String histories = '/histories';
-  static const String detail_history = '/detail_history';
+  static const String history_detail = '/history_detail';
   static const String settings = '/settings';
   static const String choose_language = '/choose_language';
   static const String full_img_cate = '/full_img_cate';
@@ -18,4 +18,6 @@ class Routes {
   static const String res_remove_bg_local_img = '/res_remove_bg_local_img';
   static const String add_fb = '/add_fb';
   static const String result_fb = '/result_fb';
+  static const String combine_img = '/combine_img';
+  static const String combine_result = '/combine_result';
 }

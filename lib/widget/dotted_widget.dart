@@ -6,8 +6,9 @@ import '../config/config_color.dart';
 import '../config/config_image.dart';
 
 class DottedWidget extends StatelessWidget {
-  const DottedWidget({super.key, this.size});
+  const DottedWidget({super.key, this.size, this.sizeIcon});
   final double? size;
+  final double? sizeIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,8 @@ class DottedWidget extends StatelessWidget {
         child: Center(
           child: Image.asset(
             add_photo,
-            width: size != null ? 12 : 32,
-            height: size != null ? 12 : 32,
+            width: sizeIcon,
+            height: sizeIcon,
           ),
         ),
       ),

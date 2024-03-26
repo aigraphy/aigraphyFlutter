@@ -8,13 +8,9 @@ sealed class RemBGImgEvent extends Equatable {
 
 class InitialRemBGImg extends RemBGImgEvent {
   const InitialRemBGImg(
-      {required this.context,
-      required this.link,
-      this.option,
-      required this.requestId});
+      {required this.context, required this.link, required this.requestId});
   final BuildContext context;
   final String link;
-  final String? option;
   final int requestId;
   @override
   List<Object> get props => [context, link, requestId];

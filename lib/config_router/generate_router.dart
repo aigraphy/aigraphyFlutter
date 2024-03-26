@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../config/config_helper.dart';
 import '../screen/choose_language.dart';
 import '../screen/coin_success.dart';
+import '../screen/combine_img.dart';
+import '../screen/combine_result.dart';
 import '../screen/final_result.dart';
 import '../screen/full_img_cate.dart';
 import '../screen/full_img_screen.dart';
@@ -68,7 +70,7 @@ mixin GeneratorRouter {
         return MaterialPageRoute<dynamic>(
           builder: (_) => const Histories(),
         );
-      case Routes.detail_history:
+      case Routes.history_detail:
         final args = st.arguments as HistoryDetail;
         return MaterialPageRoute<dynamic>(
           builder: (_) => HistoryDetail(
@@ -128,6 +130,16 @@ mixin GeneratorRouter {
       case Routes.result_fb:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ResultFeedback(),
+        );
+      case Routes.combine_img:
+        final args = st.arguments as CombineImg;
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => CombineImg(url: args.url),
+        );
+      case Routes.combine_result:
+        final args = st.arguments as CombineResult;
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => CombineResult(urlResult: args.urlResult),
         );
 
       default:

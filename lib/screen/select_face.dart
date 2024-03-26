@@ -268,7 +268,7 @@ class _SelectFaceState extends State<SelectFace> {
             child: yourFace == null
                 ? ClickWidget(
                     function: setPhoto,
-                    child: const Center(child: DottedWidget()))
+                    child: const Center(child: DottedWidget(sizeIcon: 32)))
                 : Center(
                     child: Stack(
                       children: [

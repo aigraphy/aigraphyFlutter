@@ -29,8 +29,8 @@ import '../config_model/img_removebg.dart';
 import '../config_model/person_model.dart';
 import '../config_router/name_router.dart';
 import '../screen/coin_success.dart';
+import '../screen/combine_img.dart';
 import '../screen/in_app_purchase.dart';
-import '../screen/res_remove_bg_local_img.dart';
 import '../translations/export_lang.dart';
 import '../util/config_shared_pre.dart';
 import '../util/upload_file_DO.dart';
@@ -273,32 +273,22 @@ Future<void> downMultiImg(List<String> urls) async {
       textStyle: style7(color: white));
 }
 
-Future<void> removeBGImgDevice(BuildContext context, String path,
-    {String? option}) async {
-  EasyLoading.show();
+Future<void> removeBGImgDevice(BuildContext context, String link) async {
   final User userFB = FirebaseAuth.instance.currentUser!;
   try {
-    final request = http.MultipartRequest(
-        'POST', Uri.parse('$apiEndpoint/remove_bg_image_device'));
-    request.files.addAll([
-      await http.MultipartFile.fromPath('path', path),
-    ]);
+    final request =
+        http.MultipartRequest('POST', Uri.parse('$apiEndpoint/remove_bg'));
     request.fields['uuid'] = userFB.uid;
-    if (option != null) {
-      request.fields['option'] = option;
-    }
+    request.fields['link'] = link;
     final streamedResponse = await request.send();
     final response = await http.Response.fromStream(streamedResponse);
     if (response.statusCode == 200) {
       final imageFile = await createFileUploadDO(response.bodyBytes);
       final String? url = await uploadFileDO(imageFile: imageFile);
       if (url != null) {
-        final res = await insertHistory(url, context);
-        if (res != null) {
-          EasyLoading.dismiss();
-          Navigator.of(context).pushNamed(Routes.res_remove_bg_local_img,
-              arguments: ResRemBgLocalImg(url: url));
-        }
+        EasyLoading.dismiss();
+        Navigator.of(context)
+            .pushNamed(Routes.combine_img, arguments: CombineImg(url: url));
       }
     } else {
       EasyLoading.dismiss();

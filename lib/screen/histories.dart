@@ -101,7 +101,7 @@ class _HistoriesState extends State<Histories>
     return ClickWidget(
       function: () {
         context.read<RemBGImgBloc>().add(const ResetRemBGImg());
-        Navigator.of(context).pushNamed(Routes.detail_history,
+        Navigator.of(context).pushNamed(Routes.history_detail,
             arguments: HistoryDetail(
                 idRequest: historyModel.id!,
                 imageRes: historyModel.imageRes,

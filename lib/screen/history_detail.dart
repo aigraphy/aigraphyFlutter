@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart' as http;
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
@@ -48,12 +46,6 @@ class _HistoryDetailState extends State<HistoryDetail> {
   late int idRequest;
   String? imageRemoveBG;
   PageController? controller;
-
-  Future<Uint8List> getImage(String url) async {
-    final responseData = await http.get(Uri.parse(url));
-    final Uint8List res = responseData.bodyBytes;
-    return res;
-  }
 
   @override
   void initState() {
@@ -245,7 +237,8 @@ class _HistoryDetailState extends State<HistoryDetail> {
                   child: ClickWidget(
                       function: () async {
                         EasyLoading.show();
-                        final Uint8List unit8List = await getImage(urlResult);
+                        final Uint8List unit8List =
+                            await getUint8List(urlResult);
                         EasyLoading.dismiss();
                         final editedImage = await Navigator.push(
                           context,

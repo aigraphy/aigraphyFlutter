@@ -88,10 +88,10 @@ class _RemBgState extends State<RemBg> {
                 } else {
                   EasyLoading.show();
                   BlocProvider.of<RemBGImgBloc>(context).add(InitialRemBGImg(
-                      context: widget.ctx,
-                      link: widget.link,
-                      requestId: widget.requestId,
-                      option: options[0]['option']));
+                    context: widget.ctx,
+                    link: widget.link,
+                    requestId: widget.requestId,
+                  ));
                   FirebaseAnalytics.instance.logEvent(name: 'click_remove_bg');
                   Navigator.of(context).pop();
                 }

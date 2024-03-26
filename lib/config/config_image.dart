@@ -22,6 +22,7 @@ const String setting = pathImage + 'setting@3x.png';
 
 const String ic_open_slot = pathImage + 'ic_open_slot@3x.png';
 const String bg_price = pathImage + 'bg_price.png';
+const String bg_transparent = pathImage + 'bg_transparent.jpeg';
 const String swap_cate = pathImage + 'swap_cate@3x.png';
 const String swap_cate_active = pathImage + 'swap_cate_active@3x.png';
 const String watch_ads = pathImage + 'watch_ads@3x.png';
@@ -75,6 +76,16 @@ const String google = pathImage + 'google@3x.png';
 const String bin = pathImage + 'bin@3x.png';
 const String icon_star = pathImage + 'icon_star@3x.png';
 const String add_photo = pathImage + 'add_photo@3x.png';
+const String bg_1 = pathImage + 'bg_1.jpeg';
+const String bg_2 = pathImage + 'bg_2.jpeg';
+const String bg_3 = pathImage + 'bg_3.jpeg';
+const String bg_4 = pathImage + 'bg_4.jpeg';
+const String bg_5 = pathImage + 'bg_5.jpeg';
+const String bg_6 = pathImage + 'bg_6.jpeg';
+const String bg_7 = pathImage + 'bg_7.jpeg';
+const String bg_8 = pathImage + 'bg_8.jpeg';
+const String bg_9 = pathImage + 'bg_9.jpeg';
+const String bg_10 = pathImage + 'bg_10.jpeg';
 
 //flag
 const String india = pathImage + 'india@3x.png';

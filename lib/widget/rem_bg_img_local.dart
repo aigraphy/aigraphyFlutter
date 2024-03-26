@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
@@ -8,12 +12,13 @@ import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
+import '../util/upload_file_DO.dart';
 import 'get_more_coin.dart';
 import 'text_gradient.dart';
 
 class RemBGImgLocal extends StatefulWidget {
-  const RemBGImgLocal({super.key, required this.path, required this.ctx});
-  final String path;
+  const RemBGImgLocal({super.key, required this.bytes, required this.ctx});
+  final Uint8List bytes;
   final BuildContext ctx;
   @override
   State<RemBGImgLocal> createState() => _RemBGImgLocalState();
@@ -63,7 +68,7 @@ class _RemBGImgLocalState extends State<RemBGImgLocal> {
           AigraphyWidget.buttonGradientAfter(
               context: context,
               input: '${LocaleKeys.removeNow.tr()} -$TOKEN_REMOVE_BG',
-              onPressed: () {
+              onPressed: () async {
                 final userModel = context.read<PersonBloc>().userModel!;
                 if (userModel.coin < TOKEN_REMOVE_BG) {
                   showModalBottomSheet<void>(
@@ -79,9 +84,14 @@ class _RemBGImgLocalState extends State<RemBGImgLocal> {
                     },
                   );
                 } else {
+                  EasyLoading.show();
                   FirebaseAnalytics.instance.logEvent(name: 'click_remove_bg');
-                  removeBGImgDevice(widget.ctx, widget.path,
-                      option: options[0]['option']);
+                  final imageFile = await createFileUploadDO(widget.bytes);
+                  final link = await uploadFileDO(imageFile: imageFile);
+                  if (link != null)
+                    removeBGImgDevice(widget.ctx, link);
+                  else
+                    BotToast.showText(text: LocaleKeys.someThingWentWrong.tr());
                   Navigator.of(context).pop();
                 }
               },
