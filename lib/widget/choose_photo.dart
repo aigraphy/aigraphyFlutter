@@ -36,6 +36,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
   late Uint8List imageSelected;
   bool showImages = false;
   bool selected = false;
+  bool goToSetting = false;
 
   final _scrollController = ScrollController();
 
@@ -56,7 +57,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
     return currentScroll >= (maxScroll * 0.9);
   }
 
-  Future<bool> getPhotoRecent() async {
+  Future<void> getPhotoRecent() async {
     final PermissionState result = await PhotoManager.requestPermissionExtend();
     if (result.hasAccess) {
       if (result == PermissionState.limited) {
@@ -72,10 +73,11 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
         setState(() {
           showImages = true;
         });
-        return true;
       }
+    } else {
+      goToSetting = true;
+      setState(() {});
     }
-    return false;
   }
 
   Future<void> takeAPhoto() async {
@@ -290,7 +292,27 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
             ],
           )
         : Center(
-            child:
-                Text(LocaleKeys.noPhotos.tr(), style: style9(color: cultured)));
+            child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(LocaleKeys.noPhotos.tr(), style: style9(color: cultured)),
+              const SizedBox(height: 16),
+              if (goToSetting)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: AigraphyWidget.buttonCustom(
+                      context: context,
+                      input: 'Go to Setting',
+                      textColor: white,
+                      bgColor: blue,
+                      borderColor: blue,
+                      borderRadius: 32,
+                      onPressed: () async {
+                        await PhotoManager.openSetting();
+                      }),
+                )
+            ],
+          ));
   }
 }
