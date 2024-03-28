@@ -105,6 +105,7 @@ class _HistoriesState extends State<Histories>
             arguments: HistoryDetail(
                 idRequest: historyModel.id!,
                 imageRes: historyModel.imageRes,
+                fromCate: historyModel.fromCate,
                 imageRemoveBG: historyModel.imageRemoveBG?.imageRembg));
       },
       child: OpacityWidget(

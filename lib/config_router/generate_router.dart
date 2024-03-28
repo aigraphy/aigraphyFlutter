@@ -76,6 +76,7 @@ mixin GeneratorRouter {
           builder: (_) => HistoryDetail(
             idRequest: args.idRequest,
             imageRes: args.imageRes,
+            fromCate: args.fromCate,
             imageRemoveBG: args.imageRemoveBG,
           ),
         );

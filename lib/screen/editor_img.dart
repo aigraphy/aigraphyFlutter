@@ -207,7 +207,7 @@ class _SingleImageEditorState extends State<SingleImageEditor> {
     final imageFile = await createFileUploadDO(res!);
     url = await uploadFileDO(imageFile: imageFile);
     if (url != null) {
-      request = await insertHistory(url, context);
+      request = await insertHistory(url, context, false);
     }
     return request;
   }

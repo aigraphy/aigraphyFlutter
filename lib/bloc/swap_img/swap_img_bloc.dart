@@ -36,15 +36,20 @@ class SwapImgBloc extends Bloc<SwapImgEvent, SwapImgState> {
       requestId = null;
       result = await handleImage(event.srcPath, event.dstPath, event.context);
       if (result != null) {
-        final res = await uploadImage(result, event.context);
-        if (res != null && res['url'] != null && res['request_id'] != null) {
-          url = res['url'];
-          requestId = res['request_id'];
+        final historyModel =
+            await uploadImage(result, event.context, event.fromCate);
+        if (historyModel != null) {
+          url = historyModel.imageRes;
+          requestId = historyModel.id;
           if (event.handleCoin) {
             final userBloc = event.context.read<PersonBloc>();
             userBloc.add(UpdateCoinUser(userBloc.userModel!.coin - TOKEN_SWAP));
           }
-          emit(SwapImgLoaded(imageRes: result, url: url, requestId: requestId));
+          emit(SwapImgLoaded(
+              imageRes: result,
+              url: url,
+              requestId: requestId,
+              fromCate: historyModel.fromCate));
         }
       } else {
         emit(const SwapImgError(error: SOMETHING_WENT_WRONG));
@@ -96,15 +101,15 @@ class SwapImgBloc extends Bloc<SwapImgEvent, SwapImgState> {
     return result;
   }
 
-  Future<Map<String, dynamic>?> uploadImage(
-      Uint8List? res, BuildContext context) async {
+  Future<HistoryModel?> uploadImage(
+      Uint8List? res, BuildContext context, bool fromCate) async {
     String? url;
     HistoryModel? historyModel;
     final imageFile = await createFileUploadDO(res!);
     url = await uploadFileDO(imageFile: imageFile);
     if (url != null) {
-      historyModel = await insertHistory(url, context);
+      historyModel = await insertHistory(url, context, fromCate);
     }
-    return {'url': url, 'request_id': historyModel!.id};
+    return historyModel;
   }
 }

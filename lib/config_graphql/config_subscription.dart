@@ -33,6 +33,7 @@ mixin ConfigSubscription {
         id
         uuid
         image_res
+        from_cate
       }
     }
   ''';

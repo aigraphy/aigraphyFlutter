@@ -13,13 +13,15 @@ class InitialSwapImg extends SwapImgEvent {
       {required this.context,
       required this.srcPath,
       required this.dstPath,
+      required this.fromCate,
       this.handleCoin = true});
   final BuildContext context;
   final String srcPath;
   final String dstPath;
   final bool handleCoin;
+  final bool fromCate;
   @override
-  List<Object> get props => [context, srcPath, dstPath, handleCoin];
+  List<Object> get props => [context, srcPath, dstPath, handleCoin, fromCate];
 }
 
 class EditSwapImg extends SwapImgEvent {

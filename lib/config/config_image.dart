@@ -67,6 +67,11 @@ const String ic_flip = pathImage + 'ic_flip@3x.png';
 const String ic_filter = pathImage + 'ic_filter@3x.png';
 const String ic_emoji = pathImage + 'ic_emoji@3x.png';
 const String ic_blur = pathImage + 'ic_blur@3x.png';
+const String ic_newfeed = pathImage + 'ic_newfeed@3x.png';
+const String ic_newfeed_active = pathImage + 'ic_newfeed_active@3x.png';
+const String heart = pathImage + 'heart@3x.png';
+const String heartFill = pathImage + 'heart_fill@3x.png';
+const String ic_option = pathImage + 'ic_option@3x.png';
 
 const String arrowRight = pathImage + 'arrow_right@3x.png';
 const String arrowLeft = pathImage + 'arrow_left@3x.png';

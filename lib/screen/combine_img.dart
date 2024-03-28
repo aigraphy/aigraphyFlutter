@@ -106,7 +106,7 @@ class _CombineImgState extends State<CombineImg> {
                 final imageFile = await createFileUploadDO(_screenshotImage!);
                 final urlResult = await uploadFileDO(imageFile: imageFile);
                 if (urlResult != null) {
-                  await insertHistory(urlResult, context);
+                  await insertHistory(urlResult, context, false);
                   Navigator.of(context).pushNamed(Routes.combine_result,
                       arguments: CombineResult(urlResult: urlResult));
                 } else

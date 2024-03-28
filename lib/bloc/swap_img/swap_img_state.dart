@@ -14,13 +14,14 @@ class SwapImgLoading extends SwapImgState {
 }
 
 class SwapImgLoaded extends SwapImgState {
-  const SwapImgLoaded({this.imageRes, this.url, this.requestId});
+  const SwapImgLoaded({this.imageRes, this.url, this.requestId, this.fromCate});
   final Uint8List? imageRes;
   final String? url;
   final int? requestId;
+  final bool? fromCate;
 
   @override
-  List<Object?> get props => [url!, imageRes!, requestId!];
+  List<Object?> get props => [url!, imageRes!, requestId!, fromCate!];
 }
 
 class SwapImgError extends SwapImgState {

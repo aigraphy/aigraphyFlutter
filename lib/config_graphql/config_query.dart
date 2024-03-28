@@ -24,6 +24,7 @@ mixin ConfigQuery {
         id
         uuid
         image_res
+        from_cate
         ImageRemBG {
           id
           image_rembg
@@ -96,5 +97,44 @@ mixin ConfigQuery {
           is_pro
         }
       }
+  ''';
+
+  static String getLikedPost = '''
+    query getLikedPost(\$user_uuid: String = "") {
+      LikePost(where: {user_uuid: {_eq: \$user_uuid}}) {
+        id
+        post_id
+        user_uuid
+      }
+    }
+  ''';
+
+  static String getPosts = '''
+    query getPosts(\$offset: Int = 0) {
+      Post(limit: $POST_LIMIT, offset: \$offset, order_by: {published: desc}) {
+        id
+        published
+        user_uuid
+        link_image
+        history_id
+        User {
+          id
+          name
+          email
+          uuid
+          avatar
+          token
+          language
+          date_checkin
+          slot_recent_face
+          slot_history
+        }
+        LikePosts_aggregate {
+          aggregate {
+            count(columns: post_id)
+          }
+        }
+      }
+    }
   ''';
 }

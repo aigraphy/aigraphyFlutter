@@ -27,6 +27,7 @@ import '../widget/get_more_coin.dart';
 import '../widget/lottie_custom.dart';
 import '../widget/offer_first_time.dart';
 import '../widget/rem_bg.dart';
+import '../widget/share_result.dart';
 import '../widget/text_gradient.dart';
 import 'editor_img.dart';
 import 'in_app_purchase.dart';
@@ -144,6 +145,7 @@ class _FinalResultState extends State<FinalResult>
                               context: context,
                               srcPath: widget.srcPath,
                               dstPath: widget.dstPath,
+                              fromCate: widget.isSwapCate,
                               handleCoin: true));
                         } else {
                           showModalBottomSheet<void>(
@@ -205,14 +207,31 @@ class _FinalResultState extends State<FinalResult>
                       Expanded(
                         child: ClickWidget(
                             function: () async {
-                              EasyLoading.show();
-                              if (imageRemoveBG != null) {
-                                await shareMultiUrl(
-                                    [state.url!, imageRemoveBG!], context);
+                              if (state.fromCate!) {
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  backgroundColor: spaceCadet,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(10),
+                                        topLeft: Radius.circular(10)),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return ShareResult(
+                                        historyId: state.requestId!,
+                                        linkImage: state.url!);
+                                  },
+                                );
                               } else {
-                                await shareMultiUrl([state.url!], context);
+                                EasyLoading.show();
+                                if (imageRemoveBG != null) {
+                                  await shareMultiUrl(
+                                      [state.url!, imageRemoveBG!], context);
+                                } else {
+                                  await shareMultiUrl([state.url!], context);
+                                }
+                                EasyLoading.dismiss();
                               }
-                              EasyLoading.dismiss();
                             },
                             child: Stack(
                               clipBehavior: Clip.none,

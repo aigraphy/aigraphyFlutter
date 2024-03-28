@@ -24,6 +24,7 @@ import '../widget/coin_bonus.dart';
 import '../widget/expandable_custom.dart';
 import '../widget/offer_first_time.dart';
 import '../widget/rem_bg.dart';
+import '../widget/share_result.dart';
 import '../widget/text_gradient.dart';
 import 'editor_img.dart';
 import 'in_app_purchase.dart';
@@ -33,9 +34,11 @@ class HistoryDetail extends StatefulWidget {
       {super.key,
       required this.imageRes,
       required this.idRequest,
+      required this.fromCate,
       this.imageRemoveBG});
   final String imageRes;
   final int idRequest;
+  final bool fromCate;
   final String? imageRemoveBG;
   @override
   State<HistoryDetail> createState() => _HistoryDetailState();
@@ -44,6 +47,7 @@ class HistoryDetail extends StatefulWidget {
 class _HistoryDetailState extends State<HistoryDetail> {
   late String urlResult;
   late int idRequest;
+  late bool fromCate;
   String? imageRemoveBG;
   PageController? controller;
 
@@ -51,6 +55,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
   void initState() {
     super.initState();
     urlResult = widget.imageRes;
+    fromCate = widget.fromCate;
     idRequest = widget.idRequest;
     imageRemoveBG = widget.imageRemoveBG;
     controller = PageController();
@@ -200,14 +205,30 @@ class _HistoryDetailState extends State<HistoryDetail> {
                 Expanded(
                   child: ClickWidget(
                       function: () async {
-                        EasyLoading.show();
-                        if (imageRemoveBG != null) {
-                          await shareMultiUrl(
-                              [urlResult, imageRemoveBG!], context);
+                        if (fromCate) {
+                          showModalBottomSheet<void>(
+                            context: context,
+                            backgroundColor: spaceCadet,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10)),
+                            ),
+                            builder: (BuildContext context) {
+                              return ShareResult(
+                                  historyId: idRequest, linkImage: urlResult);
+                            },
+                          );
                         } else {
-                          await shareMultiUrl([urlResult], context);
+                          EasyLoading.show();
+                          if (imageRemoveBG != null) {
+                            await shareMultiUrl(
+                                [urlResult, imageRemoveBG!], context);
+                          } else {
+                            await shareMultiUrl([urlResult], context);
+                          }
+                          EasyLoading.dismiss();
                         }
-                        EasyLoading.dismiss();
                       },
                       child: Stack(
                         clipBehavior: Clip.none,

@@ -15,7 +15,7 @@ mixin AuthenGoogle {
 
     final GoogleSignIn googleSignIn = GoogleSignIn(
       clientId: Platform.isIOS
-          ? '635220140788-m16sda3epsh6q04edpe7vbe02rivpvfs.apps.googleusercontent.com'
+          ? '635220140788-3c7nm6qol05en57dubjbgoc4t9fqp81g.apps.googleusercontent.com'
           : null,
     );
 

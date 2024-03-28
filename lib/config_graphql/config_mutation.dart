@@ -94,10 +94,11 @@ mixin ConfigMutation {
   }
 
   static String insertHistory() {
-    return '''mutation InsertRequest(\$image_res: String = "", \$uuid: String = "") {
-      insert_Request_one(object: {image_res: \$image_res, uuid: \$uuid}) {
+    return '''mutation InsertRequest(\$image_res: String = "", \$uuid: String = "", , \$from_cate: Boolean = false) {
+      insert_Request_one(object: {image_res: \$image_res, uuid: \$uuid, from_cate: \$from_cate}) {
         id
         image_res
+        from_cate
         uuid
         created_at
         ImageRemBG {
@@ -180,6 +181,67 @@ mixin ConfigMutation {
     return '''mutation insertFeedback(\$content: String = "", \$user_uuid: String = "") {
       insert_Feedback_one(object: {content: \$content, user_uuid: \$user_uuid}) {
         id
+      }
+    }
+''';
+  }
+
+  static String deletePost() {
+    return '''mutation deletePost(\$id: Int = 10) {
+      delete_Post(where: {id: {_eq: \$id}}) {
+        returning {
+          id
+        }
+      }
+    }
+''';
+  }
+
+  static String insertPost() {
+    return '''mutation insertPost(\$user_uuid: String = "", \$published: timestamp = "", \$history_id: Int = 10, \$link_image: String = "") {
+      insert_Post_one(object: {user_uuid: \$user_uuid, published: \$published, history_id: \$history_id, link_image: \$link_image}) {
+        id
+        published
+        user_uuid
+        link_image
+        history_id
+        User {
+          id
+          name
+          email
+          uuid
+          avatar
+          token
+          language
+          date_checkin
+          slot_recent_face
+          slot_history
+        }
+        LikePosts_aggregate {
+          aggregate {
+            count(columns: post_id)
+          }
+        }
+      }
+    }
+  ''';
+  }
+
+  static String insertLikePost() {
+    return '''mutation insertLikePost(\$post_id: Int = 10, \$user_uuid: String = "") {
+      insert_LikePost_one(object: {post_id: \$post_id, user_uuid: \$user_uuid}) {
+        id
+      }
+    }
+''';
+  }
+
+  static String deleteLikePost() {
+    return '''mutation deleteLikePost(\$user_uuid: String = "", \$post_id: Int = 10) {
+      delete_LikePost(where: {_and: {user_uuid: {_eq: \$user_uuid}, post_id: {_eq: \$post_id}}}) {
+        returning {
+          id
+        }
       }
     }
 ''';

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>635220140788-m16sda3epsh6q04edpe7vbe02rivpvfs.apps.googleusercontent.com</string>
+	<string>635220140788-3c7nm6qol05en57dubjbgoc4t9fqp81g.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.635220140788-m16sda3epsh6q04edpe7vbe02rivpvfs</string>
+	<string>com.googleusercontent.apps.635220140788-3c7nm6qol05en57dubjbgoc4t9fqp81g</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>635220140788-4p5vdanfic7q8va7sqorcquml4b911u7.apps.googleusercontent.com</string>
+	<string>635220140788-1ovng91aob45eribebjlf0s82auj7n5p.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCLUqlbAPYbLusw4m2v3aIiayCcp4JjwpM</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>aigraphyapp.tn.com</string>
+	<string>tn.aigraphyapp.com</string>
 	<key>PROJECT_ID</key>
 	<string>aigraphy-e594d</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:635220140788:ios:accea587da88cc480a34a1</string>
+	<string>1:635220140788:ios:5bc058e56a71cdb10a34a1</string>
 </dict>
 </plist>

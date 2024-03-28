@@ -102,6 +102,7 @@ class _SelectFaceState extends State<SelectFace> {
           context: context,
           srcPath: widget.pathSource!,
           dstPath: path!,
+          fromCate: false,
           handleCoin: handleCoin));
 
       Navigator.of(context).pushNamed(Routes.final_result,
@@ -122,6 +123,7 @@ class _SelectFaceState extends State<SelectFace> {
           context: context,
           srcPath: pathImageSwap,
           dstPath: path!,
+          fromCate: true,
           handleCoin: true));
 
       Navigator.of(context).pushNamed(Routes.final_result,

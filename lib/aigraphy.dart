@@ -21,6 +21,8 @@ import 'bloc/current_cate/current_cate_bloc.dart';
 import 'bloc/current_img_swap/current_img_swap_bloc.dart';
 import 'bloc/face/bloc_face.dart';
 import 'bloc/histories/histories_bloc.dart';
+import 'bloc/like_post/bloc_like_post.dart';
+import 'bloc/list_posts/list_posts_bloc.dart';
 import 'bloc/listen_language/bloc_listen_language.dart';
 import 'bloc/pageview/pageview_bloc.dart';
 import 'bloc/person/bloc_person.dart';
@@ -150,6 +152,12 @@ class _AIGraphyState extends State<AIGraphy> {
         ),
         BlocProvider<SetUserPro>(
           create: (BuildContext context) => SetUserPro(),
+        ),
+        BlocProvider<LikePostBloc>(
+          create: (BuildContext context) => LikePostBloc(),
+        ),
+        BlocProvider<ListPostsBloc>(
+          create: (BuildContext context) => ListPostsBloc(),
         ),
       ],
       child: MaterialApp(

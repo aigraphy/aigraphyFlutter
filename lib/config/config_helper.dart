@@ -39,6 +39,7 @@ import 'config_color.dart';
 import 'config_font_styles.dart';
 import 'config_image.dart';
 import 'config_noti_FCM.dart';
+import 'format_time.dart';
 
 const apiEndpoint = 'http://164.90.175.136:8000';
 const apiUploadImageEndpoint = 'https://aigraphy.vercel.app';
@@ -84,6 +85,7 @@ const IMAGE_CATEGORY_LIMIT = 10;
 const IMAGE_SHOW_LIMIT = 10;
 const DEFAULT_SLOT = 5;
 const DEFAULT_SLOT_HISTORY = 30;
+const POST_LIMIT = 5;
 
 List<Map<String, dynamic>> langsData = [
   <String, dynamic>{
@@ -300,7 +302,8 @@ Future<void> removeBGImgDevice(BuildContext context, String link) async {
   }
 }
 
-Future<HistoryModel?> insertHistory(String url, BuildContext context) async {
+Future<HistoryModel?> insertHistory(
+    String url, BuildContext context, bool fromCate) async {
   HistoryModel? historyModel;
   final User userFB = FirebaseAuth.instance.currentUser!;
   final String? token = await userFB.getIdToken();
@@ -311,6 +314,7 @@ Future<HistoryModel?> insertHistory(String url, BuildContext context) async {
           variables: <String, dynamic>{
             'uuid': userFB.uid,
             'image_res': url,
+            'from_cate': fromCate,
           }))
       .then((value) {
     if (!value.hasException && value.data!['insert_Request_one'] != null) {
@@ -451,5 +455,33 @@ Future<void> launchUrlUlti(String url) async {
   final Uri _url = Uri.parse(url);
   if (!await launchUrl(_url)) {
     throw Exception('Could not launch $_url');
+  }
+}
+
+String formatDays(DateTime dateTime) {
+  final Duration res = DateTime.now().difference(dateTime);
+  if (res.inHours < 1) {
+    return '${res.inMinutes} mins ago';
+  } else if (res.inHours >= 1 && res.inHours < 24) {
+    return '${res.inHours} hours ago';
+  } else if (res.inHours >= 24 && res.inHours < 720) {
+    return '${res.inDays} days ago';
+  } else {
+    return FormatTime.formatTime(
+        dateTime: dateTime.toLocal(), format: Format.dMyHm);
+  }
+}
+
+String formatNumber(dynamic num) {
+  if (num > 999 && num < 99999) {
+    return '${(num / 1000).toStringAsFixed(1)} K';
+  } else if (num > 99999 && num < 999999) {
+    return '${(num / 1000).toStringAsFixed(0)} K';
+  } else if (num > 999999 && num < 999999999) {
+    return '${(num / 1000000).toStringAsFixed(1)} M';
+  } else if (num > 999999999) {
+    return '${(num / 1000000000).toStringAsFixed(1)} B';
+  } else {
+    return num.toString();
   }
 }

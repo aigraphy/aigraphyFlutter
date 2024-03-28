@@ -159,6 +159,7 @@ class _FullImgCateState extends State<FullImgCate> {
         context: context,
         srcPath: pathImageSwap!,
         dstPath: pathYourFace!,
+        fromCate: true,
         handleCoin: true));
     context.read<CurrentImgSwapCubit>().reset();
     EasyLoading.dismiss();
