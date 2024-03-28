@@ -36,7 +36,7 @@ class ShareResult extends StatelessWidget {
               'user_uuid': _firebaseUser.uid,
               'history_id': historyId,
               'link_image': linkImage,
-              'published': DateTime.now().toIso8601String()
+              'published': DateTime.now().toUtc().toIso8601String()
             }))
         .then((value) {
       if (!value.hasException && value.data!['insert_Post_one'] != null) {
