@@ -60,7 +60,7 @@ mixin FormatTime {
         break;
       case Format.dMyHm:
         formatter = DateFormat(
-          'dd/MM/yyyy HH:mm',
+          'HH:mm MMM dd, yyyy',
         );
         formatted = formatter.format(dateTime ?? now);
         break;

@@ -459,17 +459,8 @@ Future<void> launchUrlUlti(String url) async {
 }
 
 String formatDays(DateTime dateTime) {
-  final Duration res = DateTime.now().toUtc().difference(dateTime);
-  if (res.inHours < 1) {
-    return '${res.inMinutes} mins ago';
-  } else if (res.inHours >= 1 && res.inHours < 24) {
-    return '${res.inHours} hours ago';
-  } else if (res.inHours >= 24 && res.inHours < 720) {
-    return '${res.inDays} days ago';
-  } else {
-    return FormatTime.formatTime(
-        dateTime: dateTime.toLocal(), format: Format.dMyHm);
-  }
+  return FormatTime.formatTime(
+      dateTime: dateTime.toLocal(), format: Format.dMyHm);
 }
 
 String formatNumber(dynamic num) {
