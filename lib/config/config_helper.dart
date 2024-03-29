@@ -43,9 +43,15 @@ import 'format_time.dart';
 
 const apiEndpoint = 'http://164.90.175.136:8000';
 const apiUploadImageEndpoint = 'https://aigraphy.vercel.app';
-const coinProductId1 = 'aigraphyapp_com_tn1';
-const coinProductId2 = 'aigraphyapp_com_tn2';
-const coinProductId3 = 'aigraphyapp_com_tn3';
+final coinProductId1 = Platform.isIOS || Platform.isMacOS
+    ? 'tn_aigraphyapp_com1'
+    : 'aigraphyapp_com_tn1';
+final coinProductId2 = Platform.isIOS || Platform.isMacOS
+    ? 'tn_aigraphyapp_com2'
+    : 'aigraphyapp_com_tn2';
+final coinProductId3 = Platform.isIOS || Platform.isMacOS
+    ? 'tn_aigraphyapp_com3'
+    : 'aigraphyapp_com_tn3';
 const version = 'v1.0.0';
 const apiGraphql = 'ws://138.68.111.65:8080/v1/graphql';
 
