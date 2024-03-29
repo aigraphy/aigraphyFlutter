@@ -75,8 +75,9 @@
 		14BE31EF2BA1AC2000DBB8AA /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		14BE31F02BA1AC2000DBB8AA /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		14BE31F22BA1AC2000DBB8AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		14BE31FB2BA3404500DBB8AA /* StoreKitTestCertificate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitTestCertificate.storekit; sourceTree = "<group>"; };
-		14BE31FC2BA340B400DBB8AA /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
+		14F3A2F42BB6AE2700DEF089 /* StoreKitTestCertificate.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitTestCertificate.storekit; sourceTree = "<group>"; };
+		14F3A2F52BB6AE7C00DEF089 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
+		14F3A2F62BB6AE9C00DEF089 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		185C73662B91C5130035ADCC /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		185C73682B91C5210035ADCC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		20FD4CCF002C6A0F72E3809D /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +192,9 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				14BE31FB2BA3404500DBB8AA /* StoreKitTestCertificate.storekit */,
-				14BE31FC2BA340B400DBB8AA /* StoreKitTestCertificate.cer */,
+				14F3A2F62BB6AE9C00DEF089 /* AppleIncRootCertificate.cer */,
+				14F3A2F52BB6AE7C00DEF089 /* StoreKitTestCertificate.cer */,
+				14F3A2F42BB6AE2700DEF089 /* StoreKitTestCertificate.storekit */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				14BE31EE2BA1AC2000DBB8AA /* ImageNotification */,

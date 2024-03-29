@@ -1,5 +1,5 @@
 {
-  "identifier" : "148C03AB",
+  "identifier" : "E200BC7F",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -7,54 +7,54 @@
     {
       "displayPrice" : "39.99",
       "familyShareable" : false,
-      "internalID" : "6479427867",
+      "internalID" : "6480279674",
       "localizations" : [
         {
-          "description" : "Use 39.99$ to buy 10000 Coins",
+          "description" : "Use 39.99$ to buy 10000 Coins AIGraphy",
           "displayName" : "10000 Coins AIGraphy",
           "locale" : "en_US"
         }
       ],
-      "productID" : "aigraphyapp_com_tn3",
+      "productID" : "tn_aigraphyapp_com3",
       "referenceName" : "10000 Coins AIGraphy",
       "type" : "Consumable"
     },
     {
       "displayPrice" : "9.99",
       "familyShareable" : false,
-      "internalID" : "6479427484",
+      "internalID" : "6480279543",
       "localizations" : [
         {
-          "description" : "Use 9.99$ to buy 1950 Coins",
+          "description" : "Use 9.99$ to buy 1950 Coins AIGraphy",
           "displayName" : "1950 Coins AIGraphy",
           "locale" : "en_US"
         }
       ],
-      "productID" : "aigraphyapp_com_tn2",
+      "productID" : "tn_aigraphyapp_com2",
       "referenceName" : "1950 Coins AIGraphy",
       "type" : "Consumable"
     },
     {
       "displayPrice" : "1.99",
       "familyShareable" : false,
-      "internalID" : "6479427375",
+      "internalID" : "6480279258",
       "localizations" : [
         {
-          "description" : "Use 1.99$ to buy 500 Coins",
+          "description" : "Use 1.99$ to buy 500 Coins AIGraphy",
           "displayName" : "500 Coins AIGraphy",
           "locale" : "en_US"
         }
       ],
-      "productID" : "aigraphyapp_com_tn1",
+      "productID" : "tn_aigraphyapp_com1",
       "referenceName" : "500 Coins AIGraphy",
       "type" : "Consumable"
     }
   ],
   "settings" : {
-    "_applicationInternalID" : "6479348091",
+    "_applicationInternalID" : "6480178002",
     "_developerTeamID" : "AAWV3S98C7",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 732119112.609954,
+    "_lastSynchronizedDate" : 733392426.39730597,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
