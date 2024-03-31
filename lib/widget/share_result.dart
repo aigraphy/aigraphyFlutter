@@ -75,8 +75,8 @@ class ShareResult extends StatelessWidget {
           const SizedBox(height: 16),
           AigraphyWidget.buttonCustom(
               context: context,
-              input: 'Share To New Feed',
-              icon: share,
+              input: 'Share To New Feed +$TOKEN_SHARE',
+              icon: coin,
               textColor: white,
               sizeAsset: 20,
               borderColor: white,
@@ -84,6 +84,7 @@ class ShareResult extends StatelessWidget {
               onPressed: () async {
                 final post = await insertPost(historyId, linkImage);
                 if (post != null) {
+                  shareImgGetCoin(context);
                   BotToast.showText(
                       text: 'Share your image successful!!',
                       textStyle: style7(color: white));
@@ -98,8 +99,8 @@ class ShareResult extends StatelessWidget {
           const SizedBox(height: 8),
           AigraphyWidget.buttonCustom(
               context: context,
-              input: 'Share Social  +$TOKEN_SHARE',
-              icon: coin,
+              input: 'Share Social',
+              icon: share,
               textColor: white,
               sizeAsset: 20,
               borderColor: white,

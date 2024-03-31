@@ -262,7 +262,6 @@ Future<void> shareMultiUrl(List<String> urls, BuildContext context) async {
       subject: '${LocaleKeys.fromAIGraphy.tr()}: $linkApp',
       text: '${LocaleKeys.fromAIGraphy.tr()}: $linkApp');
   if (result.status == ShareResultStatus.success) {
-    shareImgGetCoin(context);
     FirebaseAnalytics.instance.logEvent(name: 'click_share_image');
     BotToast.showText(
         text: LocaleKeys.shareYourImage.tr(), textStyle: style7(color: white));
