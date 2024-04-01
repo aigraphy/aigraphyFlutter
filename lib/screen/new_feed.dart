@@ -89,61 +89,58 @@ class _NewFeedState extends State<NewFeed> {
             context.read<ListPostsBloc>().add(ResetListPosts());
             context.read<ListPostsBloc>().add(ListPostsFetched());
           },
-          child: ListView(
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            children: [
-              BlocBuilder<ListPostsBloc, ListPostsState>(
-                builder: (context, state) {
-                  switch (state.status) {
-                    case ListPostsStatus.failure:
-                      return Center(
-                          child: Text('Failed to fetch posts',
-                              style: style6(color: cultured)));
-                    case ListPostsStatus.success:
-                      if (state.posts.isEmpty) {
-                        return Center(
-                            child: Text('No posts found',
-                                style: style6(color: cultured)));
-                      }
-                      return ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 8),
-                        itemBuilder: (BuildContext context, int ind) {
-                          final int index = ind < 1 ? ind : (ind - 1);
-                          return index >= state.posts.length
-                              ? const Center(
-                                  child: CupertinoActivityIndicator())
-                              : ind == 1
-                                  ? const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 8),
-                                      child: SizedBox(height: 16),
-                                    )
+            child: Column(
+              children: [
+                Expanded(
+                  child: BlocBuilder<ListPostsBloc, ListPostsState>(
+                    builder: (context, state) {
+                      switch (state.status) {
+                        case ListPostsStatus.failure:
+                          return Center(
+                              child: Text('Failed to fetch posts',
+                                  style: style6(color: cultured)));
+                        case ListPostsStatus.success:
+                          if (state.posts.isEmpty) {
+                            return Center(
+                                child: Text('No posts found',
+                                    style: style6(color: cultured)));
+                          }
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 8),
+                            itemBuilder: (BuildContext context, int index) {
+                              return index >= state.posts.length
+                                  ? const Center(
+                                      child: CupertinoActivityIndicator())
                                   : BlocProvider<PageViewCubit>(
                                       create: (context) => PageViewCubit(),
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: index == 0 ? 0 : 24),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 24),
                                         child: PostFeed(
                                           post: state.posts[index],
                                           index: index,
                                         ),
                                       ));
-                        },
-                        itemCount: state.hasReachedMax
-                            ? state.posts.length + 1
-                            : state.posts.length + 2,
-                        controller: _scrollController,
-                      );
-                    case ListPostsStatus.initial:
-                      return const Center(child: CupertinoActivityIndicator());
-                  }
-                },
-              ),
-              const SizedBox(height: 64),
-            ],
+                            },
+                            itemCount: state.hasReachedMax
+                                ? state.posts.length
+                                : state.posts.length + 1,
+                            controller: _scrollController,
+                          );
+                        case ListPostsStatus.initial:
+                          return const Center(
+                              child: CupertinoActivityIndicator());
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: 64),
+              ],
+            ),
           ),
         ));
   }
