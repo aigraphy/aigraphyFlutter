@@ -14,7 +14,6 @@ import '../config/config_image.dart';
 import '../config_graphql/config_mutation.dart';
 import '../config_graphql/graphql.dart';
 import '../config_model/post_model.dart';
-import '../translations/export_lang.dart';
 import 'text_gradient.dart';
 
 class ShareResult extends StatelessWidget {
@@ -91,9 +90,7 @@ class ShareResult extends StatelessWidget {
                   context.read<ListPostsBloc>().add(InsertPost(post: post));
                   Navigator.of(context).pop();
                 } else {
-                  BotToast.showText(
-                      text: LocaleKeys.someThingWentWrong.tr(),
-                      textStyle: style7(color: white));
+                  BotToast.showText(text: 'You have already shared this photo');
                 }
               }),
           const SizedBox(height: 8),

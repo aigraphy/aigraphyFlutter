@@ -9,6 +9,7 @@ import '../../translations/export_lang.dart';
 import '../aigraphy_widget.dart';
 import '../bloc/current_bottombar/current_bottombar_bloc.dart';
 import '../bloc/histories/histories_bloc.dart';
+import '../bloc/list_posts/list_posts_bloc.dart';
 import '../bloc/person/bloc_person.dart';
 import '../bloc/rem_bg_img/bloc_rem_bg_img.dart';
 import '../config/config_color.dart';
@@ -130,6 +131,12 @@ class _HistoryDetailState extends State<HistoryDetail> {
                                   context
                                       .read<HistoriesBloc>()
                                       .add(RemoveHistory(id: idRequest));
+                                  context
+                                      .read<ListPostsBloc>()
+                                      .add(ResetListPosts());
+                                  context
+                                      .read<ListPostsBloc>()
+                                      .add(ListPostsFetched());
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
                                   return;

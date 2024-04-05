@@ -9,7 +9,6 @@ import 'package:graphql/client.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import '../../config/config_helper.dart';
-import '../../config_graphql/config_mutation.dart';
 import '../../config_graphql/config_query.dart';
 import '../../config_graphql/graphql.dart';
 import '../../config_model/post_model.dart';
@@ -152,7 +151,6 @@ class ListPostsBloc extends Bloc<ListPostsEvent, ListPostsState> {
     try {
       emit(state.copyWith(status: ListPostsStatus.initial));
       state.posts.removeWhere((e) => e.id == event.id);
-      deletePost(event.id);
       return emit(
         state.copyWith(posts: state.posts, status: ListPostsStatus.success),
       );
@@ -178,14 +176,5 @@ class ListPostsBloc extends Bloc<ListPostsEvent, ListPostsState> {
       }
     });
     return posts;
-  }
-
-  Future<void> deletePost(int postId) async {
-    final String? token = await _firebaseUser.getIdToken();
-    Graphql.initialize(token!).value.mutate(MutationOptions(
-            document: gql(ConfigMutation.deletePost()),
-            variables: <String, dynamic>{
-              'id': postId,
-            }));
   }
 }

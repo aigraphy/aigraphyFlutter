@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,9 +10,7 @@ import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
 import '../config_model/post_model.dart';
-import '../translations/export_lang.dart';
 import 'click_widget.dart';
-import 'text_gradient.dart';
 
 class PostFeed extends StatefulWidget {
   const PostFeed({super.key, required this.post, required this.index});
@@ -25,8 +22,6 @@ class PostFeed extends StatefulWidget {
 }
 
 class _PostFeedState extends State<PostFeed> {
-  final User _user = FirebaseAuth.instance.currentUser!;
-
   Widget option(String icon, int number) {
     return Row(
       children: [
@@ -88,87 +83,6 @@ class _PostFeedState extends State<PostFeed> {
                   ],
                 ),
               ),
-              const SizedBox(width: 16),
-              if (_user.uid == widget.post.userUuid)
-                ClickWidget(
-                    function: () {
-                      showModalBottomSheet<void>(
-                        context: context,
-                        backgroundColor: spaceCadet,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(24))),
-                        builder: (BuildContext context) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 32),
-                                  child: Image.asset(
-                                    bin,
-                                    width: 64,
-                                    height: 64,
-                                    color: white,
-                                  ),
-                                ),
-                                TextGradient(
-                                  'Delete Post',
-                                  style: const TextStyle(
-                                      fontSize: 32,
-                                      height: 1,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'ClashGrotesk'),
-                                  gradient: Theme.of(context).linerPimary,
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8, bottom: 16),
-                                  child: Text(
-                                    LocaleKeys.itIsImpossible.tr(),
-                                    textAlign: TextAlign.center,
-                                    style: style7(color: white),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: AigraphyWidget.buttonCustom(
-                                          context: context,
-                                          input: LocaleKeys.delete.tr(),
-                                          onPressed: () {
-                                            context.read<ListPostsBloc>().add(
-                                                DeletePost(
-                                                    id: widget.post.id!));
-                                            Navigator.of(context).pop();
-                                          },
-                                          bgColor: red1,
-                                          borderColor: red1,
-                                          textColor: white),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      child: AigraphyWidget.buttonGradient(
-                                          context: context,
-                                          input: LocaleKeys.cancel.tr(),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          textColor: white),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 24)
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Image.asset(ic_option, width: 24, height: 24))
             ],
           ),
         ),

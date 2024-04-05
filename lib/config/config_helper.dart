@@ -57,7 +57,9 @@ const apiGraphql = 'ws://138.68.111.65:8080/v1/graphql';
 
 const String SOMETHING_WENT_WRONG = 'Something went wrong';
 
-const linkApp = 'https://aigraphyapp.com/';
+final linkApp = isIOS
+    ? 'https://apps.apple.com/fr/app/aigraphy/id6480178002'
+    : 'https://play.google.com/store/apps/details?id=aigraphyapp.tn.com';
 const linkSupport = 'https://aigraphyapp.com/support';
 const linkInsta = 'https://www.instagram.com/aigraphy.app';
 const linkPolicy = 'https://aigraphyapp.com/terms-conditions-privacy-policy/';
