@@ -47,6 +47,7 @@ dependencies:
   sqflite: ^2.3.2
   flutter_native_splash: ^2.3.7
   video_player: ^2.8.3
+  connectivity_plus: ^5.0.2
 
   firebase_messaging: ^14.7.9
   google_sign_in: ^6.1.6

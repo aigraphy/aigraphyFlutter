@@ -14,7 +14,6 @@ import '../aigraphy_widget.dart';
 import '../bloc/face/bloc_face.dart';
 import '../bloc/person/bloc_person.dart';
 import '../config/config_color.dart';
-import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
 import '../config_model/face_model.dart';
@@ -64,30 +63,6 @@ class _ChooseFacesState extends State<ChooseFaces> {
       setState(() {
         imageSelected = croppedImage;
       });
-    }
-  }
-
-  Future<void> takeAPhoto() async {
-    imageFile = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 80);
-    if (imageFile != null) {
-      final File file = File(imageFile!.path);
-      imageSelected = file.readAsBytesSync();
-      if (imageSelected.lengthInBytes / (1024 * 1024) > 6) {
-        BotToast.showText(
-            text: LocaleKeys.pleaseChoosePhoto.tr(),
-            textStyle: style7(color: white));
-        Navigator.of(context).pop();
-      } else {
-        if (widget.cropImage) {
-          await cropImage();
-        }
-        final Map<String, dynamic> res = {
-          'bytes': imageSelected,
-          'path': file.path
-        };
-        Navigator.of(context).pop(res);
-      }
     }
   }
 

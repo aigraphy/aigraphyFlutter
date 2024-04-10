@@ -86,7 +86,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
     if (imageFile != null) {
       final File file = File(imageFile!.path);
       imageSelected = file.readAsBytesSync();
-      if (imageSelected.lengthInBytes / (1024 * 1024) > 6) {
+      if (imageSelected.lengthInBytes / (1024 * 1024) > 16) {
         BotToast.showText(
             text: LocaleKeys.pleaseChoosePhoto.tr(),
             textStyle: style7(color: white));
@@ -128,7 +128,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
       function: () async {
         final File? file = await photo.file;
         imageSelected = file!.readAsBytesSync();
-        if (imageSelected.lengthInBytes / (1024 * 1024) > 6) {
+        if (imageSelected.lengthInBytes / (1024 * 1024) > 16) {
           BotToast.showText(
               text: LocaleKeys.pleaseChoosePhoto.tr(),
               textStyle: style7(color: white));

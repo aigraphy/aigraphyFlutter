@@ -111,7 +111,7 @@
   "photos": "Photos",
   "insertYourMessage": "Insérez votre message",
   "sliderWhiteBlackColor": "Curseur de couleur blanc-noir",
-  "pleaseChoosePhoto": "Veuillez choisir une photo de taille inférieure à 6 Mo",
+  "pleaseChoosePhoto": "Veuillez choisir une photo de taille inférieure à 16 Mo",
   "weDontSupportGif": "Nous ne prenons pas en charge les fichiers GIF. Veuillez choisir un autre fichier",
   "weDontSupportWebp": "हम webp फ़ाइलें समर्थन नहीं करते हैं। कृपया कोई अन्य फ़ाइल चयन करें",
   "failedToFetchRequests": "Échec de la récupération des demandes",

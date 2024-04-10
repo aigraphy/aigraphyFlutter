@@ -9,6 +9,7 @@ const String face_id = pathImage + 'face_id@3x.png';
 const String faceJson = pathImage + 'waiting_face.json';
 const String ic_take_photo = pathImage + 'ic_take_photo@3x.png';
 const String swap_failed = pathImage + 'swap_failed.json';
+const String lost_internet = pathImage + 'lost_internet.json';
 const String icon_app = pathImage + 'icon_app.png';
 
 const String splash = pathImage + 'splash.png';

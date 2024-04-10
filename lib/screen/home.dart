@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:graphql/client.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 
@@ -22,13 +24,14 @@ import '../config/config_noti_FCM.dart';
 import '../config_graphql/config_query.dart';
 import '../config_graphql/graphql.dart';
 import '../config_model/like_post_model.dart';
+import '../widget/lost_internet.dart';
 import 'explored.dart';
 import 'histories.dart';
 import 'new_feed.dart';
 import 'swap_cate.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key, this.index = 0});
+  const Home({super.key, this.index = 1});
   final int index;
   @override
   State<Home> createState() => _HomeState();
@@ -37,6 +40,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   User userFB = FirebaseAuth.instance.currentUser!;
   List<Widget> listWidget = [];
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   Future<void> loadInitData() async {
     Future.delayed(const Duration(seconds: 1)).whenComplete(() {
@@ -107,6 +111,32 @@ class _HomeState extends State<Home> {
       const Histories(),
     ];
     loadInitData();
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile ||
+          result == ConnectivityResult.wifi) {
+        return;
+      }
+      EasyLoading.dismiss();
+      showModalBottomSheet<void>(
+        context: context,
+        backgroundColor: spaceCadet,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+        ),
+        builder: (BuildContext context) {
+          return const LostInternet();
+        },
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _connectivitySubscription.cancel();
   }
 
   @override
