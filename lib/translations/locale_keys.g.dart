@@ -113,6 +113,7 @@ abstract class  LocaleKeys {
   static const insertYourMessage = 'insertYourMessage';
   static const sliderWhiteBlackColor = 'sliderWhiteBlackColor';
   static const pleaseChoosePhoto = 'pleaseChoosePhoto';
+  static const pleaseChoosePhoto2 = 'pleaseChoosePhoto2';
   static const weDontSupportGif = 'weDontSupportGif';
   static const weDontSupportWebp = 'weDontSupportWebp';
   static const failedToFetchRequests = 'failedToFetchRequests';

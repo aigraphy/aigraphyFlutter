@@ -39,7 +39,7 @@ class Explored extends StatelessWidget {
       builder: (BuildContext context) {
         return SizedBox(
             height: MediaQuery.of(context).size.height * 0.75,
-            child: const ChoosePhoto());
+            child: ChoosePhoto(sizeLimit: removeBg ? 4 : 16));
       },
       context: context,
     ).then((value) async {

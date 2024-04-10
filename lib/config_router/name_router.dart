@@ -15,7 +15,6 @@ class Routes {
   static const String coin_success = '/coin_success';
   static const String guide_face = '/guide_face';
   static const String res_edit_local_img = '/res_edit_local_img';
-  static const String res_remove_bg_local_img = '/res_remove_bg_local_img';
   static const String add_fb = '/add_fb';
   static const String result_fb = '/result_fb';
   static const String combine_img = '/combine_img';

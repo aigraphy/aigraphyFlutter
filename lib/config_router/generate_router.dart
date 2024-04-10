@@ -16,7 +16,6 @@ import '../screen/iap_first_time.dart';
 import '../screen/in_app_purchase.dart';
 import '../screen/introduce.dart';
 import '../screen/res_edit_local_img.dart';
-import '../screen/res_remove_bg_local_img.dart';
 import '../screen/select_face.dart';
 import '../screen/setting.dart';
 import '../widget/add_feedback.dart';
@@ -118,12 +117,7 @@ mixin GeneratorRouter {
           builder: (_) => ResEditLocalImg(
               imageEdit: args.imageEdit, requestId: args.requestId),
         );
-      case Routes.res_remove_bg_local_img:
-        final args = st.arguments as ResRemBgLocalImg;
-        return MaterialPageRoute<dynamic>(
-          builder: (_) =>
-              ResRemBgLocalImg(url: args.url, requestId: args.requestId),
-        );
+
       case Routes.add_fb:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const AddFeedback(),

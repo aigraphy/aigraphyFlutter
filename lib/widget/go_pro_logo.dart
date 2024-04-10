@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/set_user_pro/set_user_pro_bloc.dart';
 import '../config/config_color.dart';
 import '../config/config_font_styles.dart';
 import '../config/config_image.dart';
@@ -32,10 +34,16 @@ class GoProLogo extends StatelessWidget {
               color: black,
             ),
             const SizedBox(width: 4),
-            Text(
-              text,
-              style: style11(color: black),
-            )
+            if (!context.watch<SetUserPro>().state)
+              Text(
+                text,
+                style: style12(color: black, fontWeight: '500'),
+              )
+            else
+              Text(
+                'Pro',
+                style: style12(color: black, fontWeight: '500'),
+              )
           ],
         ),
       ),

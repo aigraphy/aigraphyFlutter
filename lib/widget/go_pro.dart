@@ -26,37 +26,37 @@ class GoPro extends StatelessWidget {
     return Row(
       children: [
         if (showPro)
-          if (!context.watch<SetUserPro>().state)
-            ClickWidget(
-              function: () {
+          ClickWidget(
+            function: () {
+              if (!context.read<SetUserPro>().state) {
                 Navigator.of(context).pushNamed(Routes.iap_first_time,
                     arguments: IAPFirstTime());
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                margin: const EdgeInsets.only(right: 8),
-                decoration: BoxDecoration(
-                    color: yellow1, borderRadius: BorderRadius.circular(24)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      ic_pro,
-                      width: 20,
-                      height: 20,
-                      color: black,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      text,
-                      style: style6(color: black),
-                    )
-                  ],
-                ),
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              margin: const EdgeInsets.only(right: 8),
+              decoration: BoxDecoration(
+                  color: yellow1, borderRadius: BorderRadius.circular(24)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    ic_pro,
+                    width: 20,
+                    height: 20,
+                    color: black,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    !context.watch<SetUserPro>().state ? text : 'Pro',
+                    style: style6(color: black),
+                  )
+                ],
               ),
             ),
+          ),
         if (showCoin)
           ClickWidget(
             function: () {

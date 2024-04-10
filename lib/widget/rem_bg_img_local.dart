@@ -90,8 +90,11 @@ class _RemBGImgLocalState extends State<RemBGImgLocal> {
                   final link = await uploadFileDO(imageFile: imageFile);
                   if (link != null)
                     removeBGImgDevice(widget.ctx, link);
-                  else
+                  else {
                     BotToast.showText(text: LocaleKeys.someThingWentWrong.tr());
+                    EasyLoading.dismiss();
+                  }
+
                   Navigator.of(context).pop();
                 }
               },

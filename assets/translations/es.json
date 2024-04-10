@@ -111,6 +111,7 @@
   "insertYourMessage": "Insertar tu mensaje",
   "sliderWhiteBlackColor": "Deslizador blanco y negro de color",
   "pleaseChoosePhoto": "Por favor, elige una foto de menos de 16 MB",
+  "pleaseChoosePhoto2": "Por favor, elige una foto de menos de 5 MB",
   "weDontSupportGif": "No admitimos archivos gif. Por favor, elige otro archivo",
   "weDontSupportWebp": "No admitimos archivos webp. Por favor, elige otro archivo",
   "failedToFetchRequests": "Error al recuperar las solicitudes",

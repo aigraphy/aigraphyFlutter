@@ -106,8 +106,7 @@ class _SwapCateState extends State<SwapCate>
                             link: categoryModel.images[index].image)),
                     AigraphyWidget.countSwap(
                         isMax, categoryModel.images[index].countSwap),
-                    if (categoryModel.images[index].isPro &&
-                        !context.watch<SetUserPro>().state)
+                    if (categoryModel.images[index].isPro)
                       const Positioned(right: 4, top: 4, child: GoProLogo())
                   ],
                 ),
@@ -328,8 +327,7 @@ class _SwapCateState extends State<SwapCate>
                                   ),
                                   if (index != 0 &&
                                       index != 1 &&
-                                      state.categories[index - 2].isPro &&
-                                      !context.watch<SetUserPro>().state)
+                                      state.categories[index - 2].isPro)
                                     Positioned(
                                         right: 0,
                                         top: 0,

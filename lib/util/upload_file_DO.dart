@@ -33,8 +33,7 @@ Future<String?> uploadFileDO({required File imageFile}) async {
       final parsedData = json.decode(responseData);
       image = parsedData['link'];
     } else {
-      BotToast.showText(
-          text: 'Data upload failed with status: ${response.statusCode}');
+      BotToast.showText(text: 'Image upload failed. Please try again.');
     }
 
     return image!;

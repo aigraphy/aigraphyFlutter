@@ -111,6 +111,7 @@
   "insertYourMessage": "Insert Your Message",
   "sliderWhiteBlackColor": "Slider White Black Color",
   "pleaseChoosePhoto": "Please choose photo has size less than 16 MB",
+  "pleaseChoosePhoto2": "Please choose photo has size less than 5 MB",
   "weDontSupportGif": "We don't support gif files. Please choose another file",
   "weDontSupportWebp": "We don't support webp files. Please choose another file",
   "failedToFetchRequests": "Failed to fetch requests",

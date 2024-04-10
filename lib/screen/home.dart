@@ -31,7 +31,7 @@ import 'new_feed.dart';
 import 'swap_cate.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key, this.index = 1});
+  const Home({super.key, this.index = 0});
   final int index;
   @override
   State<Home> createState() => _HomeState();
@@ -82,18 +82,19 @@ class _HomeState extends State<Home> {
   }
 
   BottomNavigationBarItem createItemNav(BuildContext context,
-      String iconInactive, String iconActive, String label) {
+      String iconInactive, String iconActive, String label,
+      {double sizeIcon = 24}) {
     return BottomNavigationBarItem(
         activeIcon: Image.asset(
           iconActive,
-          width: 24,
-          height: 24,
+          width: sizeIcon,
+          height: sizeIcon,
           fit: BoxFit.cover,
         ),
         icon: Image.asset(
           iconInactive,
-          width: 24,
-          height: 24,
+          width: sizeIcon,
+          height: sizeIcon,
           fit: BoxFit.cover,
         ),
         label: label);
@@ -105,8 +106,8 @@ class _HomeState extends State<Home> {
     context.read<CurrentBottomBar>().setIndex(widget.index);
     context.read<ListPostsBloc>().add(ListPostsFetched());
     listWidget = [
-      const NewFeed(),
       const SwapCate(),
+      const NewFeed(),
       const Explored(),
       const Histories(),
     ];
@@ -166,10 +167,11 @@ class _HomeState extends State<Home> {
                   context.read<CurrentBottomBar>().setIndex(value);
                 },
                 items: [
-                  createItemNav(context, ic_newfeed, ic_newfeed_active,
-                      LocaleKeys.category.tr()),
                   createItemNav(context, swap_cate, swap_cate_active,
                       LocaleKeys.category.tr()),
+                  createItemNav(context, ic_newfeed, ic_newfeed_active,
+                      LocaleKeys.category.tr(),
+                      sizeIcon: 20),
                   createItemNav(context, take_photo, take_photo_active,
                       LocaleKeys.home.tr()),
                   createItemNav(

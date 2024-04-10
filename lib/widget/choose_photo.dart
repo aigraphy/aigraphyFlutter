@@ -23,8 +23,10 @@ const ThumbnailOption option = ThumbnailOption(
     size: ThumbnailSize.square(200), format: ThumbnailFormat.png);
 
 class ChoosePhoto extends StatefulWidget {
-  const ChoosePhoto({Key? key, this.cropImage = false}) : super(key: key);
+  const ChoosePhoto({Key? key, this.cropImage = false, this.sizeLimit = 16})
+      : super(key: key);
   final bool cropImage;
+  final double sizeLimit;
 
   @override
   State<ChoosePhoto> createState() => _ChoosePhotoState();
@@ -86,9 +88,11 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
     if (imageFile != null) {
       final File file = File(imageFile!.path);
       imageSelected = file.readAsBytesSync();
-      if (imageSelected.lengthInBytes / (1024 * 1024) > 16) {
+      if (imageSelected.lengthInBytes / (1024 * 1024) > widget.sizeLimit) {
         BotToast.showText(
-            text: LocaleKeys.pleaseChoosePhoto.tr(),
+            text: widget.sizeLimit == 4
+                ? LocaleKeys.pleaseChoosePhoto2.tr()
+                : LocaleKeys.pleaseChoosePhoto.tr(),
             textStyle: style7(color: white));
         Navigator.of(context).pop();
       } else {
@@ -128,9 +132,11 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
       function: () async {
         final File? file = await photo.file;
         imageSelected = file!.readAsBytesSync();
-        if (imageSelected.lengthInBytes / (1024 * 1024) > 16) {
+        if (imageSelected.lengthInBytes / (1024 * 1024) >= widget.sizeLimit) {
           BotToast.showText(
-              text: LocaleKeys.pleaseChoosePhoto.tr(),
+              text: widget.sizeLimit == 4
+                  ? LocaleKeys.pleaseChoosePhoto2.tr()
+                  : LocaleKeys.pleaseChoosePhoto.tr(),
               textStyle: style7(color: white));
           return;
         }
