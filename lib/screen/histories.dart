@@ -19,6 +19,7 @@ import '../widget/appbar_custom.dart';
 import '../widget/buy_more_slot.dart';
 import '../widget/click_widget.dart';
 import '../widget/go_pro.dart';
+import '../widget/go_pro_histories.dart';
 import '../widget/native_medium_ads.dart';
 import '../widget/offer_first_time.dart';
 import '../widget/opacity_widget.dart';
@@ -151,7 +152,7 @@ class _HistoriesState extends State<Histories>
             padding: const EdgeInsets.only(right: 24),
             child: Row(
               children: [
-                const GoPro(showCoin: true, showPro: false),
+                const GoProHistories(),
                 const SizedBox(width: 12),
                 ClickWidget(
                   function: () {

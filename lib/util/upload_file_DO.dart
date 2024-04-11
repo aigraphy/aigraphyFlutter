@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +32,7 @@ Future<String?> uploadFileDO({required File imageFile}) async {
       final parsedData = json.decode(responseData);
       image = parsedData['link'];
     } else {
-      BotToast.showText(text: 'Image upload failed. Please try again.');
+      print('Image upload failed. Please try again.');
     }
 
     return image!;

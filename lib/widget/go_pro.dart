@@ -17,15 +17,17 @@ class GoPro extends StatelessWidget {
       {super.key,
       this.text = 'Go Pro',
       this.showCoin = true,
-      this.showPro = true});
+      this.showPro = true,
+      this.isHistories = false});
   final String text;
   final bool showCoin;
   final bool showPro;
+  final bool isHistories;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (showPro)
+        if (showPro || isHistories)
           ClickWidget(
             function: () {
               if (!context.read<SetUserPro>().state) {
