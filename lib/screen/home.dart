@@ -24,7 +24,6 @@ import '../config/config_noti_FCM.dart';
 import '../config_graphql/config_query.dart';
 import '../config_graphql/graphql.dart';
 import '../config_model/like_post_model.dart';
-import '../widget/lost_internet.dart';
 import 'explored.dart';
 import 'histories.dart';
 import 'new_feed.dart';
@@ -120,17 +119,6 @@ class _HomeState extends State<Home> {
         return;
       }
       EasyLoading.dismiss();
-      showModalBottomSheet<void>(
-        context: context,
-        backgroundColor: spaceCadet,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-        ),
-        builder: (BuildContext context) {
-          return const LostInternet();
-        },
-      );
     });
   }
 

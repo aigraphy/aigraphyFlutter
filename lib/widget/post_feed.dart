@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../aigraphy_widget.dart';
 import '../bloc/like_post/bloc_like_post.dart';
 import '../bloc/list_posts/list_posts_bloc.dart';
 import '../config/config_color.dart';
@@ -10,6 +9,7 @@ import '../config/config_font_styles.dart';
 import '../config/config_helper.dart';
 import '../config/config_image.dart';
 import '../config_model/post_model.dart';
+import 'cached_img_post.dart';
 import 'click_widget.dart';
 
 class PostFeed extends StatefulWidget {
@@ -44,7 +44,6 @@ class _PostFeedState extends State<PostFeed> {
 
   @override
   Widget build(BuildContext context) {
-    final width = AigraphyWidget.getWidth(context);
     return Column(
       children: [
         Padding(
@@ -91,17 +90,7 @@ class _PostFeedState extends State<PostFeed> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: CachedNetworkImage(
-                  imageUrl: widget.post.linkImage,
-                  fadeOutDuration: const Duration(milliseconds: 200),
-                  fadeInDuration: const Duration(milliseconds: 200),
-                  key: ValueKey(widget.post.linkImage),
-                  width: width,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: CachedImgPost(link: widget.post.linkImage),
             ),
             Positioned(
                 left: 24,

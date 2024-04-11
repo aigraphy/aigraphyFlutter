@@ -268,6 +268,7 @@ class _SettingState extends State<Setting> {
               ],
             ),
           ),
+          const SizedBox(height: 48),
         ],
       ),
     );

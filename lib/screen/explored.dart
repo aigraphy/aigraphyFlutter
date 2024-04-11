@@ -77,29 +77,29 @@ class Explored extends StatelessWidget {
               style: style1(context: context),
             ),
             const SizedBox(height: 24),
-            ClickWidget(
-              function: () {
-                setPhoto(context, true);
-              },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                decoration: BoxDecoration(
-                    color: green, borderRadius: BorderRadius.circular(12)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(ic_removebg, width: 40, height: 40),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Change Background',
-                      style: style5(context: context),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
+            // ClickWidget(
+            //   function: () {
+            //     setPhoto(context, true);
+            //   },
+            //   child: Container(
+            //     width: double.infinity,
+            //     padding: const EdgeInsets.symmetric(vertical: 24),
+            //     decoration: BoxDecoration(
+            //         color: green, borderRadius: BorderRadius.circular(12)),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: [
+            //         Image.asset(ic_removebg, width: 40, height: 40),
+            //         const SizedBox(height: 8),
+            //         Text(
+            //           'Change Background',
+            //           style: style5(context: context),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 24),
             ClickWidget(
               function: () {
                 setPhoto(context, false);
